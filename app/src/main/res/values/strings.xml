@@ -2,5 +2,9 @@
     <string name="app_name">Pet Adoption</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- FragmentLaunch -->
+    <string name="launch_image_of_puppy">Image of a puppy.</string>
+    <string name="launch_message">Pet Adoption</string>
+    <!-- FragmentInfo -->
+    <string name="info_content">This app was lovingly crafted for Lady Lake by the fine volunteers of Code for Orlando.\n\nCheck out www.codefororlando.com for more info.</string>
 </resources>
