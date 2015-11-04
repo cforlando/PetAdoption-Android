@@ -19,14 +19,14 @@ public class FragmentListings extends Fragment {
 
     public static final String TAG = "FragmentListings";
     static final int[] PUPPIES = {
-            R.drawable.puppy_1,
-            R.drawable.puppy_2,
-            R.drawable.puppy_3,
-            R.drawable.puppy_4,
-            R.drawable.puppy_5,
-            R.drawable.puppy_6,
-            R.drawable.puppy_7,
-            R.drawable.puppy_8
+            R.drawable.cat_1,
+            R.drawable.cat_2,
+            R.drawable.cat_3,
+            R.drawable.cat_4,
+            R.drawable.cat_5,
+            R.drawable.cat_6,
+            R.drawable.cat_7,
+            R.drawable.cat_8
     };
     private Adapter adapter;
 
