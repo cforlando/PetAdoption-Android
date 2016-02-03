@@ -3,7 +3,7 @@ package com.codefororlando.petadoption;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.codefororlando.petadoption.fragment.FragmentLaunch;
+import com.codefororlando.petadoption.fragment.FragmentListings;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new FragmentLaunch(), FragmentLaunch.TAG)
+                    .replace(R.id.container, new FragmentListings(), FragmentListings.TAG)
                     .commit();
         }
     }

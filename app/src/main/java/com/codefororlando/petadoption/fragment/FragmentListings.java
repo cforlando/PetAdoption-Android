@@ -1,34 +1,43 @@
 package com.codefororlando.petadoption.fragment;
 
+import android.annotation.TargetApi;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
+import com.ToxicBakery.android.version.Is;
+import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
-import com.koushikdutta.ion.Ion;
+import com.codefororlando.petadoption.data.IAnimal;
+import com.codefororlando.petadoption.data.impl.StaticAnimalProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentListings extends Fragment {
 
     public static final String TAG = "FragmentListings";
-    static final int[] PUPPIES = {
-            R.drawable.puppy_1,
-            R.drawable.puppy_2,
-            R.drawable.puppy_3,
-            R.drawable.puppy_4,
-            R.drawable.puppy_5,
-            R.drawable.puppy_6,
-            R.drawable.puppy_7,
-            R.drawable.puppy_8
-    };
+
+    private StaticAnimalProvider animalProvider;
     private Adapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        animalProvider = StaticAnimalProvider.getInstance(getContext());
+    }
 
     @Nullable
     @Override
@@ -36,16 +45,22 @@ public class FragmentListings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
 
         adapter = new Adapter(new ClickListenerImpl());
+        adapter.setAnimals(animalProvider.getAnimals());
 
         final int spans = getResources().getInteger(R.integer.grid_spans);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), spans);
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), spans));
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         return view;
     }
 
-    interface ClickListener {
+    interface IClickListener {
 
         void onClick(ViewHolder viewHolder, int position);
 
@@ -53,38 +68,47 @@ public class FragmentListings extends Fragment {
 
     static class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
-        final ClickListener clickListener;
+        final IClickListener clickListener;
+        final List<IAnimal> animals;
 
-        public Adapter(ClickListener clickListener) {
+        public Adapter(IClickListener clickListener) {
             this.clickListener = clickListener;
+            animals = new ArrayList<>();
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.puppy_listing, parent, false);
+                    .inflate(R.layout.animal_item, parent, false);
 
             return new ViewHolder(view, clickListener);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.bind(PUPPIES[position]);
+            IAnimal animal = animals.get(position);
+            holder.bind(animal);
         }
 
         @Override
         public int getItemCount() {
-            return PUPPIES.length;
+            return animals.size();
+        }
+
+        void setAnimals(List<IAnimal> animals) {
+            this.animals.clear();
+            this.animals.addAll(animals);
         }
 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        final ClickListener clickListener;
+        private final IClickListener clickListener;
         private ImageView imageView;
+        private IAnimal animal;
 
-        public ViewHolder(View itemView, ClickListener clickListener) {
+        public ViewHolder(View itemView, IClickListener clickListener) {
             super(itemView);
 
             this.clickListener = clickListener;
@@ -93,13 +117,19 @@ public class FragmentListings extends Fragment {
             imageView.setOnClickListener(this);
         }
 
-        void bind(int puppyRes) {
-            Uri uri = Uri.parse("android.resource://" + imageView.getContext().getPackageName() + "/" + puppyRes);
-            Ion.with(imageView.getContext())
-                    .load(uri.toString())
-                    .withBitmap()
-                    .centerCrop()
-                    .intoImageView(imageView);
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        void bind(IAnimal animal) {
+
+            this.animal = animal;
+
+            if (Is.equal(SdkVersion.KITKAT)) {
+                ViewCompat.setTransitionName(imageView, animal.getTag());
+            } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
+                imageView.setTransitionName(animal.getTag());
+            }
+
+            Uri uri = animal.getUri();
+            imageView.setImageURI(uri);
         }
 
         @Override
@@ -111,64 +141,28 @@ public class FragmentListings extends Fragment {
             return imageView;
         }
 
+        IAnimal getAnimal() {
+            return animal;
+        }
+
     }
 
-    class ClickListenerImpl implements ClickListener {
+    class ClickListenerImpl implements IClickListener {
 
         @Override
         public void onClick(ViewHolder viewHolder, int position) {
 
-            // Get the coordinates of the source view
-            ImageView sourceImageView = viewHolder.getImageView();
-            final int[] coordinates = new int[2];
-            sourceImageView.getLocationInWindow(coordinates);
-            coordinates[1] -= getStatusBarHeight();
+            IAnimal animal = viewHolder.getAnimal();
+            ImageView imageView = viewHolder.getImageView();
 
-            // Find the floating layer
-            ViewGroup floatingLayer = (ViewGroup) (getActivity().findViewById(android.R.id.content))
-                    .findViewById(R.id.floating_layer);
+            String tag = animal.getTag();
 
-            // Create the layout params
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(sourceImageView.getWidth(), sourceImageView.getHeight());
-            //layoutParams.setMargins(coordinates[0], coordinates[1], 0, 0);
-
-            // Create the floating view
-            View floatingView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.puppy_listing, floatingLayer, false);
-            floatingView.setX(coordinates[0]);
-            floatingView.setY(coordinates[1]);
-            floatingLayer.addView(floatingView, layoutParams);
-
-            // Bring in the selected view into the new floating view
-            ImageView floatingImageView = (ImageView) floatingView.findViewById(R.id.puppy_image);
-            Uri uri = Uri.parse("android.resource://" + floatingImageView.getContext().getPackageName() + "/" + PUPPIES[position]);
-            Ion.with(floatingImageView.getContext())
-                    .load(uri.toString())
-                    .withBitmap()
-                    .centerCrop()
-                    .intoImageView(floatingImageView);
-
-            // Bring in the new fragment
             getFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.fade_out, R.anim.fade_in)
-                    .replace(R.id.container, new FragmentDetails(), FragmentDetails.TAG)
+                    .addSharedElement(imageView, tag)
+                    .replace(R.id.container, FragmentDetails.newInstance(getContext(), animal), FragmentDetails.TAG)
+                    .addToBackStack(FragmentDetails.TAG)
+                    .addSharedElement(imageView, tag)
                     .commit();
-
-            // Move the image
-            floatingImageView.animate()
-                    .translationX(0)
-                    .translationY(0)
-                    .setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime))
-                    .start();
-        }
-
-        public int getStatusBarHeight() {
-            int result = 0;
-            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result = getResources().getDimensionPixelSize(resourceId);
-            }
-            return result;
         }
 
     }
