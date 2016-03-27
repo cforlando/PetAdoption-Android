@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.data.IAnimal;
+import com.codefororlando.petadoption.data.IRetrievable;
 
 public class Animal implements IAnimal {
 
@@ -19,8 +20,20 @@ public class Animal implements IAnimal {
             return new Animal[size];
         }
     };
+
     @NonNull
     private final Uri uri;
+
+    @NonNull
+    private String name;
+
+    @NonNull
+    private @Gender String gender;
+
+    @NonNull
+    private String species;
+
+    @NonNull String breed;
 
     public Animal(@NonNull Uri uri) {
         this.uri = uri;
@@ -52,4 +65,27 @@ public class Animal implements IAnimal {
         return uri.toString();
     }
 
+    @NonNull
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @NonNull
+    @Override
+    public String getSpecies() {
+        return species;
+    }
+
+    @NonNull
+    @Override
+    public String getBreed() {
+        return breed;
+    }
+
+    @NonNull
+    @Override
+    public String getGender() {
+        return gender;
+    }
 }

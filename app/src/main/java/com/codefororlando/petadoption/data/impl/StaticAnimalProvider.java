@@ -6,7 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.R;
-import com.codefororlando.petadoption.data.IAnimal;
+import com.codefororlando.petadoption.data.IRetrievable;
 import com.codefororlando.petadoption.data.IAnimalProvider;
 
 import java.util.Arrays;
@@ -17,10 +17,10 @@ public class StaticAnimalProvider implements IAnimalProvider {
 
     private static StaticAnimalProvider instance;
 
-    private final List<IAnimal> animals;
+    private final List<IRetrievable> animals;
 
     public StaticAnimalProvider(@NonNull Context context) {
-        IAnimal[] animalArray = {
+        IRetrievable[] animalArray = {
                 new Animal(getUriForDrawable(context, R.drawable.puppy_1)),
                 new Animal(getUriForDrawable(context, R.drawable.puppy_2)),
                 new Animal(getUriForDrawable(context, R.drawable.puppy_3)),
@@ -53,7 +53,7 @@ public class StaticAnimalProvider implements IAnimalProvider {
     }
 
     @Override
-    public List<IAnimal> getAnimals() {
+    public List<IRetrievable> getAnimals() {
         return animals;
     }
 

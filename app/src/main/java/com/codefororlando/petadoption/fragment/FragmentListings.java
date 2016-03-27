@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
-import com.codefororlando.petadoption.data.IAnimal;
+import com.codefororlando.petadoption.data.IRetrievable;
 import com.codefororlando.petadoption.data.impl.StaticAnimalProvider;
 
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class FragmentListings extends Fragment {
     static class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
         final IClickListener clickListener;
-        final List<IAnimal> animals;
+        final List<IRetrievable> animals;
 
         public Adapter(IClickListener clickListener) {
             this.clickListener = clickListener;
@@ -86,7 +86,7 @@ public class FragmentListings extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            IAnimal animal = animals.get(position);
+            IRetrievable animal = animals.get(position);
             holder.bind(animal);
         }
 
@@ -95,7 +95,7 @@ public class FragmentListings extends Fragment {
             return animals.size();
         }
 
-        void setAnimals(List<IAnimal> animals) {
+        void setAnimals(List<IRetrievable> animals) {
             this.animals.clear();
             this.animals.addAll(animals);
         }
@@ -106,7 +106,7 @@ public class FragmentListings extends Fragment {
 
         private final IClickListener clickListener;
         private ImageView imageView;
-        private IAnimal animal;
+        private IRetrievable animal;
 
         public ViewHolder(View itemView, IClickListener clickListener) {
             super(itemView);
@@ -118,7 +118,7 @@ public class FragmentListings extends Fragment {
         }
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        void bind(IAnimal animal) {
+        void bind(IRetrievable animal) {
 
             this.animal = animal;
 
@@ -141,7 +141,7 @@ public class FragmentListings extends Fragment {
             return imageView;
         }
 
-        IAnimal getAnimal() {
+        IRetrievable getAnimal() {
             return animal;
         }
 
@@ -152,7 +152,7 @@ public class FragmentListings extends Fragment {
         @Override
         public void onClick(ViewHolder viewHolder, int position) {
 
-            IAnimal animal = viewHolder.getAnimal();
+            IRetrievable animal = viewHolder.getAnimal();
             ImageView imageView = viewHolder.getImageView();
 
             String tag = animal.getTag();

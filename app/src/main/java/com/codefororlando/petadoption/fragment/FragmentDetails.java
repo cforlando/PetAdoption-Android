@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
-import com.codefororlando.petadoption.data.IAnimal;
+import com.codefororlando.petadoption.data.IRetrievable;
 
 public class FragmentDetails extends Fragment {
 
@@ -29,7 +29,7 @@ public class FragmentDetails extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static FragmentDetails newInstance(@NonNull Context context,
-                                              @NonNull IAnimal animal) {
+                                              @NonNull IRetrievable animal) {
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_ANIMAL, animal);
@@ -64,7 +64,7 @@ public class FragmentDetails extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            IAnimal animal = arguments.getParcelable(EXTRA_ANIMAL);
+            IRetrievable animal = arguments.getParcelable(EXTRA_ANIMAL);
 
             if (animal == null) {
                 throw new NullPointerException("Missing required animal argument");
