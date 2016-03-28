@@ -71,6 +71,8 @@ public class StubbedAnimalProvider implements IAnimalProvider {
                                final JsonDeserializationContext dontUseThisContext) throws JsonParseException {
             String uriStr = src.getAsString();
             Uri uri = null;
+            //NOTE: We don't have to parse from disk to get drawables in the near future.  Remove when we
+            //          are not using any placeholder images. - JLi
             if (uriStr.contains(DRAWABLE_COMPARE_PREFIX)) {
                 String imageName = uriStr.substring(DRAWABLE_COMPARE_PREFIX.length());
                 int picId = this.context.getResources().getIdentifier(imageName, "drawable", this.context.getPackageName());
@@ -81,6 +83,7 @@ public class StubbedAnimalProvider implements IAnimalProvider {
             return uri;
         }
 
+        //Note: Remove when we aren't using any local placeholder images. - JLi
         private Uri getUriForDrawable(@NonNull Context context, @NonNull int drawable) {
             return Uri.parse("android.resource://" + context.getPackageName() + "/" + drawable);
         }
