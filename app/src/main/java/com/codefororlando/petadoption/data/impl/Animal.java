@@ -33,7 +33,7 @@ public class Animal implements IAnimal {
 
     List<IRetrievable> images;
 
-    //Constructors
+    // Constructors
 
     public Animal(@NonNull Uri uri, @NonNull String name, @NonNull @Gender String gender,
                   @NonNull String species, @NonNull String breed) {

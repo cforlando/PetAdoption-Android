@@ -21,7 +21,6 @@ import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
-import com.codefororlando.petadoption.data.IRetrievable;
 import com.squareup.picasso.Picasso;
 
 public class FragmentDetails extends Fragment {

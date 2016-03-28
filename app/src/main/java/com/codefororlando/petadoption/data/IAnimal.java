@@ -1,6 +1,5 @@
 package com.codefororlando.petadoption.data;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 
