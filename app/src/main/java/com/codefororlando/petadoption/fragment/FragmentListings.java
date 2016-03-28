@@ -64,7 +64,7 @@ public class FragmentListings extends Fragment {
 
     interface IClickListener {
 
-        void onClick(RecyclerView.ViewHolder viewHolder, int position);
+        void onClick(AnimalViewHolder viewHolder, int position);
 
     }
 
@@ -123,11 +123,11 @@ public class FragmentListings extends Fragment {
 
             this.animal = animal;
 
-//            if (Is.equal(SdkVersion.KITKAT)) {
-//                ViewCompat.setTransitionName(imageView, animal.getTag());
-//            } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
-//                imageView.setTransitionName(animal.getTag());
-//            }
+            if (Is.equal(SdkVersion.KITKAT)) {
+                ViewCompat.setTransitionName(imageView, animal.getTag());
+            } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
+                imageView.setTransitionName(animal.getTag());
+            }
 
             Uri uri = animal.getImages().get(0).getUri();
             Picasso.with(imageView.getContext()).load(uri).into(imageView);
@@ -150,19 +150,19 @@ public class FragmentListings extends Fragment {
     class ClickListenerImpl implements IClickListener {
 
         @Override
-        public void onClick(RecyclerView.ViewHolder viewHolder, int position) {
+        public void onClick(AnimalViewHolder viewHolder, int position) {
 
-//            IRetrievable animal = viewHolder.getAnimal();
-//            ImageView imageView = viewHolder.getImageView();
-//
-//            String tag = animal.getTag();
-//
-//            getFragmentManager().beginTransaction()
-//                    .addSharedElement(imageView, tag)
-//                    .replace(R.id.container, FragmentDetails.newInstance(getContext(), animal), FragmentDetails.TAG)
-//                    .addToBackStack(FragmentDetails.TAG)
-//                    .addSharedElement(imageView, tag)
-//                    .commit();
+            IAnimal animal = viewHolder.getAnimal();
+            ImageView imageView = viewHolder.getImageView();
+
+            String tag = animal.getTag();
+
+            getFragmentManager().beginTransaction()
+                    .addSharedElement(imageView, tag)
+                    .replace(R.id.container, FragmentDetails.newInstance(getContext(), animal), FragmentDetails.TAG)
+                    .addToBackStack(FragmentDetails.TAG)
+                    .addSharedElement(imageView, tag)
+                    .commit();
         }
 
     }

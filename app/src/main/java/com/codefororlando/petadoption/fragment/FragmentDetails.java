@@ -2,6 +2,7 @@ package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +20,9 @@ import android.widget.ImageView;
 import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
+import com.codefororlando.petadoption.data.IAnimal;
 import com.codefororlando.petadoption.data.IRetrievable;
+import com.squareup.picasso.Picasso;
 
 public class FragmentDetails extends Fragment {
 
@@ -29,7 +32,7 @@ public class FragmentDetails extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static FragmentDetails newInstance(@NonNull Context context,
-                                              @NonNull IRetrievable animal) {
+                                              @NonNull IAnimal animal) {
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_ANIMAL, animal);
@@ -64,13 +67,14 @@ public class FragmentDetails extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            IRetrievable animal = arguments.getParcelable(EXTRA_ANIMAL);
+            IAnimal animal = arguments.getParcelable(EXTRA_ANIMAL);
 
             if (animal == null) {
                 throw new NullPointerException("Missing required animal argument");
             }
 
-            imageView.setImageURI(animal.getUri());
+            Uri uri = animal.getImages().get(0).getUri();
+            Picasso.with(imageView.getContext()).load(uri).into(imageView);
 
             if (Is.equal(SdkVersion.KITKAT)) {
                 ViewCompat.setTransitionName(imageView, animal.getTag());
