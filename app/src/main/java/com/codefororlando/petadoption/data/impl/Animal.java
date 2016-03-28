@@ -31,7 +31,7 @@ public class Animal implements IAnimal {
     @NonNull
     String breed;
 
-    List<IRetrievable> images;
+    List<RetrievableImpl> images;
 
     // Constructors
 
@@ -115,11 +115,11 @@ public class Animal implements IAnimal {
     }
 
     @Override
-    public List<IRetrievable> getImages() {
+    public List<? extends IRetrievable> getImages() {
         return images;
     }
 
-    public void setImages(List<IRetrievable> images) {
+    public void setImages(List<RetrievableImpl> images) {
         this.images = images;
     }
 }
