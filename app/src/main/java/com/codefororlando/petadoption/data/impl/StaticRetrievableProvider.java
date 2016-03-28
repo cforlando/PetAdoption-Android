@@ -7,19 +7,19 @@ import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IRetrievable;
-import com.codefororlando.petadoption.data.IAnimalProvider;
+import com.codefororlando.petadoption.data.IRetrievableProvider;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class StaticAnimalProvider implements IAnimalProvider {
+public class StaticRetrievableProvider implements IRetrievableProvider {
 
-    private static StaticAnimalProvider instance;
+    private static StaticRetrievableProvider instance;
 
     private final List<IRetrievable> animals;
 
-    public StaticAnimalProvider(@NonNull Context context) {
+    public StaticRetrievableProvider(@NonNull Context context) {
         IRetrievable[] animalArray = {
                 new Animal(getUriForDrawable(context, R.drawable.puppy_1)),
                 new Animal(getUriForDrawable(context, R.drawable.puppy_2)),
@@ -34,11 +34,11 @@ public class StaticAnimalProvider implements IAnimalProvider {
         animals = Collections.unmodifiableList(Arrays.asList(animalArray));
     }
 
-    public static StaticAnimalProvider getInstance(@NonNull Context context) {
+    public static StaticRetrievableProvider getInstance(@NonNull Context context) {
         if (instance == null) {
-            synchronized (StaticAnimalProvider.class) {
+            synchronized (StaticRetrievableProvider.class) {
                 if (instance == null) {
-                    instance = new StaticAnimalProvider(context);
+                    instance = new StaticRetrievableProvider(context);
                 }
             }
         }

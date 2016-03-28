@@ -77,9 +77,7 @@ public class FragmentDetails extends Fragment {
             } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
                 imageView.setTransitionName(animal.getTag());
             }
-
         }
-
         return view;
     }
 }

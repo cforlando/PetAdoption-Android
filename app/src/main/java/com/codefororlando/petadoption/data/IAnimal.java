@@ -6,6 +6,7 @@ import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
 public interface IAnimal extends IRetrievable {
 
@@ -26,4 +27,6 @@ public interface IAnimal extends IRetrievable {
 
     @NonNull
     @Gender String getGender();
+
+    List<IRetrievable> getImages();
 }

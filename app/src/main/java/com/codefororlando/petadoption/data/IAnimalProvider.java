@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface IAnimalProvider {
 
-    List<IRetrievable> getAnimals();
+    List<IAnimal> getAnimals();
 
 }
