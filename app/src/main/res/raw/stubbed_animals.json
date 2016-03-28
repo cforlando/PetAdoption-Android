@@ -29,6 +29,15 @@
       ]
     },
     {
+      "name": "Ginger",
+      "breed": "Cat",
+      "species": "Cat",
+      "gender": "Female",
+      "images": [
+        "R.drawable.cat_1"
+      ]
+    },
+    {
       "name": "Cupcake",
       "breed": "Golden Retriever",
       "species": "Dog",
@@ -56,6 +65,24 @@
       ]
     },
     {
+      "name": "Ninja",
+      "breed": "Cat",
+      "species": "Cat",
+      "gender": "Male",
+      "images": [
+        "R.drawable.cat_2"
+      ]
+    },
+    {
+      "name": "Francois",
+      "breed": "Cat",
+      "species": "Cat",
+      "gender": "Male",
+      "images": [
+        "R.drawable.cat_3"
+      ]
+    },
+    {
       "name": "Bear",
       "breed": "Malmute",
       "species": "Dog",
@@ -71,6 +98,24 @@
       "gender": "Male",
       "images": [
         "R.drawable.puppy_7"
+      ]
+    },
+    {
+      "name": "Donut",
+      "breed": "Cat",
+      "species": "Cat",
+      "gender": "Male",
+      "images": [
+        "R.drawable.cat_4"
+      ]
+    },
+    {
+      "name": "Kit",
+      "breed": "Cat",
+      "species": "Cat",
+      "gender": "Female",
+      "images": [
+        "R.drawable.cat_5"
       ]
     }
   ]
