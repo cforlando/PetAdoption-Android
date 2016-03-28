@@ -27,5 +27,5 @@ public interface IAnimal extends IRetrievable {
     @NonNull
     @Gender String getGender();
 
-    List<IRetrievable> getImages();
+    List<? extends IRetrievable> getImages();
 }

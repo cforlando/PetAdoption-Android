@@ -1,121 +1,135 @@
 {
   "animals": [
     {
+      "uri" : "puppy_0",
       "name": "Harlem",
       "breed": "Austrailian cattle dog",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "https://upload.wikimedia.org/wikipedia/commons/c/cc/ACD-blue-spud.jpg",
-        "http://dgicdplf3pvka.cloudfront.net/images/dogbreeds/large/Australian-Cattle-Dog-Blue-Heeler.jpg", "https://s-media-cache-ak0.pinimg.com/236x/6c/cc/8e/6ccc8e9c48eeaea31da3d3f5c26d5a45.jpg"
+        {"uri" : "https://upload.wikimedia.org/wikipedia/commons/c/cc/ACD-blue-spud.jpg"},
+        {"uri":"http://dgicdplf3pvka.cloudfront.net/images/dogbreeds/large/Australian-Cattle-Dog-Blue-Heeler.jpg"},
+        {"uri":"https://s-media-cache-ak0.pinimg.com/236x/6c/cc/8e/6ccc8e9c48eeaea31da3d3f5c26d5a45.jpg"}
       ]
     },
     {
+      "uri" : "puppy_1",
       "name": "Spudnik",
       "breed": "Golden Retriever",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "R.drawable.puppy_1"
+        {"uri": "R.drawable.puppy_1"}
       ]
     },
     {
+      "uri" : "puppy_2",
       "name": "Biscuit",
       "breed": "Beagle Mix",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "R.drawable.puppy_2"
+        {"uri": "R.drawable.puppy_2"}
       ]
     },
     {
+      "uri" : "cat_1",
       "name": "Ginger",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Female",
       "images": [
-        "R.drawable.cat_1"
+        {"uri": "R.drawable.cat_1"}
       ]
     },
     {
+      "uri" : "puppy_3",
       "name": "Cupcake",
       "breed": "Golden Retriever",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "R.drawable.puppy_3"
+        {"uri": "R.drawable.puppy_3"}
       ]
     },
     {
+      "uri" : "puppy_4",
       "name": "Pumpkin",
       "breed": "Corgi Mix",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "R.drawable.puppy_4"
+        {"uri": "R.drawable.puppy_4"}
       ]
     },
     {
+      "uri" : "puppy_5",
       "name": "Cowboy",
       "breed": "Golden Retriever",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "R.drawable.puppy_5"
+        {"uri": "R.drawable.puppy_5"}
       ]
     },
     {
+      "uri" : "cat_2",
       "name": "Ninja",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Male",
       "images": [
-        "R.drawable.cat_2"
+        {"uri": "R.drawable.cat_2"}
       ]
     },
     {
+      "uri" : "cat_3",
       "name": "Francois",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Male",
       "images": [
-        "R.drawable.cat_3"
+        {"uri": "R.drawable.cat_3"}
       ]
     },
     {
+      "uri" : "puppy_6",
       "name": "Bear",
       "breed": "Malmute",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "R.drawable.puppy_6"
+        {"uri": "R.drawable.puppy_6"}
       ]
     },
     {
+      "uri" : "puppy_7",
       "name": "Brisket",
       "breed": "Beagle",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        "R.drawable.puppy_7"
+        {"uri": "R.drawable.puppy_7"}
       ]
     },
     {
+      "uri" : "cat_4",
       "name": "Donut",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Male",
       "images": [
-        "R.drawable.cat_4"
+        {"uri": "R.drawable.cat_4"}
       ]
     },
     {
+      "uri" : "cat_5",
       "name": "Kit",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Female",
       "images": [
-        "R.drawable.cat_5"
+        {"uri": "R.drawable.cat_5"}
       ]
     }
   ]
