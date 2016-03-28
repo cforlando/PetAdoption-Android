@@ -1,10 +1,7 @@
 package com.codefororlando.petadoption.data.util;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.data.impl.RetrievableImpl;

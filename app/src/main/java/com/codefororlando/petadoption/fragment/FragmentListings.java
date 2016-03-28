@@ -21,7 +21,6 @@ import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
 import com.codefororlando.petadoption.data.IAnimalProvider;
-import com.codefororlando.petadoption.data.IRetrievable;
 import com.codefororlando.petadoption.data.impl.StubbedAnimalProvider;
 import com.squareup.picasso.Picasso;
 
