@@ -31,7 +31,6 @@ import java.util.List;
 public class FragmentListings extends Fragment {
 
     public static final String TAG = "FragmentListings";
-
     private IAnimalProvider animalProvider;
     private AnimalAdapter adapter;
 
