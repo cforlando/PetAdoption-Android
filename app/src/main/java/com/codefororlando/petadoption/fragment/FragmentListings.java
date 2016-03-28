@@ -20,7 +20,9 @@ import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
-import com.codefororlando.petadoption.data.impl.StaticAnimalProvider;
+import com.codefororlando.petadoption.data.IAnimalProvider;
+import com.codefororlando.petadoption.data.impl.StubbedAnimalProvider;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +30,13 @@ import java.util.List;
 public class FragmentListings extends Fragment {
 
     public static final String TAG = "FragmentListings";
-
-    private StaticAnimalProvider animalProvider;
-    private Adapter adapter;
+    private IAnimalProvider animalProvider;
+    private AnimalAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        animalProvider = StaticAnimalProvider.getInstance(getContext());
+        animalProvider = new StubbedAnimalProvider(getContext());
     }
 
     @Nullable
@@ -44,7 +44,7 @@ public class FragmentListings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
 
-        adapter = new Adapter(new ClickListenerImpl());
+        adapter = new AnimalAdapter(new ClickListenerImpl());
         adapter.setAnimals(animalProvider.getAnimals());
 
         final int spans = getResources().getInteger(R.integer.grid_spans);
@@ -62,30 +62,30 @@ public class FragmentListings extends Fragment {
 
     interface IClickListener {
 
-        void onClick(ViewHolder viewHolder, int position);
+        void onClick(AnimalViewHolder viewHolder, int position);
 
     }
 
-    static class Adapter extends RecyclerView.Adapter<ViewHolder> {
+    static class AnimalAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
 
         final IClickListener clickListener;
         final List<IAnimal> animals;
 
-        public Adapter(IClickListener clickListener) {
+        public AnimalAdapter(IClickListener clickListener) {
             this.clickListener = clickListener;
             animals = new ArrayList<>();
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public AnimalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.animal_item, parent, false);
 
-            return new ViewHolder(view, clickListener);
+            return new AnimalViewHolder(view, clickListener);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(AnimalViewHolder holder, int position) {
             IAnimal animal = animals.get(position);
             holder.bind(animal);
         }
@@ -99,16 +99,15 @@ public class FragmentListings extends Fragment {
             this.animals.clear();
             this.animals.addAll(animals);
         }
-
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class AnimalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final IClickListener clickListener;
         private ImageView imageView;
         private IAnimal animal;
 
-        public ViewHolder(View itemView, IClickListener clickListener) {
+        public AnimalViewHolder(View itemView, IClickListener clickListener) {
             super(itemView);
 
             this.clickListener = clickListener;
@@ -128,8 +127,8 @@ public class FragmentListings extends Fragment {
                 imageView.setTransitionName(animal.getTag());
             }
 
-            Uri uri = animal.getUri();
-            imageView.setImageURI(uri);
+            Uri uri = animal.getImages().get(0).getUri();
+            Picasso.with(imageView.getContext()).load(uri).into(imageView);
         }
 
         @Override
@@ -144,13 +143,12 @@ public class FragmentListings extends Fragment {
         IAnimal getAnimal() {
             return animal;
         }
-
     }
 
     class ClickListenerImpl implements IClickListener {
 
         @Override
-        public void onClick(ViewHolder viewHolder, int position) {
+        public void onClick(AnimalViewHolder viewHolder, int position) {
 
             IAnimal animal = viewHolder.getAnimal();
             ImageView imageView = viewHolder.getImageView();

@@ -2,6 +2,7 @@ package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
+import com.squareup.picasso.Picasso;
 
 public class FragmentDetails extends Fragment {
 
@@ -70,16 +72,15 @@ public class FragmentDetails extends Fragment {
                 throw new NullPointerException("Missing required animal argument");
             }
 
-            imageView.setImageURI(animal.getUri());
+            Uri uri = animal.getImages().get(0).getUri();
+            Picasso.with(imageView.getContext()).load(uri).into(imageView);
 
             if (Is.equal(SdkVersion.KITKAT)) {
                 ViewCompat.setTransitionName(imageView, animal.getTag());
             } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
                 imageView.setTransitionName(animal.getTag());
             }
-
         }
-
         return view;
     }
 }
