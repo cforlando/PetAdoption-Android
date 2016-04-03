@@ -1,11 +1,20 @@
+
 {
   "animals": [
     {
       "uri" : "puppy_0",
+      "id" : "0",
       "name": "Harlem",
+      "description": "Very playful, great with other animals.",
       "breed": "Australian cattle dog",
       "species": "Dog",
       "gender": "Male",
+      "age" : 3,
+      "color": "Black, White, Grey",
+      "adoptable" : true,
+      "activityLevel": "Very active.",
+      "intakeDate": "20016-04-02T13:45:30",
+      "shelterId": "-1",
       "images": [
         {"uri" : "https://upload.wikimedia.org/wikipedia/commons/c/cc/ACD-blue-spud.jpg"},
         {"uri":"http://dgicdplf3pvka.cloudfront.net/images/dogbreeds/large/Australian-Cattle-Dog-Blue-Heeler.jpg"},
