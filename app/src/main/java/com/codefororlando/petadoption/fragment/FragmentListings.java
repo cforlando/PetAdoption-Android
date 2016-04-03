@@ -37,7 +37,6 @@ public class FragmentListings extends Fragment {
     private FloatingActionsMenu floatingActionsMenu;
     private FloatingActionButton reportLostPetBtn;
     private FloatingActionButton reportFoundPetBtn;
-    private View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class FragmentListings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
-        rootView = view;
         adapter = new AnimalAdapter(new ClickListenerImpl());
         adapter.setAnimals(animalProvider.getAnimals());
 
@@ -88,7 +86,6 @@ public class FragmentListings extends Fragment {
                 }
             }
         });
-
 
         return view;
     }
