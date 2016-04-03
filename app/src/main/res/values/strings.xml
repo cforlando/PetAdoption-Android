@@ -9,4 +9,8 @@
     <string name="launch_message">Pet Adoption</string>
     <!-- FragmentInfo -->
     <string name="info_content">This app was lovingly crafted for Lady Lake by the fine volunteers of Code for Orlando.\n\nCheck out www.codefororlando.com for more info.</string>
+
+    <string name="fab_report_missing_pet">Report Missing Pet</string>
+    <string name="fab_report_found_pet">Report Found Pet</string>
+
 </resources>

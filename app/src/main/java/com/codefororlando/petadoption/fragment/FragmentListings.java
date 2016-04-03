@@ -22,6 +22,8 @@ import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
 import com.codefororlando.petadoption.data.IAnimalProvider;
 import com.codefororlando.petadoption.data.impl.StubbedAnimalProvider;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class FragmentListings extends Fragment {
     public static final String TAG = "FragmentListings";
     private IAnimalProvider animalProvider;
     private AnimalAdapter adapter;
+    private FloatingActionsMenu floatingActionsMenu;
+    private FloatingActionButton reportLostPetBtn;
+    private FloatingActionButton reportFoundPetBtn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +48,6 @@ public class FragmentListings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
-
         adapter = new AnimalAdapter(new ClickListenerImpl());
         adapter.setAnimals(animalProvider.getAnimals());
 
@@ -56,6 +60,32 @@ public class FragmentListings extends Fragment {
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        floatingActionsMenu = (FloatingActionsMenu) view.findViewById(R.id.fam);
+        reportFoundPetBtn = (FloatingActionButton) view.findViewById(R.id.action_report_found_pet);
+        reportLostPetBtn = (FloatingActionButton) view.findViewById(R.id.action_report_missing_pet);
+        final View famBg = view.findViewById(R.id.fam_bg);
+
+        floatingActionsMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+            @Override
+            public void onMenuExpanded() {
+                famBg.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onMenuCollapsed() {
+                famBg.setVisibility(View.INVISIBLE);
+            }
+        });
+        famBg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(floatingActionsMenu.isExpanded()){
+                    floatingActionsMenu.collapse();
+                    famBg.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
         return view;
     }
