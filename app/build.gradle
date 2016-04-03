@@ -27,4 +27,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.ToxicBakery.android.version:versions:1.0.13'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 }
