@@ -11,9 +11,9 @@ public interface IAnimal extends IRetrievable {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({MALE, FEMALE})
-    public @interface Gender {}
-    public static final String MALE = "Male";
-    public static final String FEMALE = "Female";
+    @interface Gender {}
+    String MALE = "Male";
+    String FEMALE = "Female";
 
     @NonNull
     String getId();
@@ -36,16 +36,22 @@ public interface IAnimal extends IRetrievable {
 
     boolean shouldActQuickly();
 
+    @NonNull
     String getColor();
 
+    @NonNull
     String getDescription();
 
+    @NonNull
     String getActivityLevel();
 
+    @NonNull
     String getIntakeDate();
 
+    @NonNull
     String getShelterId();
 
+    @NonNull
     List<? extends IRetrievable> getImages();
 
 }
