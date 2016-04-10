@@ -1,17 +1,24 @@
 package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.transition.AutoTransition;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +33,6 @@ import com.squareup.picasso.Picasso;
 public class FragmentDetails extends Fragment {
 
     public static final String TAG = "FragmentDetails";
-
     private static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -60,9 +66,9 @@ public class FragmentDetails extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_details, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_details, container, false);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.puppy_image);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.puppy_image);
 
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -81,6 +87,49 @@ public class FragmentDetails extends Fragment {
                 imageView.setTransitionName(animal.getTag());
             }
         }
-        return view;
+
+        final AppCompatActivity activity = (AppCompatActivity)getActivity();
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setHomeButtonEnabled(true);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("");
+
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
+        AppBarLayout appBarLayout = (AppBarLayout)rootView.findViewById(R.id.app_bar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset < getActionBarHeight(activity)) {
+                    collapsingToolbarLayout.setTitle("Harlem - Golden Retriever");
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbarLayout.setTitle("");
+                    isShow = false;
+                }
+            }
+        });
+
+        return rootView;
     }
+
+    public static int getActionBarHeight(final Context context)
+    {
+        // based on http://stackoverflow.com/questions/12301510/how-to-get-the-actionbar-height
+        final TypedValue tv=new TypedValue();
+        int actionBarHeight=0;
+        if(context.getTheme().resolveAttribute(R.attr.actionBarSize,tv,true))
+            actionBarHeight= TypedValue.complexToDimensionPixelSize(tv.data,context.getResources()
+                    .getDisplayMetrics());
+        return actionBarHeight;
+    }
+
 }
