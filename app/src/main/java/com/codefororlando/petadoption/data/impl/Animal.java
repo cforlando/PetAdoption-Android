@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.data.IAnimal;
 import com.codefororlando.petadoption.data.IRetrievable;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,9 @@ public class Animal implements IAnimal {
 
     @NonNull
     private final Uri uri;
+
+    @NonNull
+    String id;
 
     @NonNull
     private String name;
@@ -29,9 +33,26 @@ public class Animal implements IAnimal {
     private String species;
 
     @NonNull
-    String breed;
+    private String breed;
 
-    List<RetrievableImpl> images;
+    private String age;
+
+    @SerializedName("adoptable")
+    private boolean isAdoptable;
+
+    private boolean shouldActQuickly;
+
+    private String color;
+
+    private String description;
+
+    private String activityLevel;
+
+    private String intakeDate;
+
+    private String shelterId;
+
+    private List<RetrievableImpl> images;
 
     // Constructors
 
@@ -92,6 +113,12 @@ public class Animal implements IAnimal {
 
     @NonNull
     @Override
+    public String getId() {
+        return id;
+    }
+
+    @NonNull
+    @Override
     public String getName() {
         return name;
     }
@@ -112,6 +139,46 @@ public class Animal implements IAnimal {
     @Override
     public String getGender() {
         return gender;
+    }
+
+    @Override
+    public String getAge() {
+        return age;
+    }
+
+    @Override
+    public boolean isAdoptable() {
+        return isAdoptable;
+    }
+
+    @Override
+    public boolean shouldActQuickly() {
+        return shouldActQuickly;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String getActivityLevel() {
+        return activityLevel;
+    }
+
+    @Override
+    public String getIntakeDate() {
+        return intakeDate;
+    }
+
+    @Override
+    public String getShelterId() {
+        return shelterId;
     }
 
     @Override

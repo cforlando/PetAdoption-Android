@@ -1,11 +1,20 @@
+
 {
   "animals": [
     {
       "uri" : "puppy_0",
+      "id" : "0",
       "name": "Harlem",
+      "description": "Harlem is straight from the hood.  A very good neighborhood where he was free to run around and engage in many adventures with his friends.  He was voted top dog three months in a row by the itty bitty kitty committee and his previous owners would attest that he is a very good boy.",
       "breed": "Australian cattle dog",
       "species": "Dog",
       "gender": "Male",
+      "age" : "3 Months",
+      "color": "Black, White, Grey",
+      "adoptable" : true,
+      "activityLevel": "Very active.",
+      "intakeDate": "20016-04-02T13:45:30",
+      "shelterId": "-1",
       "images": [
         {"uri" : "https://upload.wikimedia.org/wikipedia/commons/c/cc/ACD-blue-spud.jpg"},
         {"uri":"http://dgicdplf3pvka.cloudfront.net/images/dogbreeds/large/Australian-Cattle-Dog-Blue-Heeler.jpg"},
