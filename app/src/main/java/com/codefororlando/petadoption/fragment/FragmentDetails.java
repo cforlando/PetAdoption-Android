@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
@@ -33,7 +34,8 @@ import com.squareup.picasso.Picasso;
 public class FragmentDetails extends Fragment {
 
     public static final String TAG = "FragmentDetails";
-    private static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
+    public static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
+    String collapsedTitle = "";
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static FragmentDetails newInstance(@NonNull Context context,
@@ -86,6 +88,7 @@ public class FragmentDetails extends Fragment {
             } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
                 imageView.setTransitionName(animal.getTag());
             }
+            setAnimalDetails(rootView, animal);
         }
 
         final AppCompatActivity activity = (AppCompatActivity)getActivity();
@@ -109,7 +112,7 @@ public class FragmentDetails extends Fragment {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset < getActionBarHeight(activity)) {
-                    collapsingToolbarLayout.setTitle("Harlem - Golden Retriever");
+                    collapsingToolbarLayout.setTitle(collapsedTitle);
                     isShow = true;
                 } else if(isShow) {
                     collapsingToolbarLayout.setTitle("");
@@ -121,6 +124,35 @@ public class FragmentDetails extends Fragment {
         return rootView;
     }
 
+    public void setAnimalDetails(View rootView, IAnimal animal) {
+        TextView name = (TextView) rootView.findViewById(R.id.title);
+        TextView breed = (TextView) rootView.findViewById(R.id.title_subtext);
+        TextView gender = (TextView) rootView.findViewById(R.id.gender);
+        TextView size = (TextView) rootView.findViewById(R.id.size);
+        TextView age = (TextView) rootView.findViewById(R.id.age);
+        TextView location = (TextView) rootView.findViewById(R.id.city_state);
+
+        TextView description = (TextView) rootView.findViewById(R.id.description);
+        TextView locationName = (TextView) rootView.findViewById(R.id.location_name);
+        TextView locationStreet = (TextView) rootView.findViewById(R.id.location_street);
+        TextView locationCityStateZip = (TextView) rootView.findViewById(R.id.location_city_state_zip);
+
+        name.setText(animal.getName());
+        breed.setText(animal.getBreed());
+        gender.setText(animal.getGender());
+//        size.setText("TODO");
+        age.setText(String.valueOf(animal.getAge()));
+//        location.setText("TODO");
+
+        description.setText(animal.getDescription());
+//        locationName.setText("TODO");
+//        locationStreet.setText("TODO");
+//        locationCityStateZip.setText("TODO");
+
+        collapsedTitle = animal.getName() + " - " + animal.getBreed();
+    }
+
+    //TODO move this to a util file or something.
     public static int getActionBarHeight(final Context context)
     {
         // based on http://stackoverflow.com/questions/12301510/how-to-get-the-actionbar-height

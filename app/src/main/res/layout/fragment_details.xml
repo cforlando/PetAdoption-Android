@@ -43,24 +43,24 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="12dp"
                     android:text="Harlem"
                     android:textAppearance="?android:textAppearanceLarge"
-                    android:textColor="@color/icons"
-                    android:textStyle="bold" />
+                    android:textColor="@color/icons" />
 
                 <TextView
+                    android:id="@+id/title_subtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:layout_marginLeft="12dp"
                     android:text="Golden Retriever"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@color/icons"
-                    android:textStyle="bold" />
+                    android:textColor="@color/icons"/>
 
             </LinearLayout>
 
@@ -187,6 +187,7 @@
                         android:textColor="@color/secondary_text" />
 
                     <TextView
+                        android:id="@+id/gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Male"
@@ -202,6 +203,7 @@
                         android:textColor="@color/secondary_text" />
 
                     <TextView
+                        android:id="@+id/size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Medium"
@@ -225,6 +227,7 @@
                         android:textColor="@color/secondary_text" />
 
                     <TextView
+                        android:id="@+id/age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4 Months"
@@ -240,6 +243,7 @@
                         android:textColor="@color/secondary_text" />
 
                     <TextView
+                        android:id="@+id/city_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Orlando, FL"
@@ -261,6 +265,7 @@
                 android:textAppearance="?android:textAppearanceMedium" />
 
             <TextView
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -268,7 +273,8 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="8dp"
                 android:text="Harlem is straight from the hood.  A very good neighborhood where he was free to run around and engage in many adventures with his friends.  He was voted top dog three months in a row by the itty bitty kitty committee and his previous owners would attest that he is a very good boy."
-                android:textAppearance="?android:textAppearanceSmall" />
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/primary_text"/>
 
             <include layout="@layout/divider_grey" />
 
@@ -285,25 +291,31 @@
                     android:textAppearance="?android:textAppearanceMedium" />
 
                 <TextView
+                    android:id="@+id/location_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Lady Lake Animal Control"
                     android:textAppearance="?android:textAppearanceSmall"
-                    android:textStyle="bold" />
+                    android:textColor="@color/primary_text"/>
+
 
                 <TextView
+                    android:id="@+id/location_street"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="409 Fennell Boulevard"
-                    android:textAppearance="?android:textAppearanceSmall" />
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
+                    android:id="@+id/location_city_state_zip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lady Lake, FL 32159"
-                    android:textAppearance="?android:textAppearanceSmall" />
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/primary_text"/>
             </LinearLayout>
 
         </LinearLayout>
