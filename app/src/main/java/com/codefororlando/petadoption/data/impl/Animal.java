@@ -35,7 +35,7 @@ public class Animal implements IAnimal {
     @NonNull
     private String breed;
 
-    private int age;
+    private String age;
 
     @SerializedName("adoptable")
     private boolean isAdoptable;
@@ -142,8 +142,8 @@ public class Animal implements IAnimal {
     }
 
     @Override
-    public int getAge() {
-        return 0;
+    public String getAge() {
+        return age;
     }
 
     @Override

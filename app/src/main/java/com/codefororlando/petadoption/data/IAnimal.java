@@ -30,7 +30,7 @@ public interface IAnimal extends IRetrievable {
     @NonNull
     @Gender String getGender();
 
-    int getAge();
+    String getAge();
 
     boolean isAdoptable();
 
