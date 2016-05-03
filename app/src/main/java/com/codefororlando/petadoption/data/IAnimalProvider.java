@@ -4,6 +4,9 @@ import java.util.List;
 
 public interface IAnimalProvider {
 
-    List<IAnimal> getAnimals();
+    interface AnimalHandler {
+        void onResult(boolean isSuccessful, List<? extends IAnimal> result);
+    }
 
+    void getAnimals(AnimalHandler handler);
 }

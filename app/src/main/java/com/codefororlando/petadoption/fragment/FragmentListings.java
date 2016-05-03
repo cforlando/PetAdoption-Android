@@ -1,7 +1,6 @@
 package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +20,7 @@ import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
 import com.codefororlando.petadoption.data.IAnimalProvider;
+import com.codefororlando.petadoption.data.impl.PetAdoptionProvider;
 import com.codefororlando.petadoption.data.impl.StubbedAnimalProvider;
 import com.squareup.picasso.Picasso;
 
@@ -37,6 +37,7 @@ public class FragmentListings extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         animalProvider = new StubbedAnimalProvider(getContext());
+//        animalProvider = new PetAdoptionProvider(getActivity());
     }
 
     @Nullable
@@ -45,7 +46,14 @@ public class FragmentListings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
 
         adapter = new AnimalAdapter(new ClickListenerImpl());
-        adapter.setAnimals(animalProvider.getAnimals());
+        animalProvider.getAnimals(new IAnimalProvider.AnimalHandler() {
+            @Override
+            public void onResult(boolean isSuccessful, List<? extends IAnimal> result) {
+                if (isSuccessful) {
+                    adapter.setAnimals(result);
+                }
+            }
+        });
 
         final int spans = getResources().getInteger(R.integer.grid_spans);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), spans);
@@ -95,9 +103,10 @@ public class FragmentListings extends Fragment {
             return animals.size();
         }
 
-        void setAnimals(List<IAnimal> animals) {
+        void setAnimals(List<? extends IAnimal> animals) {
             this.animals.clear();
             this.animals.addAll(animals);
+            notifyDataSetChanged();
         }
     }
 
@@ -127,7 +136,7 @@ public class FragmentListings extends Fragment {
                 imageView.setTransitionName(animal.getTag());
             }
 
-            Uri uri = animal.getImages().get(0).getUri();
+            String uri = animal.getImages().get(0);
             Picasso.with(imageView.getContext()).load(uri).into(imageView);
         }
 
@@ -154,7 +163,6 @@ public class FragmentListings extends Fragment {
             ImageView imageView = viewHolder.getImageView();
 
             String tag = animal.getTag();
-
             getFragmentManager().beginTransaction()
                     .addSharedElement(imageView, tag)
                     .replace(R.id.container, FragmentDetails.newInstance(getContext(), animal), FragmentDetails.TAG)
@@ -162,7 +170,5 @@ public class FragmentListings extends Fragment {
                     .addSharedElement(imageView, tag)
                     .commit();
         }
-
     }
-
 }

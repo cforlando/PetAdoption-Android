@@ -3,8 +3,8 @@
   "animals": [
     {
       "uri" : "puppy_0",
-      "id" : "0",
-      "name": "Harlem",
+      "petId" : "0",
+      "petName": "Harlem",
       "description": "Harlem is straight from the hood.  A very good neighborhood where he was free to run around and engage in many adventures with his friends.  He was voted top dog three months in a row by the itty bitty kitty committee and his previous owners would attest that he is a very good boy.",
       "breed": "Australian cattle dog",
       "species": "Dog",
@@ -16,129 +16,141 @@
       "intakeDate": "20016-04-02T13:45:30",
       "shelterId": "-1",
       "images": [
-        {"uri" : "https://upload.wikimedia.org/wikipedia/commons/c/cc/ACD-blue-spud.jpg"},
-        {"uri":"http://dgicdplf3pvka.cloudfront.net/images/dogbreeds/large/Australian-Cattle-Dog-Blue-Heeler.jpg"},
-        {"uri":"https://s-media-cache-ak0.pinimg.com/236x/6c/cc/8e/6ccc8e9c48eeaea31da3d3f5c26d5a45.jpg"}
+        "https://upload.wikimedia.org/wikipedia/commons/c/cc/ACD-blue-spud.jpg",
+        "http://dgicdplf3pvka.cloudfront.net/images/dogbreeds/large/Australian-Cattle-Dog-Blue-Heeler.jpg",
+        "https://s-media-cache-ak0.pinimg.com/236x/6c/cc/8e/6ccc8e9c48eeaea31da3d3f5c26d5a45.jpg"
       ]
     },
     {
+      "petId" : "1",
       "uri" : "puppy_1",
-      "name": "Spudnik",
+      "petName": "Spudnik",
       "breed": "Golden Retriever",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.puppy_1"}
+        "http://www.shanalogic.com/wordpress/wp-content/uploads2/2015/10/golden-retriever5.jpg"
       ]
     },
     {
+      "petId" : "2",
       "uri" : "puppy_2",
-      "name": "Biscuit",
+      "petName": "Biscuit",
       "breed": "Beagle Mix",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.puppy_2"}
+        "http://www.dogbreedinfo.com/images21/BeagleMixDarley12WeeksPuppy4.jpg"
       ]
     },
     {
+      "petId" : "3",
       "uri" : "cat_1",
-      "name": "Ginger",
+      "petName": "Ginger",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Female",
       "images": [
-        {"uri": "R.drawable.cat_1"}
+        "http://www.findakitten.co.uk/images/gallerykitten5.jpg"
       ]
     },
     {
+      "petId" : "4",
       "uri" : "puppy_3",
-      "name": "Cupcake",
-      "breed": "Golden Retriever",
+      "petName": "Cupcake",
+      "breed": "Golden Lab",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.puppy_3"}
+        "https://s-media-cache-ak0.pinimg.com/236x/10/e3/d7/10e3d717d924e9181bda78dcd3f5cc12.jpg"
       ]
     },
     {
+      "petId" : "5",
       "uri" : "puppy_4",
-      "name": "Pumpkin",
+      "petName": "Pumpkin",
       "breed": "Corgi Mix",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.puppy_4"}
+        "http://dgicdplf3pvka.cloudfront.net/images/dogbreeds/large/Corgi.jpg"
       ]
     },
     {
+      "petId" : "6",
       "uri" : "puppy_5",
-      "name": "Cowboy",
-      "breed": "Golden Retriever",
+      "petName": "Cowboy",
+      "breed": "Australian Shepherd",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.puppy_5"}
+        "http://www.dogbreedinfo.com/images24/AustralianShepherdBlueMerleCopperWhiteRivalsEchoesOsotoGari2.jpg"
       ]
     },
     {
+      "petId" : "7",
       "uri" : "cat_2",
-      "name": "Ninja",
+      "petName": "Ninja",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.cat_2"}
+        "http://knowledgebase.lookseek.com/images/animals/cats/Russian-Blue-Cat.jpeg"
       ]
     },
     {
+      "petId" : "8",
       "uri" : "cat_3",
-      "name": "Francois",
+      "petName": "Francois",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.cat_3"}
+        "http://petful.supercopyeditors.netdna-cdn.com/wp-content/uploads/2012/03/maine-coon.jpg"
       ]
     },
     {
+      "petId" : "9",
       "uri" : "puppy_6",
-      "name": "Bear",
+      "petName": "Bear",
       "breed": "Malmute",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.puppy_6"}
+        "http://www.yourpurebredpuppy.com/dogbreeds/photos-AB/alaskanmalamutesf2.jpg"
       ]
     },
     {
+      "petId" : "10",
       "uri" : "puppy_7",
-      "name": "Brisket",
+      "petName": "Brisket",
       "breed": "Beagle",
       "species": "Dog",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.puppy_7"}
+        "http://www.dogtemperament.com/wp-content/uploads/2012/01/beagle-2.jpg"
       ]
     },
     {
+      "petId" : "11",
       "uri" : "cat_4",
-      "name": "Donut",
+      "petName": "Donut",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Male",
       "images": [
-        {"uri": "R.drawable.cat_4"}
+        "http://nextranks.com/data_images/cats/british-shorthair-cat/british-shorthair-cat-02.jpg"
       ]
     },
     {
+      "petId" : "12",
       "uri" : "cat_5",
-      "name": "Kit",
+      "petName": "Kit",
       "breed": "Cat",
       "species": "Cat",
       "gender": "Female",
       "images": [
-        {"uri": "R.drawable.cat_5"}
+        "https://upload.wikimedia.org/wikipedia/commons/0/07/American_Bombay_female_cat.jpg"
       ]
     }
   ]
