@@ -60,7 +60,7 @@
                     android:layout_marginLeft="12dp"
                     android:text="Golden Retriever"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@color/icons"/>
+                    android:textColor="@color/icons" />
 
             </LinearLayout>
 
@@ -87,172 +87,192 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <LinearLayout
+            <android.support.v7.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:padding="8dp"
+                app:columnCount="7">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_columnWeight="1" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_call_24dp"
                         android:tint="@color/primary" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:gravity="center"
                         android:text="Call"
                         android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="@color/primary" />
+
                 </LinearLayout>
 
-                <LinearLayout
+                <View
                     android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    app:layout_columnWeight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_email_24dp"
                         android:tint="@color/primary" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Email"
                         android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="@color/primary" />
+
                 </LinearLayout>
 
-                <LinearLayout
+                <View
                     android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    app:layout_columnWeight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_web_24dp"
                         android:tint="@color/primary" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Website"
                         android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="@color/primary" />
+
                 </LinearLayout>
-            </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_columnWeight="1" />
+
+            </android.support.v7.widget.GridLayout>
 
             <include layout="@layout/divider_grey" />
 
-            <LinearLayout
+            <android.support.v7.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:orientation="horizontal">
+                android:padding="8dp"
+                app:columnCount="2">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="Gender"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/secondary_text"
+                    app:layout_columnWeight="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gender"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/secondary_text" />
-
-                    <TextView
-                        android:id="@+id/gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Male"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/primary_text" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Size"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/secondary_text" />
-
-                    <TextView
-                        android:id="@+id/size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Medium"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/primary_text" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="Age"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/secondary_text"
+                    app:layout_columnWeight="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Age"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/secondary_text" />
+                <TextView
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/primary_text"
+                    app:layout_columnWeight="1" />
 
-                    <TextView
-                        android:id="@+id/age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4 Months"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/primary_text" />
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4 Months"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/primary_text"
+                    app:layout_columnWeight="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Location"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/secondary_text" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Size"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/secondary_text"
+                    app:layout_columnWeight="1" />
 
-                    <TextView
-                        android:id="@+id/city_state"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Orlando, FL"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/primary_text" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Location"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/secondary_text"
+                    app:layout_columnWeight="1" />
 
+                <TextView
+                    android:id="@+id/size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/primary_text"
+                    app:layout_columnWeight="1" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/city_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Orlando, FL"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/primary_text"
+                    app:layout_columnWeight="1" />
+
+            </android.support.v7.widget.GridLayout>
 
             <include layout="@layout/divider_grey" />
 
@@ -274,7 +294,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Harlem is straight from the hood.  A very good neighborhood where he was free to run around and engage in many adventures with his friends.  He was voted top dog three months in a row by the itty bitty kitty committee and his previous owners would attest that he is a very good boy."
                 android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text" />
 
             <include layout="@layout/divider_grey" />
 
@@ -297,7 +317,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Lady Lake Animal Control"
                     android:textAppearance="?android:textAppearanceSmall"
-                    android:textColor="@color/primary_text"/>
+                    android:textColor="@color/primary_text" />
 
 
                 <TextView
@@ -307,7 +327,7 @@
                     android:layout_marginTop="2dp"
                     android:text="409 Fennell Boulevard"
                     android:textAppearance="?android:textAppearanceSmall"
-                    android:textColor="@color/primary_text"/>
+                    android:textColor="@color/primary_text" />
 
                 <TextView
                     android:id="@+id/location_city_state_zip"
@@ -315,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:text="Lady Lake, FL 32159"
                     android:textAppearance="?android:textAppearanceSmall"
-                    android:textColor="@color/primary_text"/>
+                    android:textColor="@color/primary_text" />
             </LinearLayout>
 
         </LinearLayout>
