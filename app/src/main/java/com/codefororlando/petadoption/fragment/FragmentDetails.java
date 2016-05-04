@@ -1,9 +1,7 @@
 package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +11,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.AutoTransition;
@@ -33,7 +30,7 @@ import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
 import com.squareup.picasso.Picasso;
 
-public class FragmentDetails extends Fragment {
+public class FragmentDetails extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "FragmentDetails";
     public static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
@@ -68,7 +65,6 @@ public class FragmentDetails extends Fragment {
     }
 
 
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
@@ -96,7 +92,7 @@ public class FragmentDetails extends Fragment {
             setAnimalDetails(rootView, animal);
         }
 
-        final AppCompatActivity activity = (AppCompatActivity)getActivity();
+        final AppCompatActivity activity = (AppCompatActivity) getActivity();
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setHomeButtonEnabled(true);
@@ -106,7 +102,7 @@ public class FragmentDetails extends Fragment {
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
-        AppBarLayout appBarLayout = (AppBarLayout)rootView.findViewById(R.id.app_bar);
+        AppBarLayout appBarLayout = (AppBarLayout) rootView.findViewById(R.id.app_bar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -119,7 +115,7 @@ public class FragmentDetails extends Fragment {
                 if (scrollRange + verticalOffset < getActionBarHeight(activity)) {
                     collapsingToolbarLayout.setTitle(collapsedTitle);
                     isShow = true;
-                } else if(isShow) {
+                } else if (isShow) {
                     collapsingToolbarLayout.setTitle("");
                     isShow = false;
                 }
@@ -130,16 +126,40 @@ public class FragmentDetails extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.fragment_details_action_call)
+                .setOnClickListener(this);
+        view.findViewById(R.id.fragment_details_action_email)
+                .setOnClickListener(this);
+        view.findViewById(R.id.fragment_details_action_web)
+                .setOnClickListener(this);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                fm.popBackStack (FragmentDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fm.popBackStack(FragmentDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fragment_details_action_call:
+            case R.id.fragment_details_action_email:
+            case R.id.fragment_details_action_web:
+                break;
+            default:
+                throw new IllegalArgumentException("Unhandled click for " + v);
+        }
     }
 
     public void setAnimalDetails(View rootView, IAnimal animal) {
@@ -171,13 +191,12 @@ public class FragmentDetails extends Fragment {
     }
 
     //TODO move this to a util file or something.
-    public static int getActionBarHeight(final Context context)
-    {
+    public static int getActionBarHeight(final Context context) {
         // based on http://stackoverflow.com/questions/12301510/how-to-get-the-actionbar-height
-        final TypedValue tv=new TypedValue();
-        int actionBarHeight=0;
-        if(context.getTheme().resolveAttribute(R.attr.actionBarSize,tv,true))
-            actionBarHeight= TypedValue.complexToDimensionPixelSize(tv.data,context.getResources()
+        final TypedValue tv = new TypedValue();
+        int actionBarHeight = 0;
+        if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources()
                     .getDisplayMetrics());
         return actionBarHeight;
     }

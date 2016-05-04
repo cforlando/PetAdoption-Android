@@ -99,6 +99,7 @@
                     app:layout_columnWeight="1" />
 
                 <LinearLayout
+                    android:id="@+id/fragment_details_action_call"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackgroundBorderless"
@@ -131,6 +132,7 @@
                     app:layout_columnWeight="1" />
 
                 <LinearLayout
+                    android:id="@+id/fragment_details_action_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackgroundBorderless"
@@ -162,6 +164,7 @@
                     app:layout_columnWeight="1" />
 
                 <LinearLayout
+                    android:id="@+id/fragment_details_action_web"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackgroundBorderless"
