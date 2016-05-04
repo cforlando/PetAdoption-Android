@@ -36,8 +36,8 @@ public class FragmentListings extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        animalProvider = new StubbedAnimalProvider(getContext());
-//        animalProvider = new PetAdoptionProvider(getActivity());
+//        animalProvider = new StubbedAnimalProvider(getContext());
+        animalProvider = new PetAdoptionProvider(getActivity());
     }
 
     @Nullable
