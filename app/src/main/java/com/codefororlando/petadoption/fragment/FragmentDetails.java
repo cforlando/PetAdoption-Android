@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -61,8 +63,11 @@ public class FragmentDetails extends Fragment {
             fragmentDetails.setSharedElementReturnTransition(transition);
         }
 
+
         return fragmentDetails;
     }
+
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -80,7 +85,7 @@ public class FragmentDetails extends Fragment {
                 throw new NullPointerException("Missing required animal argument");
             }
 
-            Uri uri = animal.getImages().get(0).getUri();
+            String uri = animal.getImages().get(0);
             Picasso.with(imageView.getContext()).load(uri).into(imageView);
 
             if (Is.equal(SdkVersion.KITKAT)) {
@@ -120,8 +125,21 @@ public class FragmentDetails extends Fragment {
                 }
             }
         });
-
+        setHasOptionsMenu(true);
         return rootView;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack (FragmentDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void setAnimalDetails(View rootView, IAnimal animal) {

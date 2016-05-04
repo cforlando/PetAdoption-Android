@@ -30,6 +30,7 @@ public interface IAnimal extends IRetrievable {
     @NonNull
     @Gender String getGender();
 
+    @NonNull
     String getAge();
 
     boolean isAdoptable();
@@ -52,6 +53,5 @@ public interface IAnimal extends IRetrievable {
     String getShelterId();
 
     @NonNull
-    List<? extends IRetrievable> getImages();
-
+    List<String> getImages();
 }

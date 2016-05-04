@@ -23,7 +23,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class StubbedAnimalProvider implements IAnimalProvider {
 
@@ -54,6 +53,11 @@ public class StubbedAnimalProvider implements IAnimalProvider {
             Animal animal = gson.fromJson(element, Animal.class);
             stubbedAnimalList.add(animal);
         }
+    }
+
+    @Override
+    public void getAnimals(AnimalHandler handler) {
+        handler.onResult(true, stubbedAnimalList);
     }
 
     public class UriDeserializer implements JsonDeserializer<Uri> {
@@ -87,10 +91,5 @@ public class StubbedAnimalProvider implements IAnimalProvider {
         private Uri getUriForDrawable(@NonNull Context context, @NonNull int drawable) {
             return Uri.parse("android.resource://" + context.getPackageName() + "/" + drawable);
         }
-    }
-
-    @Override
-    public List<IAnimal> getAnimals() {
-        return stubbedAnimalList;
     }
 }

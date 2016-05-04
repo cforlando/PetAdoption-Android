@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.data.IAnimal;
-import com.codefororlando.petadoption.data.IRetrievable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -19,9 +18,11 @@ public class Animal implements IAnimal {
     private final Uri uri;
 
     @NonNull
+    @SerializedName("petId")
     String id;
 
     @NonNull
+    @SerializedName("petName")
     private String name;
 
     @NonNull
@@ -35,6 +36,7 @@ public class Animal implements IAnimal {
     @NonNull
     private String breed;
 
+    @NonNull
     private String age;
 
     @SerializedName("adoptable")
@@ -42,20 +44,24 @@ public class Animal implements IAnimal {
 
     private boolean shouldActQuickly;
 
+    @NonNull
     private String color;
 
+    @NonNull
     private String description;
 
+    @NonNull
     private String activityLevel;
 
+    @NonNull
     private String intakeDate;
 
+    @NonNull
     private String shelterId;
 
-    private List<RetrievableImpl> images;
+    List<String> images;
 
     // Constructors
-
     public Animal(@NonNull Uri uri, @NonNull String name, @NonNull @Gender String gender,
                   @NonNull String species, @NonNull String breed) {
         this.uri = uri;
@@ -106,7 +112,7 @@ public class Animal implements IAnimal {
     @Override
     @NonNull
     public String getTag() {
-        return uri.toString();
+        return id;//uri.toString();
     }
 
     // IAnimal Implementation
@@ -181,12 +187,16 @@ public class Animal implements IAnimal {
         return shelterId;
     }
 
-    @Override
-    public List<? extends IRetrievable> getImages() {
+    public List<String> getImages() {
+        //HACK
+//        ArrayList<String> placeholder = new ArrayList<String>() {{
+//            add("http://placekitten.com/g/200/300");
+//        }};
+//        return placeholder;
         return images;
     }
 
-    public void setImages(List<RetrievableImpl> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 }
