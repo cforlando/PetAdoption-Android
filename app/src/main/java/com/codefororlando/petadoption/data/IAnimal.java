@@ -11,9 +11,9 @@ public interface IAnimal extends IRetrievable {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({MALE, FEMALE})
-    public @interface Gender {}
-    public static final String MALE = "Male";
-    public static final String FEMALE = "Female";
+    @interface Gender {}
+    String MALE = "Male";
+    String FEMALE = "Female";
 
     @NonNull
     String getId();
