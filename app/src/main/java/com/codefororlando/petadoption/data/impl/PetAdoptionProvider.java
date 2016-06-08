@@ -45,7 +45,7 @@ public class PetAdoptionProvider implements IAnimalProvider {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://pet-adoption-server.herokuapp.com/api/v2/")
+                .baseUrl("http://cfo-pet-adoption-server.eastus.cloudapp.azure.com/api/v2/ ")
                 .client(client)
                 .build();
 
