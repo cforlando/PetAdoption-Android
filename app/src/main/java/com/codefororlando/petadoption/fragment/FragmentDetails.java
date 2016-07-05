@@ -6,11 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +33,8 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "FragmentDetails";
     public static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
-    String collapsedTitle = "";
+
+    private Toolbar toolbar;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static FragmentDetails newInstance(@NonNull Context context,
@@ -66,6 +64,11 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
         return fragmentDetails;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -74,6 +77,16 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.puppy_image);
+
+        final AppCompatActivity activity = (AppCompatActivity) getActivity();
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        activity.setSupportActionBar(toolbar);
+
+        ActionBar supportActionBar = activity.getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setHomeButtonEnabled(true);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -94,41 +107,6 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
             setAnimalDetails(rootView, animal);
         }
 
-        final AppCompatActivity activity = (AppCompatActivity) getActivity();
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        activity.setSupportActionBar(toolbar);
-
-        ActionBar supportActionBar = activity.getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setHomeButtonEnabled(true);
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        final CollapsingToolbarLayout collapsingToolbarLayout
-                = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setExpandedTitleColor(
-                ContextCompat.getColor(getActivity(), android.R.color.transparent));
-
-        AppBarLayout appBarLayout = (AppBarLayout) rootView.findViewById(R.id.app_bar);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset < getActionBarHeight(activity)) {
-                    collapsingToolbarLayout.setTitle(collapsedTitle);
-                    isShow = true;
-                } else if (isShow) {
-                    collapsingToolbarLayout.setTitle("");
-                    isShow = false;
-                }
-            }
-        });
-        setHasOptionsMenu(true);
         return rootView;
     }
 
@@ -170,8 +148,7 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
     }
 
     public void setAnimalDetails(View rootView, IAnimal animal) {
-        TextView name = (TextView) rootView.findViewById(R.id.title);
-        TextView breed = (TextView) rootView.findViewById(R.id.title_subtext);
+        // TextView breed = (TextView) rootView.findViewById(R.id.title_subtext);
         TextView gender = (TextView) rootView.findViewById(R.id.gender);
         TextView size = (TextView) rootView.findViewById(R.id.size);
         TextView age = (TextView) rootView.findViewById(R.id.age);
@@ -182,8 +159,8 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
         TextView locationStreet = (TextView) rootView.findViewById(R.id.location_street);
         TextView locationCityStateZip = (TextView) rootView.findViewById(R.id.location_city_state_zip);
 
-        name.setText(animal.getName());
-        breed.setText(animal.getBreed());
+        toolbar.setTitle(animal.getName());
+        //breed.setText(animal.getBreed());
         gender.setText(animal.getGender());
 //        size.setText("TODO");
         age.setText(String.valueOf(animal.getAge()));
@@ -193,8 +170,6 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
 //        locationName.setText("TODO");
 //        locationStreet.setText("TODO");
 //        locationCityStateZip.setText("TODO");
-
-        collapsedTitle = animal.getName() + " - " + animal.getBreed();
     }
 
     //TODO move this to a util file or something.
