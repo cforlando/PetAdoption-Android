@@ -3,6 +3,7 @@ package com.codefororlando.petadoption.fragment;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
@@ -21,7 +22,6 @@ import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
 import com.codefororlando.petadoption.data.IAnimalProvider;
 import com.codefororlando.petadoption.data.impl.PetAdoptionProvider;
-import com.codefororlando.petadoption.data.impl.StubbedAnimalProvider;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -137,7 +137,10 @@ public class FragmentListings extends Fragment {
             }
 
             String uri = animal.getImages().get(0);
-            Picasso.with(imageView.getContext()).load(uri).into(imageView);
+            Picasso.with(imageView.getContext())
+                    .load(uri)
+                    .placeholder(getAnimalPlacholder())
+                    .into(imageView);
         }
 
         @Override
@@ -152,6 +155,19 @@ public class FragmentListings extends Fragment {
         IAnimal getAnimal() {
             return animal;
         }
+
+        @DrawableRes
+        int getAnimalPlacholder() {
+            switch (getAnimal().getSpecies()) {
+                case "cat":
+                    return R.drawable.placeholder_cat;
+                case "dog":
+                    return R.drawable.placeholder_dog;
+                default:
+                    throw new IllegalArgumentException("Unknown species " + animal.getSpecies());
+            }
+        }
+
     }
 
     class ClickListenerImpl implements IClickListener {
