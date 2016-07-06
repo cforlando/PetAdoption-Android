@@ -2,6 +2,8 @@ package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -159,14 +161,35 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        IAnimal animal = getArguments().getParcelable(EXTRA_ANIMAL);
+        if(animal == null) {
+            return;
+        }
+
+        String shelterId = animal.getShelterId();
+        //Todo use shelterId to get shelter contact info
+        Intent contactIntent;
         switch (v.getId()) {
             case R.id.fragment_details_action_call:
+                contactIntent = new Intent(Intent.ACTION_DIAL);
+                String uri = "tel:3527511530";
+                contactIntent.setData(Uri.parse(uri));
+                startActivity(contactIntent);
+                break;
             case R.id.fragment_details_action_email:
+                contactIntent = new Intent(Intent.ACTION_SEND);
+                contactIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@ladylake.org"});
+                contactIntent.putExtra(Intent.EXTRA_SUBJECT, "Request Information on " + animal.getName());
+                contactIntent.setType("plain/text");;
+                break;
             case R.id.fragment_details_action_web:
+                contactIntent = new Intent(Intent.ACTION_VIEW);
+                contactIntent.setData(Uri.parse("http://ladylake.org/departments/police-department/animal-control-2"));
                 break;
             default:
                 throw new IllegalArgumentException("Unhandled click for " + v);
         }
+        startActivity(contactIntent);
     }
 
     public void setAnimalDetails(View rootView, IAnimal animal) {
