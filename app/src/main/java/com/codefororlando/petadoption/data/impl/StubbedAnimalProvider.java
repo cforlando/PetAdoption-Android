@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class StubbedAnimalProvider implements IAnimalProvider {
 
@@ -92,4 +93,10 @@ public class StubbedAnimalProvider implements IAnimalProvider {
             return Uri.parse("android.resource://" + context.getPackageName() + "/" + drawable);
         }
     }
+
+    @Override
+    public List<String> getQualifiedImagePaths(IAnimal animal) {
+        return animal.getImages();
+    }
+
 }

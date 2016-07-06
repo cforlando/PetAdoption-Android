@@ -7,6 +7,7 @@ import com.codefororlando.petadoption.data.IAnimalProvider;
 import com.codefororlando.petadoption.network.PetAdoptionService;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +26,8 @@ import retrofit2.Retrofit;
 //TODO seperate cache logic from provider
 public class PetAdoptionProvider implements IAnimalProvider {
 
+    private static final String BASE_URL = "http://cfo-pet-adoption-server.eastus.cloudapp.azure.com";
+    private static final String API_URL = BASE_URL + "/api/v2/";
     private static final int CONNECT_TIMEOUT = 15;
     private static final int WRITE_TIMEOUT = 30;
     private static final int READ_TIMEOUT = 30;
@@ -45,7 +48,7 @@ public class PetAdoptionProvider implements IAnimalProvider {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://cfo-pet-adoption-server.eastus.cloudapp.azure.com/api/v2/ ")
+                .baseUrl(API_URL)
                 .client(client)
                 .build();
 
@@ -76,4 +79,15 @@ public class PetAdoptionProvider implements IAnimalProvider {
             });
         }
     }
+
+    @Override
+    public List<String> getQualifiedImagePaths(IAnimal animal) {
+        List<String> images = animal.getImages();
+        List<String> outputs = new LinkedList<>();
+        for (String image : images) {
+            outputs.add(BASE_URL + image);
+        }
+        return outputs;
+    }
+
 }
