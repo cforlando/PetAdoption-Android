@@ -3,9 +3,11 @@ package com.codefororlando.petadoption.fragment;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -32,7 +34,10 @@ import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
+import com.codefororlando.petadoption.data.impl.PetAdoptionProvider;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class FragmentDetails extends Fragment implements View.OnClickListener {
 
@@ -86,7 +91,17 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
             }
 
             String uri = animal.getImages().get(0);
-            Picasso.with(imageView.getContext()).load(uri).into(imageView);
+            PetAdoptionProvider animalProvider = new PetAdoptionProvider(getActivity());
+            List<String> qualifiedImagePaths = animalProvider.getQualifiedImagePaths(animal);
+            if (qualifiedImagePaths.size() > 0) {
+                Picasso.with(imageView.getContext())
+                        .load(qualifiedImagePaths.get(0))
+                        .placeholder(getAnimalPlaceholder(animal))
+                        .into(imageView);
+            } else {
+                Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), getAnimalPlaceholder(animal));
+                imageView.setImageDrawable(drawable);
+            }
 
             if (Is.equal(SdkVersion.KITKAT)) {
                 ViewCompat.setTransitionName(imageView, animal.getTag());
@@ -132,6 +147,20 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
         });
         setHasOptionsMenu(true);
         return rootView;
+    }
+
+
+    @DrawableRes
+    private int getAnimalPlaceholder(IAnimal animal) {
+        //Todo move this and the getAnimalPlaceholder method in FragmentListings into one place
+        switch (animal.getSpecies()) {
+            case "cat":
+                return R.drawable.placeholder_cat;
+            case "dog":
+                return R.drawable.placeholder_dog;
+            default:
+                throw new IllegalArgumentException("Unknown species " + animal.getSpecies());
+        }
     }
 
     @Override
