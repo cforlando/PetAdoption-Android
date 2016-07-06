@@ -1,11 +1,13 @@
 package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -45,7 +47,7 @@ public class FragmentListings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
 
-        adapter = new AnimalAdapter(new ClickListenerImpl());
+        adapter = new AnimalAdapter(animalProvider, new ClickListenerImpl());
         animalProvider.getAnimals(new IAnimalProvider.AnimalHandler() {
             @Override
             public void onResult(boolean isSuccessful, List<? extends IAnimal> result) {
@@ -78,8 +80,10 @@ public class FragmentListings extends Fragment {
 
         final IClickListener clickListener;
         final List<IAnimal> animals;
+        final IAnimalProvider animalProvider;
 
-        public AnimalAdapter(IClickListener clickListener) {
+        public AnimalAdapter(IAnimalProvider animalProvider, IClickListener clickListener) {
+            this.animalProvider = animalProvider;
             this.clickListener = clickListener;
             animals = new ArrayList<>();
         }
@@ -89,7 +93,7 @@ public class FragmentListings extends Fragment {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.animal_item, parent, false);
 
-            return new AnimalViewHolder(view, clickListener);
+            return new AnimalViewHolder(view, animalProvider, clickListener);
         }
 
         @Override
@@ -113,12 +117,17 @@ public class FragmentListings extends Fragment {
     static class AnimalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final IClickListener clickListener;
+        private final IAnimalProvider animalProvider;
         private ImageView imageView;
         private IAnimal animal;
 
-        public AnimalViewHolder(View itemView, IClickListener clickListener) {
+        public AnimalViewHolder(View itemView,
+                                IAnimalProvider animalProvider,
+                                IClickListener clickListener) {
+
             super(itemView);
 
+            this.animalProvider = animalProvider;
             this.clickListener = clickListener;
 
             imageView = (ImageView) itemView.findViewById(R.id.puppy_image);
@@ -136,11 +145,16 @@ public class FragmentListings extends Fragment {
                 imageView.setTransitionName(animal.getTag());
             }
 
-            String uri = animal.getImages().get(0);
-            Picasso.with(imageView.getContext())
-                    .load(uri)
-                    .placeholder(getAnimalPlacholder())
-                    .into(imageView);
+            List<String> qualifiedImagePaths = animalProvider.getQualifiedImagePaths(animal);
+            if (qualifiedImagePaths.size() > 0) {
+                Picasso.with(imageView.getContext())
+                        .load(qualifiedImagePaths.get(0))
+                        .placeholder(getAnimalPlacholder())
+                        .into(imageView);
+            } else {
+                Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), getAnimalPlacholder());
+                imageView.setImageDrawable(drawable);
+            }
         }
 
         @Override

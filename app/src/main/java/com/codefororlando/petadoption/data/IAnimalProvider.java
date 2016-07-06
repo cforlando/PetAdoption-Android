@@ -9,4 +9,7 @@ public interface IAnimalProvider {
     }
 
     void getAnimals(AnimalHandler handler);
+
+    List<String> getQualifiedImagePaths(IAnimal animal);
+
 }
