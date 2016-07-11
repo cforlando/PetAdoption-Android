@@ -90,7 +90,6 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
                 throw new NullPointerException("Missing required animal argument");
             }
 
-            String uri = animal.getImages().get(0);
             PetAdoptionProvider animalProvider = new PetAdoptionProvider(getActivity());
             List<String> qualifiedImagePaths = animalProvider.getQualifiedImagePaths(animal);
             if (qualifiedImagePaths.size() > 0) {
