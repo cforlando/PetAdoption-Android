@@ -2,8 +2,12 @@ package com.codefororlando.petadoption.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,7 +31,10 @@ import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
+import com.codefororlando.petadoption.data.impl.PetAdoptionProvider;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class FragmentDetails extends Fragment implements View.OnClickListener {
 
@@ -96,8 +103,17 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
                 throw new NullPointerException("Missing required animal argument");
             }
 
-            String uri = animal.getImages().get(0);
-            Picasso.with(imageView.getContext()).load(uri).into(imageView);
+            PetAdoptionProvider animalProvider = new PetAdoptionProvider(getActivity());
+            List<String> qualifiedImagePaths = animalProvider.getQualifiedImagePaths(animal);
+            if (qualifiedImagePaths.size() > 0) {
+                Picasso.with(imageView.getContext())
+                        .load(qualifiedImagePaths.get(0))
+                        .placeholder(getAnimalPlaceholder(animal))
+                        .into(imageView);
+            } else {
+                Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), getAnimalPlaceholder(animal));
+                imageView.setImageDrawable(drawable);
+            }
 
             if (Is.equal(SdkVersion.KITKAT)) {
                 ViewCompat.setTransitionName(imageView, animal.getTag());
@@ -108,6 +124,20 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
         }
 
         return rootView;
+    }
+
+
+    @DrawableRes
+    private int getAnimalPlaceholder(IAnimal animal) {
+        //Todo move this and the getAnimalPlaceholder method in FragmentListings into one place
+        switch (animal.getSpecies()) {
+            case "cat":
+                return R.drawable.placeholder_cat;
+            case "dog":
+                return R.drawable.placeholder_dog;
+            default:
+                throw new IllegalArgumentException("Unknown species " + animal.getSpecies());
+        }
     }
 
     @Override
@@ -137,14 +167,35 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        IAnimal animal = getArguments().getParcelable(EXTRA_ANIMAL);
+        if(animal == null) {
+            return;
+        }
+
+        String shelterId = animal.getShelterId();
+        //Todo use shelterId to get shelter contact info
+        Intent contactIntent;
         switch (v.getId()) {
             case R.id.fragment_details_action_call:
+                contactIntent = new Intent(Intent.ACTION_DIAL);
+                String uri = "tel:3527511530";
+                contactIntent.setData(Uri.parse(uri));
+                startActivity(contactIntent);
+                break;
             case R.id.fragment_details_action_email:
+                contactIntent = new Intent(Intent.ACTION_SEND);
+                contactIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@ladylake.org"});
+                contactIntent.putExtra(Intent.EXTRA_SUBJECT, "Request Information on " + animal.getName());
+                contactIntent.setType("plain/text");;
+                break;
             case R.id.fragment_details_action_web:
+                contactIntent = new Intent(Intent.ACTION_VIEW);
+                contactIntent.setData(Uri.parse("http://ladylake.org/departments/police-department/animal-control-2"));
                 break;
             default:
                 throw new IllegalArgumentException("Unhandled click for " + v);
         }
+        startActivity(contactIntent);
     }
 
     public void setAnimalDetails(View rootView, IAnimal animal) {

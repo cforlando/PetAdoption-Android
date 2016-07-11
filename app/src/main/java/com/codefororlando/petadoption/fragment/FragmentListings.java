@@ -149,10 +149,10 @@ public class FragmentListings extends Fragment {
             if (qualifiedImagePaths.size() > 0) {
                 Picasso.with(imageView.getContext())
                         .load(qualifiedImagePaths.get(0))
-                        .placeholder(getAnimalPlacholder())
+                        .placeholder(getAnimalPlaceholder())
                         .into(imageView);
             } else {
-                Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), getAnimalPlacholder());
+                Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), getAnimalPlaceholder());
                 imageView.setImageDrawable(drawable);
             }
         }
@@ -171,7 +171,7 @@ public class FragmentListings extends Fragment {
         }
 
         @DrawableRes
-        int getAnimalPlacholder() {
+        int getAnimalPlaceholder() {
             switch (getAnimal().getSpecies()) {
                 case "cat":
                     return R.drawable.placeholder_cat;
