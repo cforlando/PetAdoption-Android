@@ -9,4 +9,27 @@
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
+    <style name="ExpandedDetailAppBar" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CollapsedDetailAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ExpandedDetailPlaceHolderAppBar" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CollapsedDetailPlaceHolderAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>
