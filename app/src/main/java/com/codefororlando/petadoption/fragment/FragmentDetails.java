@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
@@ -19,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.transition.AutoTransition;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +32,7 @@ import com.ToxicBakery.android.version.SdkVersion;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.IAnimal;
 import com.codefororlando.petadoption.data.impl.PetAdoptionProvider;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -67,7 +68,6 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
             fragmentDetails.setSharedElementReturnTransition(transition);
         }
 
-
         return fragmentDetails;
     }
 
@@ -82,8 +82,8 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
-
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.puppy_image);
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
+        final ImageView imageView = (ImageView) rootView.findViewById(R.id.puppy_image);
 
         final AppCompatActivity activity = (AppCompatActivity) getActivity();
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
@@ -103,26 +103,25 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
                 throw new NullPointerException("Missing required animal argument");
             }
 
-            PetAdoptionProvider animalProvider = new PetAdoptionProvider(getActivity());
-            List<String> qualifiedImagePaths = animalProvider.getQualifiedImagePaths(animal);
-            if (qualifiedImagePaths.size() > 0) {
-                Picasso.with(imageView.getContext())
-                        .load(qualifiedImagePaths.get(0))
-                        .placeholder(getAnimalPlaceholder(animal))
-                        .into(imageView);
-            } else {
-                Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), getAnimalPlaceholder(animal));
-                imageView.setImageDrawable(drawable);
-            }
-
-            if (Is.equal(SdkVersion.KITKAT)) {
-                ViewCompat.setTransitionName(imageView, animal.getTag());
-            } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
-                imageView.setTransitionName(animal.getTag());
-            }
             setAnimalDetails(rootView, animal);
-        }
 
+            Callback imageLoadCallback = new Callback() {
+                @Override
+                public void onSuccess() {
+                    collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedDetailAppBar);
+                    collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedDetailAppBar);
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+                }
+
+                @Override
+                public void onError() {
+                    collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedDetailPlaceHolderAppBar);
+                    collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedDetailPlaceHolderAppBar);
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow_back_primary_24dp);
+                }
+            };
+            loadAnimalPicture(animal, imageView, imageLoadCallback);
+        }
         return rootView;
     }
 
@@ -168,7 +167,7 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         IAnimal animal = getArguments().getParcelable(EXTRA_ANIMAL);
-        if(animal == null) {
+        if (animal == null) {
             return;
         }
 
@@ -186,7 +185,8 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
                 contactIntent = new Intent(Intent.ACTION_SEND);
                 contactIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@ladylake.org"});
                 contactIntent.putExtra(Intent.EXTRA_SUBJECT, "Request Information on " + animal.getName());
-                contactIntent.setType("plain/text");;
+                contactIntent.setType("plain/text");
+                ;
                 break;
             case R.id.fragment_details_action_web:
                 contactIntent = new Intent(Intent.ACTION_VIEW);
@@ -199,39 +199,54 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
     }
 
     public void setAnimalDetails(View rootView, IAnimal animal) {
-        // TextView breed = (TextView) rootView.findViewById(R.id.title_subtext);
         TextView gender = (TextView) rootView.findViewById(R.id.gender);
         TextView size = (TextView) rootView.findViewById(R.id.size);
         TextView age = (TextView) rootView.findViewById(R.id.age);
         TextView location = (TextView) rootView.findViewById(R.id.city_state);
-
         TextView description = (TextView) rootView.findViewById(R.id.description);
-        TextView locationName = (TextView) rootView.findViewById(R.id.location_name);
-        TextView locationStreet = (TextView) rootView.findViewById(R.id.location_street);
-        TextView locationCityStateZip = (TextView) rootView.findViewById(R.id.location_city_state_zip);
 
         toolbar.setTitle(animal.getName());
-        //breed.setText(animal.getBreed());
-        gender.setText(animal.getGender());
-//        size.setText("TODO");
-        age.setText(String.valueOf(animal.getAge()));
-//        location.setText("TODO");
-
+        gender.setText(getAnimalPropertyOrDefault(animal.getGender()));
+        size.setText(getUnavailableFieldDefault());
+        age.setText(getAnimalPropertyOrDefault(animal.getAge()));
+        location.setText(getUnavailableFieldDefault());
         description.setText(animal.getDescription());
-//        locationName.setText("TODO");
-//        locationStreet.setText("TODO");
-//        locationCityStateZip.setText("TODO");
     }
 
-    //TODO move this to a util file or something.
-    public static int getActionBarHeight(final Context context) {
-        // based on http://stackoverflow.com/questions/12301510/how-to-get-the-actionbar-height
-        final TypedValue tv = new TypedValue();
-        int actionBarHeight = 0;
-        if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources()
-                    .getDisplayMetrics());
-        return actionBarHeight;
+    private String getUnavailableFieldDefault() {
+        return "N/A";
+    }
+
+    private String getAnimalPropertyOrDefault(String property) {
+        if (property != null && property.length() > 0) {
+            return property;
+        }
+        return getUnavailableFieldDefault();
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void loadAnimalPicture(@NonNull final IAnimal animal,
+                                   @NonNull final ImageView animalImageView,
+                                   @NonNull final Callback imageLoadCallback) {
+        PetAdoptionProvider animalProvider = new PetAdoptionProvider(getActivity());
+        List<String> qualifiedImagePaths = animalProvider.getQualifiedImagePaths(animal);
+        if (qualifiedImagePaths.size() > 0) {
+            Picasso.with(animalImageView.getContext())
+                    .load(qualifiedImagePaths.get(0))
+                    .placeholder(getAnimalPlaceholder(animal))
+                    .into(animalImageView, imageLoadCallback);
+
+        } else {
+            Drawable drawable = getContext().getDrawable(getAnimalPlaceholder(animal));
+            animalImageView.setImageDrawable(drawable);
+        }
+
+        if (Is.equal(SdkVersion.KITKAT)) {
+            ViewCompat.setTransitionName(animalImageView, animal.getTag());
+        } else if (Is.greaterThanOrEqual(SdkVersion.LOLLIPOP)) {
+            animalImageView.setTransitionName(animal.getTag());
+        }
     }
 
 }
