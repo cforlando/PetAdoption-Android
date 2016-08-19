@@ -85,7 +85,7 @@ public class PetAdoptionProvider implements IAnimalProvider {
         List<String> images = animal.getImages();
         List<String> outputs = new LinkedList<>();
         for (String image : images) {
-            outputs.add(BASE_URL + image);
+            outputs.add(image);
         }
         return outputs;
     }
