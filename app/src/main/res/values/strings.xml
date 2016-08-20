@@ -9,4 +9,7 @@
     <string name="launch_message">Pet Adoption</string>
     <!-- FragmentInfo -->
     <string name="info_content">This app was lovingly crafted for Lady Lake by the fine volunteers of Code for Orlando.\n\nCheck out www.codefororlando.com for more info.</string>
+    <string name="info_intent_error_no_dialer">Phone dialer was not found on this device.</string>
+    <string name="info_intent_error_no_email">Email client was not found on this device.</string>
+    <string name="info_intent_error_no_browser">Web browser was not found on this device.</string>
 </resources>
