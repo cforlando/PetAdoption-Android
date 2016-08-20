@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ToxicBakery.android.version.Is;
 import com.ToxicBakery.android.version.SdkVersion;
@@ -173,29 +175,28 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
 
         String shelterId = animal.getShelterId();
         //Todo use shelterId to get shelter contact info
-        Intent contactIntent;
         switch (v.getId()) {
             case R.id.fragment_details_action_call:
-                contactIntent = new Intent(Intent.ACTION_DIAL);
+                Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
                 String uri = "tel:3527511530";
-                contactIntent.setData(Uri.parse(uri));
-                startActivity(contactIntent);
+                phoneIntent.setData(Uri.parse(uri));
+                startActivity(phoneIntent, R.string.info_intent_error_no_dialer);
                 break;
             case R.id.fragment_details_action_email:
-                contactIntent = new Intent(Intent.ACTION_SEND);
-                contactIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@ladylake.org"});
-                contactIntent.putExtra(Intent.EXTRA_SUBJECT, "Request Information on " + animal.getName());
-                contactIntent.setType("plain/text");
-                ;
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@ladylake.org"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Request Information on " + animal.getName());
+                emailIntent.setType("plain/text");
+                startActivity(emailIntent, R.string.info_intent_error_no_email);
                 break;
             case R.id.fragment_details_action_web:
-                contactIntent = new Intent(Intent.ACTION_VIEW);
-                contactIntent.setData(Uri.parse("http://ladylake.org/departments/police-department/animal-control-2"));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW);
+                webIntent.setData(Uri.parse("http://ladylake.org/departments/police-department/animal-control-2"));
+                startActivity(webIntent, R.string.info_intent_error_no_browser);
                 break;
             default:
                 throw new IllegalArgumentException("Unhandled click for " + v);
         }
-        startActivity(contactIntent);
     }
 
     public void setAnimalDetails(View rootView, IAnimal animal) {
@@ -211,6 +212,20 @@ public class FragmentDetails extends Fragment implements View.OnClickListener {
         age.setText(getAnimalPropertyOrDefault(animal.getAge()));
         location.setText(getUnavailableFieldDefault());
         description.setText(animal.getDescription());
+    }
+
+    /**
+     * Start an activity or show an error.
+     *
+     * @param intent         activity intent
+     * @param onErrorMessage message to display if starting the activity fails
+     */
+    private void startActivity(Intent intent, @StringRes int onErrorMessage) {
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), onErrorMessage, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private String getUnavailableFieldDefault() {
