@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion Integer.parseInt(compile_sdk)
@@ -20,14 +21,40 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:gridlayout-v7:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.google.code.gson:gson:2.6.2'
+    // Android Support
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:gridlayout-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+
+    // Dagger
+    compile 'com.google.dagger:dagger:2.7'
+    apt 'com.google.dagger:dagger-compiler:2.7'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    // MVP
+    compile 'info.android15.nucleus:nucleus:4.0.0'
+    compile 'info.android15.nucleus:nucleus-support-v7:4.0.0'
+
+    // Networking
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+    // RX
+    compile 'io.reactivex:rxjava:1.2.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+
+    // LoganSquare
+    apt "com.bluelinelabs:logansquare-compiler:1.3.7"
+    compile "com.bluelinelabs:logansquare:1.3.7"
+    compile "com.github.aurae.retrofit2:converter-logansquare:1.4.1"
+
+    // AutoValue
+    compile "com.google.auto.value:auto-value:1.2"
+    apt "com.google.auto.value:auto-value:1.2"
+    compile 'com.infstory:auto-json:1.0.2'
+    apt 'com.infstory:auto-json-processor:1.0.2'
+
+    // Misc
     compile 'com.ToxicBakery.android.version:versions:1.0.13'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
 }
