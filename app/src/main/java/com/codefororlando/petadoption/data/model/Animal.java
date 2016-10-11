@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.data;
+package com.codefororlando.petadoption.data.model;
 
 import com.codefororlando.petadoption.data.annotation.Gender;
 

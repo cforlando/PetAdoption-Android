@@ -1,12 +1,14 @@
 package com.codefororlando.petadoption;
 
 import android.app.Application;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.component.AppComponent;
 import com.codefororlando.petadoption.component.DaggerAppComponent;
 import com.codefororlando.petadoption.module.AppModule;
 import com.codefororlando.petadoption.module.NetworkModule;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by tencent on 10/8/16.
@@ -18,6 +20,21 @@ public class PetApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        LeakCanary.install(this);
+
+        //Catch common mistakes
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+        }
 
         String baseUrl = getString(R.string.base_url);
         String apiUrl = getString(R.string.api_url, baseUrl);

@@ -1,9 +1,9 @@
 package com.codefororlando.petadoption.module;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.codefororlando.petadoption.R;
+import com.codefororlando.petadoption.network.IPetAdoptionService;
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
 
 import javax.inject.Singleton;
@@ -61,6 +61,11 @@ public class NetworkModule {
                 .client(client)
                 .baseUrl(apiUrl)
                 .build();
+    }
+
+    @Provides
+    IPetAdoptionService providePetAdoptionService(Retrofit retrofit) {
+        return retrofit.create(IPetAdoptionService.class);
     }
 
 }

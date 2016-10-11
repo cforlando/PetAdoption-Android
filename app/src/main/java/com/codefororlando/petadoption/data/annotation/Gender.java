@@ -2,7 +2,7 @@ package com.codefororlando.petadoption.data.annotation;
 
 import android.support.annotation.StringDef;
 
-import com.codefororlando.petadoption.data.AnimalGender;
+import com.codefororlando.petadoption.data.model.AnimalGender;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

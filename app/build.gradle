@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
 android {
     compileSdkVersion Integer.parseInt(compile_sdk)
     buildToolsVersion build_tools
@@ -54,6 +60,13 @@ dependencies {
     apt "com.google.auto.value:auto-value:1.2"
     compile 'com.infstory:auto-json:1.0.2'
     apt 'com.infstory:auto-json-processor:1.0.2'
+
+    // Logging
+    compile 'com.jakewharton.timber:timber:4.3.1'
+
+    // Leak Canary
+    debugCompile "com.squareup.leakcanary:leakcanary-android:1.5"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:1.5"
 
     // Misc
     compile 'com.ToxicBakery.android.version:versions:1.0.13'

@@ -1,6 +1,8 @@
 package com.codefororlando.petadoption.view;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
@@ -15,6 +17,8 @@ import nucleus.view.NucleusAppCompatActivity;
  */
 public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
 
+    private RecyclerView recyclerView;
+
     @Inject
     ListPresenter listPresenter;
 
@@ -25,6 +29,13 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
 
         ((PetApplication) getApplication()).component()
                 .inject(this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        recyclerView.setAdapter(adapter);
     }
 
 }
