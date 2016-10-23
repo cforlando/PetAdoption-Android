@@ -4,10 +4,10 @@ import android.app.Application;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 
-import com.codefororlando.petadoption.component.AppComponent;
-import com.codefororlando.petadoption.component.DaggerAppComponent;
-import com.codefororlando.petadoption.module.AppModule;
-import com.codefororlando.petadoption.module.NetworkModule;
+import com.codefororlando.petadoption.di.component.AppComponent;
+import com.codefororlando.petadoption.di.component.DaggerAppComponent;
+import com.codefororlando.petadoption.di.module.AppModule;
+import com.codefororlando.petadoption.di.module.NetworkModule;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -47,7 +47,7 @@ public class PetApplication extends Application {
     }
 
     @NonNull
-    public AppComponent component() {
+    public AppComponent appComponent() {
         return component;
     }
 

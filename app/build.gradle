@@ -28,10 +28,10 @@ android {
 
 dependencies {
     // Android Support
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:gridlayout-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:gridlayout-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
 
     // Dagger
     compile 'com.google.dagger:dagger:2.7'
@@ -45,6 +45,7 @@ dependencies {
     // Networking
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
     // RX
     compile 'io.reactivex:rxjava:1.2.0'
@@ -54,12 +55,6 @@ dependencies {
     apt "com.bluelinelabs:logansquare-compiler:1.3.7"
     compile "com.bluelinelabs:logansquare:1.3.7"
     compile "com.github.aurae.retrofit2:converter-logansquare:1.4.1"
-
-    // AutoValue
-    compile "com.google.auto.value:auto-value:1.2"
-    apt "com.google.auto.value:auto-value:1.2"
-    compile 'com.infstory:auto-json:1.0.2'
-    apt 'com.infstory:auto-json-processor:1.0.2'
 
     // Logging
     compile 'com.jakewharton.timber:timber:4.3.1'

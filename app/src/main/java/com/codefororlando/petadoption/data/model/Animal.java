@@ -1,92 +1,75 @@
 package com.codefororlando.petadoption.data.model;
 
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+
+import com.bluelinelabs.logansquare.annotation.JsonField;
+import com.bluelinelabs.logansquare.annotation.JsonObject;
+import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.annotation.Gender;
 
 import java.util.List;
 
-import auto.json.AutoJson;
+@JsonObject
+public class Animal {
 
-@AutoJson
-public abstract class Animal {
-
-    public static Builder builder() {
-        return new AutoJson_Animal.Builder();
+    /**
+     * Get the animal placeholder image resource.
+     *
+     * @return placeholder image resource for the species or a dog for unknown species
+     */
+    @DrawableRes
+    public static int placeholderImageResource(@NonNull Animal animal) {
+        switch (animal.species) {
+            case "cat":
+                return R.drawable.placeholder_cat;
+            case "dog":
+            default:
+                return R.drawable.placeholder_dog;
+        }
     }
 
-    @AutoJson.Field(name = "petId")
-    public abstract String id();
+    @JsonField(name = "petId")
+    public String id;
 
-    @AutoJson.Field(name = "petName")
-    public abstract String name();
+    @JsonField(name = "petName")
+    public String name;
 
-    @AutoJson.Field
-    public abstract String species();
+    @JsonField
+    public String species;
 
-    @AutoJson.Field
-    public abstract String breed();
+    @JsonField
+    public String breed;
 
     @Gender
-    @AutoJson.Field
-    public abstract String gender();
+    @JsonField
+    public String gender;
 
-    @AutoJson.Field
-    public abstract String age();
+    @JsonField
+    public String age;
 
-    @AutoJson.Field(name = "adoptable")
-    public abstract Boolean adoptable();
+    @JsonField(name = "adoptable")
+    public Boolean adoptable;
 
-    @AutoJson.Field(name = "shouldActQuickly")
-    public abstract Boolean shouldActQuickly();
+    @JsonField(name = "shouldActQuickly")
+    public Boolean shouldActQuickly;
 
-    @AutoJson.Field
-    public abstract String color();
+    @JsonField
+    public String color;
 
-    @AutoJson.Field
-    public abstract String description();
+    @JsonField
+    public String description;
 
-    @AutoJson.Field
-    public abstract String activityLevel();
+    @JsonField
+    public String activityLevel;
 
-    @AutoJson.Field
-    public abstract String intakeDate();
+    @JsonField
+    public String intakeDate;
 
-    @AutoJson.Field
-    public abstract String shelterId();
+    @JsonField
+    public String shelterId;
 
-    @AutoJson.Field
-    public abstract List<String> images();
-
-    @AutoJson.Builder
-    public static abstract class Builder {
-        public abstract Builder id(String id);
-
-        public abstract Builder name(String name);
-
-        public abstract Builder species(String species);
-
-        public abstract Builder breed(String breed);
-
-        public abstract Builder gender(String gender);
-
-        public abstract Builder age(String age);
-
-        public abstract Builder adoptable(Boolean adoptable);
-
-        public abstract Builder shouldActQuickly(Boolean shouldActQuickly);
-
-        public abstract Builder color(String color);
-
-        public abstract Builder description(String description);
-
-        public abstract Builder activityLevel(String activityLevel);
-
-        public abstract Builder intakeDate(String intakeDate);
-
-        public abstract Builder shelterId(String shelterId);
-
-        public abstract Builder images(List<String> images);
-
-        public abstract Animal build();
-    }
+    @JsonField
+    public List<String> images;
 
 }

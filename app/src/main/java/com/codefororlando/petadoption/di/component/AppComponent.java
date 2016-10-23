@@ -1,10 +1,11 @@
-package com.codefororlando.petadoption.component;
+package com.codefororlando.petadoption.di.component;
 
 import android.app.Application;
 
 import com.codefororlando.petadoption.PetApplication;
-import com.codefororlando.petadoption.module.AppModule;
-import com.codefororlando.petadoption.module.NetworkModule;
+import com.codefororlando.petadoption.di.module.AppModule;
+import com.codefororlando.petadoption.di.module.NetworkModule;
+import com.codefororlando.petadoption.presenter.ListPresenter;
 import com.codefororlando.petadoption.view.DetailsActivity;
 import com.codefororlando.petadoption.view.ListActivity;
 
@@ -19,7 +20,7 @@ public interface AppComponent {
     void inject(PetApplication application);
     void inject(ListActivity target);
     void inject(DetailsActivity target);
+    void inject(ListPresenter listPresenter);
 
     Application application();
-
 }

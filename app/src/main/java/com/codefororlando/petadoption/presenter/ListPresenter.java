@@ -1,7 +1,10 @@
 package com.codefororlando.petadoption.presenter;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.widget.Toast;
 
+import com.codefororlando.petadoption.PetApplication;
+import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
@@ -23,24 +26,23 @@ import timber.log.Timber;
  */
 public class ListPresenter extends Presenter<ListActivity> {
 
-    private final IAnimalProvider animalProvider;
-
-    private AAnimalListAdapter animalListAdapter;
-    private Subscription animalSubscription;
+    @Inject
+    IAnimalProvider animalProvider;
 
     @Inject
-    ListPresenter(IAnimalProvider animalProvider,
-                  AAnimalListAdapter animalListAdapter) {
+    AAnimalListAdapter animalListAdapter;
 
-        this.animalProvider = animalProvider;
-        this.animalListAdapter = animalListAdapter;
-    }
+    private Subscription animalSubscription;
 
     @Override
     protected void onTakeView(ListActivity listActivity) {
         super.onTakeView(listActivity);
 
-        listActivity.setAdapter(animalListAdapter);
+        ((PetApplication) listActivity.getApplication()).appComponent()
+                .inject(this);
+
+        setAnimalAdapter(listActivity);
+        setLayoutManager(listActivity);
 
         animalSubscription = animalProvider.getAnimals()
                 .subscribeOn(Schedulers.io())
@@ -58,11 +60,23 @@ public class ListPresenter extends Presenter<ListActivity> {
         animalSubscription.unsubscribe();
     }
 
+    private void setAnimalAdapter(ListActivity listActivity) {
+        listActivity.setAdapter(animalListAdapter);
+    }
+
+    private void setLayoutManager(ListActivity listActivity) {
+        final int gridSpans = listActivity.getResources()
+                .getInteger(R.integer.grid_spans);
+
+        listActivity.setLayoutManager(new GridLayoutManager(listActivity, gridSpans));
+    }
+
     private class AnimalsLoadedAction implements Action1<List<Animal>> {
 
         @Override
         public void call(List<Animal> animals) {
             animalListAdapter.setAnimals(animals);
+            animalListAdapter.notifyDataSetChanged();
         }
 
     }

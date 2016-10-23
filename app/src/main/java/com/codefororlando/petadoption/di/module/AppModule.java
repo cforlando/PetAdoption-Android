@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.module;
+package com.codefororlando.petadoption.di.module;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,7 +7,7 @@ import com.codefororlando.petadoption.data.provider.AnimalProvider;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.network.IPetAdoptionService;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
-import com.codefororlando.petadoption.recyclerview.impl.AnimalListAdapter;
+import com.codefororlando.petadoption.recyclerview.AnimalListAdapter;
 
 import javax.inject.Singleton;
 

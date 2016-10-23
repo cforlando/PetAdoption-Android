@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.module;
+package com.codefororlando.petadoption.di.module;
 
 import android.content.Context;
 
@@ -14,6 +14,7 @@ import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
  * Created by tencent on 10/8/16.
@@ -58,6 +59,7 @@ public class NetworkModule {
 
         return new Retrofit.Builder()
                 .addConverterFactory(jsonFactory)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
                 .baseUrl(apiUrl)
                 .build();
