@@ -1,22 +1,31 @@
 package com.codefororlando.petadoption.presenter;
 
+import android.content.Intent;
+
+import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.view.DetailsActivity;
 
 import javax.inject.Inject;
 
 import nucleus.presenter.Presenter;
-import retrofit2.Retrofit;
 
 /**
  * Created by tencent on 10/8/16.
  */
 public class DetailsPresenter extends Presenter<DetailsActivity> {
 
-    private final Retrofit retrofit;
+    /**
+     * Parcelable extra representing an {@link com.codefororlando.petadoption.data.model.Animal}.
+     */
+    static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
 
-    @Inject
-    DetailsPresenter(Retrofit retrofit) {
-        this.retrofit = retrofit;
+    @Override
+    protected void onTakeView(DetailsActivity detailsActivity) {
+        super.onTakeView(detailsActivity);
+
+        Intent intent = detailsActivity.getIntent();
+        Animal animal = intent.getParcelableExtra(EXTRA_ANIMAL);
+        detailsActivity.setAnimal(animal);
     }
 
 }

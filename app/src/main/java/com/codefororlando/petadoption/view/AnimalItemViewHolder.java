@@ -22,7 +22,7 @@ public class AnimalItemViewHolder extends RecyclerView.ViewHolder {
 
     public AnimalItemViewHolder(View itemView) {
         super(itemView);
-        this.imageViewAnimal = (ImageView) itemView.findViewById(R.id.animal_image);
+        this.imageViewAnimal = (ImageView) itemView.findViewById(R.id.details_animal_image);
         this.resources = imageViewAnimal.getResources();
     }
 
