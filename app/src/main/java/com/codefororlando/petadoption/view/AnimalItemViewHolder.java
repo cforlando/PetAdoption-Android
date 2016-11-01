@@ -31,12 +31,12 @@ public class AnimalItemViewHolder extends RecyclerView.ViewHolder {
         int placeholderImageResource = Animal.placeholderImageResource(animal);
 
         String contentDescription = resources.getString(R.string.animal_image_content_description,
-                animal.species,
-                animal.name);
+                animal.getSpecies(),
+                animal.getName());
 
         imageViewAnimal.setContentDescription(contentDescription);
 
-        List<String> images = animal.images;
+        List<String> images = animal.getImages();
         if (images.size() > 0) {
             String image = images.get(0);
             Picasso.with(imageViewAnimal.getContext())

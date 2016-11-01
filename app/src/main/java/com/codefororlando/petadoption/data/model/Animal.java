@@ -16,7 +16,53 @@ import java.util.List;
 @JsonObject
 public class Animal implements Parcelable {
 
-    protected Animal(Parcel in) {
+    public static final Creator<Animal> CREATOR = new Creator<Animal>() {
+        @Override
+        public Animal createFromParcel(Parcel in) {
+            return new Animal(in);
+        }
+
+        @Override
+        public Animal[] newArray(int size) {
+            return new Animal[size];
+        }
+    };
+
+    @JsonField(name = "petId")
+    String id;
+    @JsonField(name = "petName")
+    String name;
+    @JsonField
+    String species;
+    @JsonField
+    String breed;
+    @Gender
+    @JsonField
+    String gender;
+    @JsonField
+    String age;
+    @JsonField(name = "adoptable")
+    Boolean adoptable;
+    @JsonField(name = "shouldActQuickly")
+    Boolean shouldActQuickly;
+    @JsonField
+    String color;
+    @JsonField
+    String description;
+    @JsonField
+    String activityLevel;
+    @JsonField
+    String intakeDate;
+    @JsonField
+    String shelterId;
+    @JsonField
+    List<String> images;
+
+    Animal() {
+        // Empty constructor for logansquare
+    }
+
+    public Animal(Parcel in) {
         id = in.readString();
         name = in.readString();
         species = in.readString();
@@ -36,18 +82,6 @@ public class Animal implements Parcelable {
         images = in.createStringArrayList();
     }
 
-    public static final Creator<Animal> CREATOR = new Creator<Animal>() {
-        @Override
-        public Animal createFromParcel(Parcel in) {
-            return new Animal(in);
-        }
-
-        @Override
-        public Animal[] newArray(int size) {
-            return new Animal[size];
-        }
-    };
-
     /**
      * Get the animal placeholder image resource.
      *
@@ -63,49 +97,6 @@ public class Animal implements Parcelable {
                 return R.drawable.placeholder_dog;
         }
     }
-
-    @JsonField(name = "petId")
-    public String id;
-
-    @JsonField(name = "petName")
-    public String name;
-
-    @JsonField
-    public String species;
-
-    @JsonField
-    public String breed;
-
-    @Gender
-    @JsonField
-    public String gender;
-
-    @JsonField
-    public String age;
-
-    @JsonField(name = "adoptable")
-    public Boolean adoptable;
-
-    @JsonField(name = "shouldActQuickly")
-    public Boolean shouldActQuickly;
-
-    @JsonField
-    public String color;
-
-    @JsonField
-    public String description;
-
-    @JsonField
-    public String activityLevel;
-
-    @JsonField
-    public String intakeDate;
-
-    @JsonField
-    public String shelterId;
-
-    @JsonField
-    public List<String> images;
 
     @Override
     public int describeContents() {
@@ -126,6 +117,62 @@ public class Animal implements Parcelable {
         parcel.writeString(intakeDate);
         parcel.writeString(shelterId);
         parcel.writeStringList(images);
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public Boolean getAdoptable() {
+        return adoptable;
+    }
+
+    public Boolean getShouldActQuickly() {
+        return shouldActQuickly;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getActivityLevel() {
+        return activityLevel;
+    }
+
+    public String getIntakeDate() {
+        return intakeDate;
+    }
+
+    public String getShelterId() {
+        return shelterId;
     }
 
 }

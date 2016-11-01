@@ -48,11 +48,11 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     }
 
     public void setAnimal(Animal animal) {
-        textViewAge.setText(animal.age);
-        textViewGender.setText(animal.gender);
+        textViewAge.setText(animal.getAge());
+        textViewGender.setText(animal.getGender());
         textViewSize.setText(null);
         textViewLocation.setText(null);
-        textViewDescription.setText(animal.description);
+        textViewDescription.setText(animal.getDescription());
         textViewLocationName.setText(null);
         textViewLocationStreet.setText(null);
         textViewCityStateZip.setText(null);
