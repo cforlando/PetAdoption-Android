@@ -3,7 +3,6 @@ package com.codefororlando.petadoption.recyclerview;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.codefororlando.petadoption.data.model.Animal;
 

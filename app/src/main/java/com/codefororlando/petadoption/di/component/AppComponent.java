@@ -5,6 +5,7 @@ import android.app.Application;
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.di.module.AppModule;
 import com.codefororlando.petadoption.di.module.NetworkModule;
+import com.codefororlando.petadoption.presenter.DetailsPresenter;
 import com.codefororlando.petadoption.presenter.ListPresenter;
 import com.codefororlando.petadoption.view.DetailsActivity;
 import com.codefororlando.petadoption.view.ListActivity;
@@ -21,6 +22,7 @@ public interface AppComponent {
     void inject(ListActivity target);
     void inject(DetailsActivity target);
     void inject(ListPresenter listPresenter);
+    void inject(DetailsPresenter detailsPresenter);
 
     Application application();
 }
