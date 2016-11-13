@@ -24,6 +24,9 @@ public class AnimalListAdapter extends AAnimalListAdapter<AnimalItemViewHolder> 
         animals = new ArrayList<>();
     }
 
+
+    private OnAnimalSelectListener onAnimalSelectListener;
+
     @Override
     public AnimalItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
@@ -33,8 +36,16 @@ public class AnimalListAdapter extends AAnimalListAdapter<AnimalItemViewHolder> 
 
     @Override
     public void onBindViewHolder(AnimalItemViewHolder holder, int position) {
-        Animal animal = getAnimal(position);
+        final Animal animal = getAnimal(position);
         holder.setAnimal(animal);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onAnimalSelectListener != null) {
+                    onAnimalSelectListener.onSelect(animal);
+                }
+            }
+        });
     }
 
     @Override
@@ -46,6 +57,11 @@ public class AnimalListAdapter extends AAnimalListAdapter<AnimalItemViewHolder> 
     public void setAnimals(@NonNull List<Animal> animals) {
         clearAnimals();
         addAnimals(animals);
+    }
+
+    @Override
+    public void setOnItemClickListener(OnAnimalSelectListener selectListener) {
+        onAnimalSelectListener = selectListener;
     }
 
     private Animal getAnimal(@IntRange int position) {

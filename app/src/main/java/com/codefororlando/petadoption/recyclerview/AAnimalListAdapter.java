@@ -17,4 +17,9 @@ public abstract class AAnimalListAdapter<VH extends RecyclerView.ViewHolder> ext
     @MainThread
     public abstract void setAnimals(@NonNull List<Animal> animals);
 
+    public abstract void setOnItemClickListener(OnAnimalSelectListener selectListener);
+
+    public interface OnAnimalSelectListener {
+        void onSelect(Animal animal);
+    }
 }

@@ -32,7 +32,7 @@ public class ListPresenter extends Presenter<ListActivity> {
     @Inject
     AAnimalListAdapter animalListAdapter;
 
-    private Subscription animalSubscription;
+    private Subscription animalLoadSubscription;
 
     @Override
     protected void onTakeView(ListActivity listActivity) {
@@ -44,20 +44,26 @@ public class ListPresenter extends Presenter<ListActivity> {
         setAnimalAdapter(listActivity);
         setLayoutManager(listActivity);
 
-        animalSubscription = animalProvider.getAnimals()
+        animalLoadSubscription = animalProvider.getAnimals()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         new AnimalsLoadedAction(),
                         new AnimalsLoadedFailureAction()
                 );
+
+        animalListAdapter.setOnItemClickListener(new AAnimalListAdapter.OnAnimalSelectListener() {
+            @Override
+            public void onSelect(Animal animal) {
+                getView().navigateToDetailView(animal);
+            }
+        });
     }
 
     @Override
     protected void onDropView() {
         super.onDropView();
-
-        animalSubscription.unsubscribe();
+        animalLoadSubscription.unsubscribe();
     }
 
     private void setAnimalAdapter(ListActivity listActivity) {
@@ -78,7 +84,6 @@ public class ListPresenter extends Presenter<ListActivity> {
             animalListAdapter.setAnimals(animals);
             animalListAdapter.notifyDataSetChanged();
         }
-
     }
 
     private class AnimalsLoadedFailureAction implements Action1<Throwable> {

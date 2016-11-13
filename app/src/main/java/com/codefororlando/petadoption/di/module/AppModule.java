@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.codefororlando.petadoption.data.provider.AnimalProvider;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
+import com.codefororlando.petadoption.data.provider.IShelterProvider;
+import com.codefororlando.petadoption.data.provider.ShelterProvider;
 import com.codefororlando.petadoption.network.IPetAdoptionService;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
 import com.codefororlando.petadoption.recyclerview.AnimalListAdapter;
@@ -42,6 +44,12 @@ public class AppModule {
     @Singleton
     IAnimalProvider provideAnimalProvider(IPetAdoptionService petAdoptionService) {
         return new AnimalProvider(petAdoptionService);
+    }
+
+    @Provides
+    @Singleton
+    IShelterProvider provideShelterProvider() {
+        return new ShelterProvider();
     }
 
     @Provides
