@@ -40,7 +40,7 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    public void onAnimalSelected(Animal animal) {
+    public void navigateToDetailView(Animal animal) {
         Intent intent = new Intent(this, DetailsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(DetailsPresenter.EXTRA_ANIMAL, animal);

@@ -55,7 +55,7 @@ public class ListPresenter extends Presenter<ListActivity> {
         animalListAdapter.setOnItemClickListener(new AAnimalListAdapter.OnAnimalSelectListener() {
             @Override
             public void onSelect(Animal animal) {
-                getView().onAnimalSelected(animal);
+                getView().navigateToDetailView(animal);
             }
         });
     }
