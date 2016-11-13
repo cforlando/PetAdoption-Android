@@ -5,8 +5,6 @@ import android.content.Intent;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.view.DetailsActivity;
 
-import javax.inject.Inject;
-
 import nucleus.presenter.Presenter;
 
 /**
@@ -17,7 +15,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
     /**
      * Parcelable extra representing an {@link com.codefororlando.petadoption.data.model.Animal}.
      */
-    static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
+    public static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
 
     @Override
     protected void onTakeView(DetailsActivity detailsActivity) {

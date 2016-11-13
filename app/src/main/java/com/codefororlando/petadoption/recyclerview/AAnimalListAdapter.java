@@ -3,6 +3,7 @@ package com.codefororlando.petadoption.recyclerview;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.codefororlando.petadoption.data.model.Animal;
 
@@ -17,4 +18,9 @@ public abstract class AAnimalListAdapter<VH extends RecyclerView.ViewHolder> ext
     @MainThread
     public abstract void setAnimals(@NonNull List<Animal> animals);
 
+    public abstract void setOnItemClickListener(OnAnimalSelectListener selectListener);
+
+    public interface OnAnimalSelectListener {
+        void onSelect(Animal animal);
+    }
 }

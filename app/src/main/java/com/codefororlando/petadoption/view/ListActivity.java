@@ -1,10 +1,13 @@
 package com.codefororlando.petadoption.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
+import com.codefororlando.petadoption.data.model.Animal;
+import com.codefororlando.petadoption.presenter.DetailsPresenter;
 import com.codefororlando.petadoption.presenter.ListPresenter;
 
 import nucleus.factory.RequiresPresenter;
@@ -37,4 +40,11 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         recyclerView.setLayoutManager(layoutManager);
     }
 
+    public void onAnimalSelected(Animal animal) {
+        Intent intent = new Intent(this, DetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(DetailsPresenter.EXTRA_ANIMAL, animal);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }
