@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.model.Animal;
-import com.codefororlando.petadoption.data.model.Contact;
 import com.codefororlando.petadoption.data.model.Location;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.presenter.DetailsPresenter;
@@ -44,6 +44,9 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         ((PetApplication) getApplication()).appComponent()
                 .inject(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         imageViewAnimal = (ImageView) findViewById(R.id.details_animal_image);
         textViewGender = (TextView) findViewById(R.id.details_gender);
         textViewAge = (TextView) findViewById(R.id.details_age);
@@ -70,6 +73,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         textViewGender.setText(animal.getGender());
         textViewSize.setText(null);
         textViewDescription.setText(animal.getDescription());
+        getSupportActionBar().setTitle(animal.getName());
     }
 
     public void setShelter(Shelter shelter) {

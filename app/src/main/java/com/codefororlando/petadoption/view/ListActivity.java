@@ -3,6 +3,7 @@ package com.codefororlando.petadoption.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
@@ -28,6 +29,9 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
 
         ((PetApplication) getApplication()).appComponent()
                 .inject(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
     }
