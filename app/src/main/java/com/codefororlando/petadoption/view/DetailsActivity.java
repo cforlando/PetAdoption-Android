@@ -105,9 +105,13 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         getPresenter().fetchAnimalImage(animalViewModel.getDefaultImageUrl());
     }
 
-    @UiThread
-    public void setAnimalImage(Bitmap bitmap) {
-        imageViewAnimal.setImageBitmap(bitmap);
+    public void setAnimalImage(final Bitmap bitmap) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                imageViewAnimal.setImageBitmap(bitmap);
+            }
+        });
     }
 
     public void setShelter(Shelter shelter) {
