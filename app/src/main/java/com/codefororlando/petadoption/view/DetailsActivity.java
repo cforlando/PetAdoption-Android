@@ -1,10 +1,16 @@
 package com.codefororlando.petadoption.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.StringRes;
+import android.support.annotation.UiThread;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,10 +18,14 @@ import android.widget.Toast;
 
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
+import com.codefororlando.petadoption.data.AnimalViewModel;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.model.Location;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.presenter.DetailsPresenter;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusAppCompatActivity;
@@ -46,6 +56,9 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(true);
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
 
         imageViewAnimal = (ImageView) findViewById(R.id.details_animal_image);
         textViewGender = (TextView) findViewById(R.id.details_gender);
@@ -59,6 +72,17 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         bindActions();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void bindActions() {
         findViewById(R.id.details_action_call)
                 .setOnClickListener(this);
@@ -68,12 +92,22 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
                 .setOnClickListener(this);
     }
 
-    public void setAnimal(Animal animal) {
+    public void setAnimal(AnimalViewModel animalViewModel) {
+        Animal animal = animalViewModel.getAnimal();
         textViewAge.setText(animal.getAge());
         textViewGender.setText(animal.getGender());
         textViewSize.setText(null);
         textViewDescription.setText(animal.getDescription());
+        imageViewAnimal.setImageResource(animalViewModel.placeholderImageResource());
+
         getSupportActionBar().setTitle(animal.getName());
+
+        getPresenter().fetchAnimalImage(animalViewModel.getDefaultImageUrl());
+    }
+
+    @UiThread
+    public void setAnimalImage(Bitmap bitmap) {
+        imageViewAnimal.setImageBitmap(bitmap);
     }
 
     public void setShelter(Shelter shelter) {

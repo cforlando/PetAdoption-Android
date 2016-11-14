@@ -1,15 +1,19 @@
 package com.codefororlando.petadoption.presenter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
 import com.codefororlando.petadoption.PetApplication;
+import com.codefororlando.petadoption.data.AnimalViewModel;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
-import com.codefororlando.petadoption.data.provider.ShelterProvider;
 import com.codefororlando.petadoption.view.DetailsActivity;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -46,7 +50,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
 
         Intent intent = detailsActivity.getIntent();
         animal = intent.getParcelableExtra(EXTRA_ANIMAL);
-        detailsActivity.setAnimal(animal);
+        detailsActivity.setAnimal(new AnimalViewModel(animal));
 
         shelterSubscription = shelterProvider.getShelter("arbitrary_id")
                 .subscribeOn(Schedulers.io())
@@ -72,7 +76,23 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
             Uri website = Uri.parse("http://ladylake.org/departments/police-department/animal-control-2");
             getView().openWebsite(website);
         }
+    }
 
+    public void fetchAnimalImage(final String url) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DetailsActivity view = getView();
+                    Bitmap image = Picasso.with(view)
+                            .load(url)
+                            .get();
+                    view.setAnimalImage(image);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void initiateOpenEmail() {
