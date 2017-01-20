@@ -1,13 +1,9 @@
 package com.codefororlando.petadoption.view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.support.annotation.StringRes;
-import android.support.annotation.UiThread;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -22,10 +18,8 @@ import com.codefororlando.petadoption.data.AnimalViewModel;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.model.Location;
 import com.codefororlando.petadoption.data.model.Shelter;
-import com.codefororlando.petadoption.presenter.DetailsPresenter;
+import com.codefororlando.petadoption.presenter.details.DetailsPresenter;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusAppCompatActivity;
@@ -34,7 +28,7 @@ import nucleus.view.NucleusAppCompatActivity;
  * Animal details view
  */
 @RequiresPresenter(DetailsPresenter.class)
-public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> implements View.OnClickListener {
+public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> {
 
     private ImageView imageViewAnimal;
     private TextView textViewGender;
@@ -57,8 +51,10 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setHomeButtonEnabled(true);
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        if (supportActionBar != null) {
+            supportActionBar.setHomeButtonEnabled(true);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         imageViewAnimal = (ImageView) findViewById(R.id.details_animal_image);
         textViewGender = (TextView) findViewById(R.id.details_gender);
@@ -69,7 +65,6 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         textViewLocationName = (TextView) findViewById(R.id.details_location_name);
         textViewLocationStreet = (TextView) findViewById(R.id.details_location_street);
         textViewCityStateZip = (TextView) findViewById(R.id.details_location_city_state_zip);
-        bindActions();
     }
 
     @Override
@@ -83,13 +78,10 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         return super.onOptionsItemSelected(item);
     }
 
-    private void bindActions() {
-        findViewById(R.id.details_action_call)
-                .setOnClickListener(this);
-        findViewById(R.id.details_action_email)
-                .setOnClickListener(this);
-        findViewById(R.id.details_action_web)
-                .setOnClickListener(this);
+    public void setActionClickListener(View.OnClickListener onClickListener) {
+        findViewById(R.id.details_action_call).setOnClickListener(onClickListener);
+        findViewById(R.id.details_action_email).setOnClickListener(onClickListener);
+        findViewById(R.id.details_action_web).setOnClickListener(onClickListener);
     }
 
     public void setAnimal(AnimalViewModel animalViewModel) {
@@ -98,20 +90,17 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         textViewGender.setText(animal.getGender());
         textViewSize.setText(null);
         textViewDescription.setText(animal.getDescription());
-        imageViewAnimal.setImageResource(animalViewModel.placeholderImageResource());
 
-        getSupportActionBar().setTitle(animal.getName());
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setTitle(animal.getName());
+        }
 
-        getPresenter().fetchAnimalImage(animalViewModel.getDefaultImageUrl());
-    }
-
-    public void setAnimalImage(final Bitmap bitmap) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                imageViewAnimal.setImageBitmap(bitmap);
-            }
-        });
+        Picasso.with(this)
+                .load(animalViewModel.getDefaultImageUrl())
+                .fit()
+                .placeholder(animalViewModel.placeholderImageResource())
+                .into(imageViewAnimal);
     }
 
     public void setShelter(Shelter shelter) {
@@ -157,21 +146,4 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        DetailsPresenter presenter = getPresenter();
-        switch (v.getId()) {
-            case R.id.details_action_call:
-                presenter.initiateCall();
-                break;
-            case R.id.details_action_email:
-                presenter.initiateOpenEmail();
-                break;
-            case R.id.details_action_web:
-                presenter.initiateOpenWebsite();
-                break;
-            default:
-                throw new IllegalArgumentException("Unhandled click for " + v);
-        }
-    }
 }

@@ -2,14 +2,16 @@ package com.codefororlando.petadoption.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.model.Animal;
-import com.codefororlando.petadoption.presenter.DetailsPresenter;
-import com.codefororlando.petadoption.presenter.ListPresenter;
+import com.codefororlando.petadoption.presenter.details.DetailsPresenter;
+import com.codefororlando.petadoption.presenter.list.ListPresenter;
 
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusAppCompatActivity;
@@ -34,14 +36,15 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
+        final int gridSpans = getResources()
+                .getInteger(R.integer.grid_spans);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, gridSpans));
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
-    }
-
-    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
-        recyclerView.setLayoutManager(layoutManager);
     }
 
     public void navigateToDetailView(Animal animal) {
@@ -51,4 +54,10 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    public void notifyAnimalLoadingFailed() {
+        Toast.makeText(this, "Failed to get animals", Toast.LENGTH_SHORT)
+                .show();
+    }
+
 }
