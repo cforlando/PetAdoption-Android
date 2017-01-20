@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="base_url">http://pets.codefororlando.com</string>
+    <string name="api_url">%1$s/api/v2/</string>
+
+</resources>

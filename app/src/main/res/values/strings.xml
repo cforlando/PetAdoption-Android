@@ -4,12 +4,26 @@
     <string name="lady_lake_short">Town of Lady Lake</string>
 
     <string name="hello_world">Hello world!</string>
-    <!-- FragmentLaunch -->
+    <!-- Activity List -->
     <string name="launch_image_of_puppy">Image of a puppy.</string>
     <string name="launch_message">Pet Adoption</string>
-    <!-- FragmentInfo -->
+    <string name="animal_image_content_description">A photo of a %1$s named %2$s.</string>
+    <!-- Activity Details -->
     <string name="info_content">This app was lovingly crafted for Lady Lake by the fine volunteers of Code for Orlando.\n\nCheck out www.codefororlando.com for more info.</string>
     <string name="info_intent_error_no_dialer">Phone dialer was not found on this device.</string>
     <string name="info_intent_error_no_email">Email client was not found on this device.</string>
     <string name="info_intent_error_no_browser">Web browser was not found on this device.</string>
+    <string name="details_action_call">Call</string>
+    <string name="details_action_email">Email</string>
+    <string name="details_action_website">Website</string>
+    <string name="details_gender">Gender</string>
+    <string name="details_age">Age</string>
+    <string name="details_male">Male</string>
+    <string name="details_size">Size</string>
+    <string name="details_location">Location</string>
+    <string name="details_description">Description</string>
+    <string name="details_contact_info">Contact Info</string>
+    <string name="details_website">Check the shelter website for more information.</string>
+    <string name="details_email">Email the shelter for more information.</string>
+    <string name="details_call">Call the shelter for more information.</string>
 </resources>
