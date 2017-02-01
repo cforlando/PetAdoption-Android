@@ -1,11 +1,13 @@
 package com.codefororlando.petadoption.view;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -96,10 +98,13 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
             supportActionBar.setTitle(animal.getName());
         }
 
+        Resources resources = getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
         Picasso.with(this)
                 .load(animalViewModel.getDefaultImageUrl())
-                .fit()
                 .placeholder(animalViewModel.placeholderImageResource())
+                .resize(metrics.widthPixels, (int) (metrics.densityDpi * resources.getDimension(R.dimen.details_appbar_image_height)))
+                .centerInside()
                 .into(imageViewAnimal);
     }
 

@@ -7,4 +7,7 @@
     <dimen name="launch_image_size">200dp</dimen>
 
     <dimen name="app_bar_height">256dp</dimen>
+
+    <!-- Details App Bar -->
+    <dimen name="details_appbar_image_height">360dp</dimen>
 </resources>
