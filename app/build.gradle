@@ -39,8 +39,12 @@ dependencies {
     provided jsr250
 
     // MVP
-    compile nucleus
-    compile nucleusSupport
+    compile (nucleus) {
+        exclude group: 'io.reactivex'
+    }
+    compile (nucleusSupport) {
+        exclude group: 'io.reactivex'
+    }
 
     // Networking
     compile picasso
