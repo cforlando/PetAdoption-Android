@@ -8,15 +8,15 @@ repositories {
 }
 
 android {
-    compileSdkVersion Integer.parseInt(compile_sdk)
+    compileSdkVersion compile_sdk.toInteger()
     buildToolsVersion build_tools
 
     defaultConfig {
         applicationId "com.codefororlando.petadoption"
         minSdkVersion 15
-        targetSdkVersion Integer.parseInt(target_sdk)
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion target_sdk.toInteger()
+        versionCode version_code.toInteger()
+        versionName version_name
     }
     buildTypes {
         release {
