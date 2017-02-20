@@ -4,7 +4,7 @@ import com.codefororlando.petadoption.data.model.Contact;
 import com.codefororlando.petadoption.data.model.Location;
 import com.codefororlando.petadoption.data.model.Shelter;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by johnli on 11/13/16.

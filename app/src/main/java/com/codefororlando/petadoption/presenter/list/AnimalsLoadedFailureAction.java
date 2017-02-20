@@ -2,10 +2,10 @@ package com.codefororlando.petadoption.presenter.list;
 
 import com.codefororlando.petadoption.view.ListActivity;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
-class AnimalsLoadedFailureAction implements Action1<Throwable> {
+class AnimalsLoadedFailureAction implements Consumer<Throwable> {
 
     private final ListPresenter presenter;
 
@@ -14,7 +14,7 @@ class AnimalsLoadedFailureAction implements Action1<Throwable> {
     }
 
     @Override
-    public void call(Throwable throwable) {
+    public void accept(Throwable throwable) {
         Timber.e(throwable, "Failed to get animals");
         ListActivity view = presenter.getView();
         if (view != null) {

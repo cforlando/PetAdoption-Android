@@ -15,10 +15,10 @@ import com.codefororlando.petadoption.view.DetailsActivity;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import nucleus.presenter.Presenter;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by tencent on 10/8/16.
@@ -36,7 +36,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
 
     private Animal animal;
 
-    private Subscription shelterSubscription;
+    private Disposable shelterSubscription;
 
     @Override
     protected void onTakeView(DetailsActivity detailsActivity) {
@@ -58,7 +58,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
     @Override
     protected void onDropView() {
         super.onDropView();
-        shelterSubscription.unsubscribe();
+        shelterSubscription.dispose();
     }
 
     View.OnClickListener getActionClickListener(Shelter shelter) {
