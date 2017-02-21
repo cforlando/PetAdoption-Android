@@ -98,7 +98,9 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
 
         Picasso.with(this)
                 .load(animalViewModel.getDefaultImageUrl())
-                .fit()
+                .resize(1000, 1000)
+                .onlyScaleDown()
+                .centerCrop()
                 .placeholder(animalViewModel.placeholderImageResource())
                 .into(imageViewAnimal);
     }
