@@ -1,5 +1,4 @@
 # PetAdoption-Android
-##About
 **Pet Adoption** is an Android app being built for the Town of Lady Lake, Florida to assist citizens in adopting animals for local shelters.
 
 **Version** 1.0 (MVP)
@@ -12,7 +11,7 @@
 
 John Li - Mobile(slack: johnleeroy)
 
-Khalid Hoffman - API (slack: khalidhoffman)
+Khalid Hoffman - API(slack: khalidhoffman)
 
 ## Building
 This project is built with Gradle using the Gradle Wrapper script.
