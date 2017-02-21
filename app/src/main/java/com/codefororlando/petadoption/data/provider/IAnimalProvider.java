@@ -4,7 +4,7 @@ import com.codefororlando.petadoption.data.model.Animal;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by tencent on 10/10/16.

@@ -2,9 +2,9 @@ package com.codefororlando.petadoption.presenter.details;
 
 import com.codefororlando.petadoption.data.model.Shelter;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
-class ShelterLoadedAction implements Action1<Shelter> {
+class ShelterLoadedAction implements Consumer<Shelter> {
 
     private final DetailsPresenter presenter;
 
@@ -13,7 +13,7 @@ class ShelterLoadedAction implements Action1<Shelter> {
     }
 
     @Override
-    public void call(Shelter shelter) {
+    public void accept(Shelter shelter) {
         presenter.setShelter(shelter);
     }
 

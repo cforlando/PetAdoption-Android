@@ -5,9 +5,10 @@ import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
 
 import java.util.List;
 
-import rx.functions.Action1;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 
-class AnimalsLoadedAction implements Action1<List<Animal>> {
+class AnimalsLoadedAction implements Consumer<List<Animal>> {
 
     private final AAnimalListAdapter animalListAdapter;
 
@@ -16,7 +17,7 @@ class AnimalsLoadedAction implements Action1<List<Animal>> {
     }
 
     @Override
-    public void call(List<Animal> animals) {
+    public void accept(@NonNull List<Animal> animals) throws Exception {
         animalListAdapter.setAnimals(animals);
         animalListAdapter.notifyDataSetChanged();
     }

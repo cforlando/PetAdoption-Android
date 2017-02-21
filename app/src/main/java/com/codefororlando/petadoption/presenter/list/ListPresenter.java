@@ -8,10 +8,10 @@ import com.codefororlando.petadoption.view.ListActivity;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import nucleus.presenter.Presenter;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by tencent on 10/8/16.
@@ -24,7 +24,7 @@ public class ListPresenter extends Presenter<ListActivity> {
     @Inject
     AAnimalListAdapter animalListAdapter;
 
-    private Subscription animalLoadSubscription;
+    private Disposable animalLoadSubscription;
 
     @Override
     protected void onTakeView(ListActivity listActivity) {
@@ -57,7 +57,7 @@ public class ListPresenter extends Presenter<ListActivity> {
     @Override
     protected void onDropView() {
         super.onDropView();
-        animalLoadSubscription.unsubscribe();
+        animalLoadSubscription.dispose();
     }
 
 }

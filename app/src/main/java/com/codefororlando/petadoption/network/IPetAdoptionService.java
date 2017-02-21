@@ -4,8 +4,8 @@ import com.codefororlando.petadoption.data.model.Animal;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
-import rx.Observable;
 
 /**
  * Created by john on 4/17/16.
