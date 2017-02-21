@@ -10,8 +10,9 @@
 
 **Project Lead**
 
-John Li (slack: johnleeroy)
-Khalid Hoffman (slack: khalidhoffman)
+John Li - Mobile(slack: johnleeroy)
+
+Khalid Hoffman - API (slack: khalidhoffman)
 
 ## Building
 This project is built with Gradle using the Gradle Wrapper script.
