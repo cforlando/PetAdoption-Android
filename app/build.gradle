@@ -69,4 +69,7 @@ dependencies {
 
     // Misc
     compile versions
+
+    // Photoview
+    compile photoView
 }

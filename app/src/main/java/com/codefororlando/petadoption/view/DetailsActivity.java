@@ -79,6 +79,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     }
 
     public void setActionClickListener(View.OnClickListener onClickListener) {
+        imageViewAnimal.setOnClickListener(onClickListener);
         findViewById(R.id.details_action_call).setOnClickListener(onClickListener);
         findViewById(R.id.details_action_email).setOnClickListener(onClickListener);
         findViewById(R.id.details_action_web).setOnClickListener(onClickListener);

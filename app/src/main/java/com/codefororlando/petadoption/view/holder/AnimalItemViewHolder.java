@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.view;
+package com.codefororlando.petadoption.view.holder;
 
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;

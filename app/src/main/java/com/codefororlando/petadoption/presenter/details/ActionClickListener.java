@@ -21,6 +21,9 @@ class ActionClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.details_animal_image:
+                presenter.performShowImageGallery();
+                break;
             case R.id.details_action_call:
                 presenter.performViewDialer(shelter);
                 break;
