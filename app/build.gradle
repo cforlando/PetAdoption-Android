@@ -32,6 +32,7 @@ dependencies {
     compile supportGridLayout
     compile supportRecyclerView
     compile supportDesign
+    compile constraintLayout
 
     // Dagger
     compile dagger

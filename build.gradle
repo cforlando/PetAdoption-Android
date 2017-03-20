@@ -15,6 +15,7 @@ buildscript {
     ext.supportGridLayout = "com.android.support:gridlayout-v7:$androidSupportVersion"
     ext.supportRecyclerView = "com.android.support:recyclerview-v7:$androidSupportVersion"
     ext.supportDesign = "com.android.support:design:$androidSupportVersion"
+    ext.constraintLayout = "com.android.support.constraint:constraint-layout:1.0.2"
 
     // Dagger
     def daggerVersion = "2.8"
