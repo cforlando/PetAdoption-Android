@@ -19,7 +19,6 @@ public class ImageGalleryActivity extends NucleusAppCompatActivity<ImageGalleryP
 
     private static final String EXTRA_ANIMAL = "EXTRA_ANIMAL";
 
-    private ViewPager viewPager;
     private Animal animal;
 
     public static Intent createIntent(
@@ -40,15 +39,14 @@ public class ImageGalleryActivity extends NucleusAppCompatActivity<ImageGalleryP
                 .inject(this);
 
         animal = getIntent().getParcelableExtra(EXTRA_ANIMAL);
-        viewPager = (ViewPager) findViewById(R.id.activity_image_gallery_view_pager);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.activity_image_gallery_view_pager);
+        ImageGalleryAdapter imageGalleryAdapter = new ImageGalleryAdapter(animal);
+        viewPager.setAdapter(imageGalleryAdapter);
     }
 
     public Animal getAnimal() {
         return animal;
-    }
-
-    public void setAdapter(ImageGalleryAdapter imageGalleryAdapter) {
-        viewPager.setAdapter(imageGalleryAdapter);
     }
 
 }

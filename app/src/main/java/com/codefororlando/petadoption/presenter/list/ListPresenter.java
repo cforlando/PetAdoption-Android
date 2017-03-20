@@ -21,9 +21,6 @@ public class ListPresenter extends Presenter<ListActivity> {
     @Inject
     IAnimalProvider animalProvider;
 
-    @Inject
-    AAnimalListAdapter animalListAdapter;
-
     private Disposable animalLoadSubscription;
 
     @Override
@@ -32,6 +29,8 @@ public class ListPresenter extends Presenter<ListActivity> {
 
         ((PetApplication) listActivity.getApplication()).appComponent()
                 .inject(this);
+
+        AAnimalListAdapter animalListAdapter = listActivity.getAnimalListAdapter();
 
         animalLoadSubscription = animalProvider.getAnimals()
                 .subscribeOn(Schedulers.io())
@@ -50,8 +49,6 @@ public class ListPresenter extends Presenter<ListActivity> {
                 }
             }
         });
-
-        listActivity.setAdapter(animalListAdapter);
     }
 
     @Override

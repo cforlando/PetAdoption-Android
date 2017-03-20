@@ -12,6 +12,9 @@ import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.presenter.details.DetailsPresenter;
 import com.codefororlando.petadoption.presenter.list.ListPresenter;
+import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
+
+import javax.inject.Inject;
 
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusAppCompatActivity;
@@ -21,6 +24,9 @@ import nucleus.view.NucleusAppCompatActivity;
  */
 @RequiresPresenter(ListPresenter.class)
 public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
+
+    @Inject
+    AAnimalListAdapter animalListAdapter;
 
     private RecyclerView recyclerView;
 
@@ -41,10 +47,7 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
                 .getInteger(R.integer.grid_spans);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, gridSpans));
-    }
-
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(animalListAdapter);
     }
 
     public void navigateToDetailView(Animal animal) {
@@ -58,6 +61,10 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
     public void notifyAnimalLoadingFailed() {
         Toast.makeText(this, "Failed to get animals", Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    public AAnimalListAdapter getAnimalListAdapter() {
+        return animalListAdapter;
     }
 
 }
