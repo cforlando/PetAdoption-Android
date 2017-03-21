@@ -12,6 +12,7 @@ import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
 import com.codefororlando.petadoption.view.DetailsActivity;
+import com.codefororlando.petadoption.view.ImageGalleryActivity;
 
 import javax.inject.Inject;
 
@@ -70,6 +71,14 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         if (view != null) {
             view.setShelter(shelter);
             view.setActionClickListener(getActionClickListener(shelter));
+        }
+    }
+
+    void performShowImageGallery() {
+        DetailsActivity activity = getView();
+        if (activity != null) {
+            Intent intent = ImageGalleryActivity.createIntent(activity, animal);
+            activity.startActivity(intent);
         }
     }
 
