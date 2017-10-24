@@ -1,14 +1,14 @@
-package com.codefororlando.petadoption.data.annotation;
+package com.codefororlando.petadoption.annotation;
 
 import android.support.annotation.StringDef;
 
-import com.codefororlando.petadoption.data.model.AnimalGender;
+import com.codefororlando.petadoption.model.AnimalGender;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Define annotation for genders
+ * Define com.codefororlando.petadoption.annotation for genders
  */
 @Retention(RetentionPolicy.SOURCE)
 @StringDef({AnimalGender.MALE, AnimalGender.FEMALE})

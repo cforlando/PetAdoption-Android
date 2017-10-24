@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.data.model;
+package com.codefororlando.petadoption.model;
 
 /**
  * Created by johnli on 11/13/16.

@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.data.model;
+package com.codefororlando.petadoption.model;
 
 /**
  * Gender of an animal

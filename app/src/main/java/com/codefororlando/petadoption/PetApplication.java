@@ -5,7 +5,6 @@ import android.os.StrictMode;
 import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.di.component.AppComponent;
-import com.codefororlando.petadoption.di.component.DaggerAppComponent;
 import com.codefororlando.petadoption.di.module.AppModule;
 import com.codefororlando.petadoption.di.module.NetworkModule;
 import com.squareup.leakcanary.LeakCanary;

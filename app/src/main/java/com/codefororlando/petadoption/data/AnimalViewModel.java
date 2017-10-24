@@ -1,12 +1,12 @@
 package com.codefororlando.petadoption.data;
 
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 
 import com.codefororlando.petadoption.R;
-import com.codefororlando.petadoption.data.model.Animal;
 
 import java.util.List;
+
+import com.codefororlando.petadoption.model.Animal;
 
 /**
  * Created by johnli on 11/13/16.

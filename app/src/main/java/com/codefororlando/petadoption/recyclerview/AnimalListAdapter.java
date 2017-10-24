@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codefororlando.petadoption.R;
-import com.codefororlando.petadoption.data.model.Animal;
+import com.codefororlando.petadoption.model.Animal;
 import com.codefororlando.petadoption.view.AnimalItemViewHolder;
 
 import java.util.ArrayList;

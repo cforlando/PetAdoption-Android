@@ -1,8 +1,8 @@
-package com.codefororlando.petadoption.data.provider;
+package com.codefororlando.petadoption.provider;
 
-import com.codefororlando.petadoption.data.model.Contact;
-import com.codefororlando.petadoption.data.model.Location;
-import com.codefororlando.petadoption.data.model.Shelter;
+import com.codefororlando.petadoption.model.Contact;
+import com.codefororlando.petadoption.model.Location;
+import com.codefororlando.petadoption.model.Shelter;
 
 import io.reactivex.Observable;
 

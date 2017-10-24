@@ -1,6 +1,6 @@
-package com.codefororlando.petadoption.data.provider;
+package com.codefororlando.petadoption.provider;
 
-import com.codefororlando.petadoption.data.model.Animal;
+import com.codefororlando.petadoption.model.Animal;
 
 import java.util.List;
 

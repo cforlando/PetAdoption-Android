@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 
@@ -21,7 +21,7 @@ buildscript {
     def daggerVersion = "2.8"
     ext.dagger = "com.google.dagger:dagger:$daggerVersion"
     ext.daggerApt = "com.google.dagger:dagger-compiler:$daggerVersion"
-    ext.jsr250 = "javax.annotation:jsr250-api:1.0"
+    ext.jsr250 = "javax.com.codefororlando.petadoption.annotation:jsr250-api:1.0"
 
     // MVP
     def nucleusVersion = "4.0.0"

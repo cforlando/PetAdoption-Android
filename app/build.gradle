@@ -70,4 +70,5 @@ dependencies {
 
     // Misc
     compile versions
+    compile project(path: ':model')
 }
