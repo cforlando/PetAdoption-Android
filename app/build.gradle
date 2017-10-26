@@ -11,12 +11,17 @@ android {
     compileSdkVersion compile_sdk.toInteger()
     buildToolsVersion build_tools
 
+    def Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+
     defaultConfig {
         applicationId "com.codefororlando.petadoption"
         minSdkVersion 15
         targetSdkVersion target_sdk.toInteger()
         versionCode version_code.toInteger()
         versionName version_name
+        buildConfigField "String", "API_KEY", properties.getProperty("api.key", "")
     }
     buildTypes {
         release {

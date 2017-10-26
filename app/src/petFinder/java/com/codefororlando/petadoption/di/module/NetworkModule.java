@@ -3,7 +3,6 @@ package com.codefororlando.petadoption.di.module;
 import android.content.Context;
 
 import com.codefororlando.petadoption.R;
-import com.codefororlando.petadoption.network.IPetAdoptionService;
 import com.codefororlando.petadoption.network.IPetfinderService;
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -31,9 +30,11 @@ import timber.log.Timber;
 public class NetworkModule {
 
     private final String apiUrl;
+    private final String apiKey;
 
-    public NetworkModule(String apiUrl) {
+    public NetworkModule(String apiUrl, String apiKey) {
         this.apiUrl = apiUrl;
+        this.apiKey = apiKey;
     }
 
     @Provides
@@ -55,7 +56,7 @@ public class NetworkModule {
                         HttpUrl originalUrl = original.url();
 
                         HttpUrl modifiedUrl = originalUrl.newBuilder()
-                                .addQueryParameter("key", "1c6c6f8826c5eca004261129136cb861")
+                                .addQueryParameter("key", apiKey)
                                 .addQueryParameter("format", "json")
                                 .addQueryParameter("output", "full")
                                 .build();
