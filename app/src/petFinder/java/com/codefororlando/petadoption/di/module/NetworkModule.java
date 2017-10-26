@@ -30,11 +30,11 @@ import timber.log.Timber;
 public class NetworkModule {
 
     private final String apiUrl;
-    private final String apiKey;
+    private final String petfinderApiKey;
 
-    public NetworkModule(String apiUrl, String apiKey) {
+    public NetworkModule(String apiUrl, String petfinderApiKey) {
         this.apiUrl = apiUrl;
-        this.apiKey = apiKey;
+        this.petfinderApiKey = petfinderApiKey;
     }
 
     @Provides
@@ -56,7 +56,7 @@ public class NetworkModule {
                         HttpUrl originalUrl = original.url();
 
                         HttpUrl modifiedUrl = originalUrl.newBuilder()
-                                .addQueryParameter("key", apiKey)
+                                .addQueryParameter("key", petfinderApiKey)
                                 .addQueryParameter("format", "json")
                                 .addQueryParameter("output", "full")
                                 .build();

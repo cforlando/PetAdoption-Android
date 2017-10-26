@@ -39,7 +39,7 @@ public class PetApplication extends Application {
         String baseUrl = getString(R.string.base_url);
         String apiUrl = getString(R.string.api_url, baseUrl);
 
-        String apiKey = BuildConfig.API_KEY;
+        String apiKey = BuildConfig.PETFINDER_API_KEY;
 
         component = DaggerAppComponent.builder()
                 .networkModule(new NetworkModule(apiUrl, apiKey))

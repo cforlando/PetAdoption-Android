@@ -21,7 +21,7 @@ android {
         targetSdkVersion target_sdk.toInteger()
         versionCode version_code.toInteger()
         versionName version_name
-        buildConfigField "String", "API_KEY", properties.getProperty("api.key", "")
+        buildConfigField "String", "PETFINDER_API_KEY", properties.getProperty("petfinder.api.key", "")
     }
     buildTypes {
         release {
