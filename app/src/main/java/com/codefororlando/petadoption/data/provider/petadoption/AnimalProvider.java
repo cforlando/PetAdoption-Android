@@ -1,12 +1,14 @@
-package com.codefororlando.petadoption.data.provider;
+package com.codefororlando.petadoption.data.provider.petadoption;
 
 import com.codefororlando.petadoption.data.model.Animal;
+import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.network.IPetAdoptionService;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
 

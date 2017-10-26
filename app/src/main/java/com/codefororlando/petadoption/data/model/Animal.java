@@ -82,6 +82,23 @@ public class Animal implements Parcelable {
         images = in.createStringArrayList();
     }
 
+    public Animal(AnimalBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.species = builder.species;
+        this.breed = builder.breed;
+        this.gender = builder.gender;
+        this.age = builder.age;
+        this.adoptable = builder.adoptable;
+        this.shouldActQuickly = builder.shouldActQuickly;
+        this.color = builder.color;
+        this.description = builder.description;
+        this.activityLevel = builder.activityLevel;
+        this.intakeDate = builder.intakeDate;
+        this.shelterId = builder.shelterId;
+        this.images = builder.images;
+    }
+
     /**
      * Get the animal placeholder image resource.
      *
@@ -175,4 +192,98 @@ public class Animal implements Parcelable {
         return shelterId;
     }
 
+    public static class AnimalBuilder {
+        String id;
+        String name;
+        String species;
+        String breed;
+        String gender;
+        String age;
+        Boolean adoptable = true;
+        Boolean shouldActQuickly = true;
+        String color = "";
+        String description;
+        String activityLevel = "";
+        String intakeDate = "";
+        String shelterId;
+        List<String> images;
+
+        public AnimalBuilder() {
+        }
+
+        public AnimalBuilder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public AnimalBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public AnimalBuilder setSpecies(String species) {
+            this.species = species;
+            return this;
+        }
+
+        public AnimalBuilder setBreed(String breed) {
+            this.breed = breed;
+            return this;
+        }
+
+        public AnimalBuilder setGender(String gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public AnimalBuilder setAge(String age) {
+            this.age = age;
+            return this;
+        }
+
+        public AnimalBuilder setAdoptable(Boolean adoptable) {
+            this.adoptable = adoptable;
+            return this;
+        }
+
+        public AnimalBuilder setShouldActQuickly(Boolean shouldActQuickly) {
+            this.shouldActQuickly = shouldActQuickly;
+            return this;
+        }
+
+        public AnimalBuilder setColor(String color) {
+            this.color = color;
+            return this;
+        }
+
+        public AnimalBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public AnimalBuilder setActivityLevel(String activityLevel) {
+            this.activityLevel = activityLevel;
+            return this;
+        }
+
+        public AnimalBuilder setIntakeDate(String intakeDate) {
+            this.intakeDate = intakeDate;
+            return this;
+        }
+
+        public AnimalBuilder setShelterId(String shelterId) {
+            this.shelterId = shelterId;
+            return this;
+        }
+
+        public AnimalBuilder setImages(List<String> images) {
+            this.images = images;
+            return this;
+        }
+
+        public Animal createAnimal() {
+            return new Animal(this);
+        }
+
+    }
 }

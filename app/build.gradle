@@ -24,6 +24,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        petAdoption {
+            applicationIdSuffix ".petAdoption"
+            versionNameSuffix "-petAdoption"
+        }
+        petFinder {
+            applicationIdSuffix ".petFinder"
+            versionNameSuffix "-petFinder"
+        }
+    }
 }
 
 dependencies {
