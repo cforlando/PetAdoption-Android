@@ -3,17 +3,14 @@ package com.codefororlando.petadoption.di.module;
 import android.app.Application;
 import android.content.Context;
 
-import com.codefororlando.petadoption.data.provider.petadoption.AnimalProvider;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
+import com.codefororlando.petadoption.data.provider.petadoption.AnimalProvider;
 import com.codefororlando.petadoption.data.provider.petadoption.ShelterProvider;
-import com.codefororlando.petadoption.data.provider.petfinder.PetfinderProvider;
 import com.codefororlando.petadoption.network.IPetAdoptionService;
-import com.codefororlando.petadoption.network.IPetfinderService;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
 import com.codefororlando.petadoption.recyclerview.AnimalListAdapter;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;

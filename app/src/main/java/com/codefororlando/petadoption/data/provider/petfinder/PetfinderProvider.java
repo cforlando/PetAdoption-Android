@@ -1,7 +1,5 @@
 package com.codefororlando.petadoption.data.provider.petfinder;
 
-import android.os.Parcel;
-
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.network.IPetfinderService;
@@ -13,13 +11,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import timber.log.Timber;
 
 /**
  * Created by ryan on 10/26/17.

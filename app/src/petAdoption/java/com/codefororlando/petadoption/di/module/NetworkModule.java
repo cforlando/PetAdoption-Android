@@ -4,22 +4,15 @@ import android.content.Context;
 
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.network.IPetAdoptionService;
-import com.codefororlando.petadoption.network.IPetfinderService;
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
-import java.io.IOException;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 

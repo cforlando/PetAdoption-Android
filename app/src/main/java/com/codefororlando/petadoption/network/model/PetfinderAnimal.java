@@ -1,8 +1,5 @@
 package com.codefororlando.petadoption.network.model;
 
-import android.os.Parcel;
-import android.widget.GridLayout;
-
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 

@@ -1,10 +1,6 @@
 package com.codefororlando.petadoption.network;
 
-import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.network.model.PetfinderResponse;
-
-import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
