@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 repositories {
     mavenCentral()
     jcenter()
     maven { url "https://jitpack.io" }
 }
+
 
 android {
     compileSdkVersion compile_sdk.toInteger()
@@ -29,16 +29,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "api"
+
     productFlavors {
         petAdoption {
             applicationIdSuffix ".petAdoption"
             versionNameSuffix "-petAdoption"
+            dimension "api"
         }
         petFinder {
             applicationIdSuffix ".petFinder"
             versionNameSuffix "-petFinder"
+            dimension "api"
         }
     }
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -51,7 +57,7 @@ dependencies {
 
     // Dagger
     compile dagger
-    apt daggerApt
+    annotationProcessor daggerApt
     provided jsr250
 
     // MVP
@@ -72,7 +78,7 @@ dependencies {
     compile rxAndroid
 
     // LoganSquare
-    apt loganSquareApt
+    annotationProcessor loganSquareApt
     compile loganSquare
     compile loganSquareRetrofit
 
