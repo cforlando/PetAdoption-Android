@@ -24,7 +24,7 @@ public class NetworkModule {
 
     private final String apiUrl;
 
-    public NetworkModule(String apiUrl) {
+    public NetworkModule(String apiUrl, String apiKey) {
         this.apiUrl = apiUrl;
     }
 

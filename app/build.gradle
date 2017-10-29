@@ -11,17 +11,32 @@ android {
     compileSdkVersion compile_sdk.toInteger()
     buildToolsVersion build_tools
 
+    def Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+
     defaultConfig {
         applicationId "com.codefororlando.petadoption"
         minSdkVersion 15
         targetSdkVersion target_sdk.toInteger()
         versionCode version_code.toInteger()
         versionName version_name
+        buildConfigField "String", "PETFINDER_API_KEY", properties.getProperty("petfinder.api.key", "")
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        petAdoption {
+            applicationIdSuffix ".petAdoption"
+            versionNameSuffix "-petAdoption"
+        }
+        petFinder {
+            applicationIdSuffix ".petFinder"
+            versionNameSuffix "-petFinder"
         }
     }
 }
