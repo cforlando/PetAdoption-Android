@@ -49,46 +49,46 @@ android {
 
 dependencies {
     // Android Support
-    compile supportAppCompat
-    compile supportGridLayout
-    compile supportRecyclerView
-    compile supportDesign
-    compile constraintLayout
+    implementation supportAppCompat
+    implementation supportGridLayout
+    implementation supportRecyclerView
+    implementation supportDesign
+    implementation constraintLayout
 
     // Dagger
-    compile dagger
+    implementation dagger
     annotationProcessor daggerApt
     provided jsr250
 
     // MVP
-    compile (nucleus) {
+    implementation (nucleus) {
         exclude group: 'io.reactivex'
     }
-    compile (nucleusSupport) {
+    implementation (nucleusSupport) {
         exclude group: 'io.reactivex'
     }
 
     // Networking
-    compile picasso
-    compile retrofit
-    compile retrofitAdapter
+    implementation picasso
+    implementation retrofit
+    implementation retrofitAdapter
 
     // RX
-    compile rxJava
-    compile rxAndroid
+    implementation rxJava
+    implementation rxAndroid
 
     // LoganSquare
     annotationProcessor loganSquareApt
-    compile loganSquare
-    compile loganSquareRetrofit
+    implementation loganSquare
+    implementation loganSquareRetrofit
 
     // Logging
-    compile timber
+    implementation timber
 
     // Leak Canary
-    debugCompile leakCanaryDebug
-    releaseCompile leakCanaryRelease
+    debugImplementation leakCanaryDebug
+//    releaseCompile leakCanaryRelease
 
     // Misc
-    compile versions
+    implementation versions
 }
