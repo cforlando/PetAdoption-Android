@@ -72,9 +72,15 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         if (view != null) {
             view.setShelter(shelter);
             view.setActionClickListener(getActionClickListener(shelter));
-            showCallActionIfPhoneNumberPresent(view, shelter);
-            showWebsiteActionIfWebsitePresent(view, shelter);
-            showEmailActionIfEmailPresent(view, shelter);
+
+            if(isShelterResourcePresent(shelter.getContact().getPhoneNumber()))
+                view.showCallAction();
+
+            if(isShelterResourcePresent(shelter.getContact().getEmailAddress()))
+                view.showEmailAction();
+
+            if(isShelterResourcePresent(shelter.getContact().getWebsite()))
+                view.showWebAction();
         }
     }
 
@@ -106,22 +112,8 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         }
     }
 
-    private void showCallActionIfPhoneNumberPresent(DetailsActivity view, Shelter shelter){
-        if(!shelter.getContact().getPhoneNumber().equals("")){
-            view.showCallAction();
-        }
-    }
-
-    private void showWebsiteActionIfWebsitePresent(DetailsActivity view, Shelter shelter){
-        if(!shelter.getContact().getWebsite().equals("")){
-            view.showWebAction();
-        }
-    }
-
-    private void showEmailActionIfEmailPresent(DetailsActivity view, Shelter shelter){
-        if(!shelter.getContact().getEmailAddress().equals("")){
-            view.showEmailAction();
-        }
+    private boolean isShelterResourcePresent(String resource){
+        return !resource.equals("");
     }
 
 }
