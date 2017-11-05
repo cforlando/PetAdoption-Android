@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.codefororlando.petadoption.PetApplication;
@@ -41,6 +43,22 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
                 .getInteger(R.integer.grid_spans);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, gridSpans));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_location, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_location:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
