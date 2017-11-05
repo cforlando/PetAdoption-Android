@@ -13,6 +13,8 @@ import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
 import com.codefororlando.petadoption.view.DetailsActivity;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -70,6 +72,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         if (view != null) {
             view.setShelter(shelter);
             view.setActionClickListener(getActionClickListener(shelter));
+            showCallActionIfPhoneNumberPresent(view, shelter);
         }
     }
 
@@ -98,6 +101,12 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         DetailsActivity view = getView();
         if (view != null) {
             view.email(extras);
+        }
+    }
+
+    private void showCallActionIfPhoneNumberPresent(DetailsActivity view, Shelter shelter){
+        if(!shelter.getContact().getPhoneNumber().equals("")){
+            view.showCallAction();
         }
     }
 

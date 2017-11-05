@@ -51,10 +51,13 @@ public class PetfinderShelterProvider implements IShelterProvider {
     @NonNull
     private Shelter toShelter(PetfinderShelterRecordResponse response) {
         PetfinderShelter shelter = response.petfinder.shelter;
+        String formattedNumber = "";
+        if(shelter.phone.contents != null)
+            formattedNumber = formatPhoneNumber(shelter.phone.contents);
 
         Contact contact = new Contact(
                 shelter.name.contents,
-                shelter.phone.contents,
+                formattedNumber,
                 shelter.email.contents,
                 "" // Petfinder API doesn't give us shelter websites
         );
@@ -70,5 +73,11 @@ public class PetfinderShelterProvider implements IShelterProvider {
         );
 
         return new Shelter(shelter.id.contents, contact, location);
+    }
+
+    private String formatPhoneNumber(String unformattedNumber) {
+        String numbersOnly = unformattedNumber.replaceAll("[^0-9]", "");
+
+        return "tel:" + numbersOnly;
     }
 }
