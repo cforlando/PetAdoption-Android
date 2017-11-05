@@ -42,6 +42,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     private TextView textViewCityStateZip;
     private LinearLayout callActionView;
     private LinearLayout webActionView;
+    private LinearLayout emailActionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         textViewCityStateZip = (TextView) findViewById(R.id.details_location_city_state_zip);
         callActionView = (LinearLayout) findViewById(R.id.details_action_call);
         webActionView = (LinearLayout) findViewById(R.id.details_action_web);
+        emailActionView = (LinearLayout) findViewById(R.id.details_action_email);
 
         setDefaultState();
     }
@@ -87,7 +89,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
 
     public void setActionClickListener(View.OnClickListener onClickListener) {
         callActionView.setOnClickListener(onClickListener);
-        findViewById(R.id.details_action_email).setOnClickListener(onClickListener);
+        emailActionView.setOnClickListener(onClickListener);
         webActionView.setOnClickListener(onClickListener);
     }
 
@@ -157,6 +159,14 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         webActionView.setVisibility(View.VISIBLE);
     }
 
+    public void hideEmailAction(){
+        emailActionView.setVisibility(View.INVISIBLE);
+    }
+
+    public void showEmailAction(){
+        emailActionView.setVisibility(View.VISIBLE);
+    }
+
     /**
      * Start an activity or show an error.
      *
@@ -174,6 +184,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     private void setDefaultState(){
         hideCallAction();
         hideWebAction();
+        hideEmailAction();
     }
 
 }

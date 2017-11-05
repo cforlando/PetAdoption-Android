@@ -74,6 +74,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
             view.setActionClickListener(getActionClickListener(shelter));
             showCallActionIfPhoneNumberPresent(view, shelter);
             showWebsiteActionIfWebsitePresent(view, shelter);
+            showEmailActionIfEmailPresent(view, shelter);
         }
     }
 
@@ -114,6 +115,12 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
     private void showWebsiteActionIfWebsitePresent(DetailsActivity view, Shelter shelter){
         if(!shelter.getContact().getWebsite().equals("")){
             view.showWebAction();
+        }
+    }
+
+    private void showEmailActionIfEmailPresent(DetailsActivity view, Shelter shelter){
+        if(!shelter.getContact().getEmailAddress().equals("")){
+            view.showEmailAction();
         }
     }
 

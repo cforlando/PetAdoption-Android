@@ -52,13 +52,17 @@ public class PetfinderShelterProvider implements IShelterProvider {
     private Shelter toShelter(PetfinderShelterRecordResponse response) {
         PetfinderShelter shelter = response.petfinder.shelter;
         String formattedNumber = "";
+        String email = "";
         if(shelter.phone.contents != null)
             formattedNumber = formatPhoneNumber(shelter.phone.contents);
+        if(shelter.email.contents != null)
+            email = shelter.email.contents;
+
 
         Contact contact = new Contact(
                 shelter.name.contents,
                 formattedNumber,
-                shelter.email.contents,
+                email,
                 "" // Petfinder API doesn't give us shelter websites
         );
 
