@@ -13,8 +13,6 @@ import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
 import com.codefororlando.petadoption.view.DetailsActivity;
 
-import java.util.Objects;
-
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
