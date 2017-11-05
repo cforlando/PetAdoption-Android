@@ -1,7 +1,10 @@
 package com.codefororlando.petadoption.network;
 
-import com.codefororlando.petadoption.network.model.PetfinderResponse;
+import com.codefororlando.petadoption.network.model.pet.PetfinderPetRecordResponse;
+import com.codefororlando.petadoption.network.model.shelter.PetfinderShelterRecordResponse;
+
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -12,6 +15,9 @@ import retrofit2.http.Query;
 public interface IPetfinderService {
 
     @GET("pet.find")
-    Observable<PetfinderResponse> getAnimals(@Query("location") String cityOrZip);
+    Observable<PetfinderPetRecordResponse> getAnimals(@Query("location") String cityOrZip);
+
+    @GET("shelter.get")
+    Single<PetfinderShelterRecordResponse> getShelter(@Query("id") String shelterId);
 
 }

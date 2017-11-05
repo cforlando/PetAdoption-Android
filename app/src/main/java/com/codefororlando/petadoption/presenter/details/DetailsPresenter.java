@@ -49,7 +49,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         animal = intent.getParcelableExtra(EXTRA_ANIMAL);
         detailsActivity.setAnimal(new AnimalViewModel(animal));
 
-        shelterSubscription = shelterProvider.getShelter("arbitrary_id")
+        shelterSubscription = shelterProvider.getShelter(animal.getShelterId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ShelterLoadedAction(this));
