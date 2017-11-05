@@ -41,6 +41,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     private TextView textViewLocationStreet;
     private TextView textViewCityStateZip;
     private LinearLayout callActionView;
+    private LinearLayout webActionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         textViewLocationStreet = (TextView) findViewById(R.id.details_location_street);
         textViewCityStateZip = (TextView) findViewById(R.id.details_location_city_state_zip);
         callActionView = (LinearLayout) findViewById(R.id.details_action_call);
+        webActionView = (LinearLayout) findViewById(R.id.details_action_web);
 
         setDefaultState();
     }
@@ -86,7 +88,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     public void setActionClickListener(View.OnClickListener onClickListener) {
         callActionView.setOnClickListener(onClickListener);
         findViewById(R.id.details_action_email).setOnClickListener(onClickListener);
-        findViewById(R.id.details_action_web).setOnClickListener(onClickListener);
+        webActionView.setOnClickListener(onClickListener);
     }
 
     public void setAnimal(AnimalViewModel animalViewModel) {
@@ -147,6 +149,14 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         callActionView.setVisibility(View.VISIBLE);
     }
 
+    public void hideWebAction(){
+        webActionView.setVisibility(View.INVISIBLE);
+    }
+
+    public void showWebAction(){
+        webActionView.setVisibility(View.VISIBLE);
+    }
+
     /**
      * Start an activity or show an error.
      *
@@ -163,6 +173,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
 
     private void setDefaultState(){
         hideCallAction();
+        hideWebAction();
     }
 
 }

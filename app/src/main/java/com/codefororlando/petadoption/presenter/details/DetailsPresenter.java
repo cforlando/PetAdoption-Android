@@ -73,6 +73,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
             view.setShelter(shelter);
             view.setActionClickListener(getActionClickListener(shelter));
             showCallActionIfPhoneNumberPresent(view, shelter);
+            showWebsiteActionIfWebsitePresent(view, shelter);
         }
     }
 
@@ -84,8 +85,8 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         }
     }
 
-    void performViewWebsite() {
-        Uri website = Uri.parse("http://ladylake.org/departments/police-department/animal-control-2");
+    void performViewWebsite(@NonNull Shelter shelter) {
+        Uri website = Uri.parse(shelter.getContact().getWebsite());
         DetailsActivity view = getView();
         if (view != null) {
             view.openWebsite(website);
@@ -107,6 +108,12 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
     private void showCallActionIfPhoneNumberPresent(DetailsActivity view, Shelter shelter){
         if(!shelter.getContact().getPhoneNumber().equals("")){
             view.showCallAction();
+        }
+    }
+
+    private void showWebsiteActionIfWebsitePresent(DetailsActivity view, Shelter shelter){
+        if(!shelter.getContact().getWebsite().equals("")){
+            view.showWebAction();
         }
     }
 
