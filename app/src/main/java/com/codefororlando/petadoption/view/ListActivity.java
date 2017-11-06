@@ -55,10 +55,15 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_location:
+                new LocationDialogFragment().show(getSupportFragmentManager(), "location_dialog");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onUseLocation(String zip) {
+
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
