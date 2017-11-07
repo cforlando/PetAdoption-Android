@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Pet Adoption</string>
-    <string name="lady_lake">Town of Lady Lake Animal Services</string>
-    <string name="lady_lake_short">Pet Adoption</string>
 </resources>
