@@ -5,6 +5,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.codefororlando.petadoption.R;
 import com.codefororlando.petadoption.data.model.Animal;
@@ -17,16 +18,21 @@ import java.util.List;
  */
 public class AnimalItemViewHolder extends RecyclerView.ViewHolder {
 
+    private final TextView textViewName;
     private final ImageView imageViewAnimal;
     private final Resources resources;
 
     public AnimalItemViewHolder(View itemView) {
         super(itemView);
         this.imageViewAnimal = (ImageView) itemView.findViewById(R.id.details_animal_image);
+        this.textViewName = (TextView) itemView.findViewById(R.id.details_animal_name);
         this.resources = imageViewAnimal.getResources();
     }
 
     public void setAnimal(Animal animal) {
+
+        textViewName.setText(animal.getName());
+
         @DrawableRes
         int placeholderImageResource = Animal.placeholderImageResource(animal);
 

@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/details_animal_image"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
-    android:transitionName="@string/app_name"
-    tools:ignore="ContentDescription,UnusedAttribute" />
+    android:layout_height="wrap_content">
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/details_animal_image"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:transitionName="@string/app_name"
+        tools:ignore="ContentDescription,UnusedAttribute" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/grid_footer"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/grid_footer"
+        app:layout_constraintBottom_toBottomOf="@+id/details_animal_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/details_animal_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:lines="2"
+            android:ellipsize="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
