@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.codefororlando.petadoption.R;
+import com.codefororlando.petadoption.presenter.list.LocationDialogPresenter;
 
 /**
  * Created by ryan on 11/6/17.
@@ -22,23 +24,15 @@ import com.codefororlando.petadoption.R;
 public class LocationDialogFragment extends DialogFragment {
 
     private EditText locationEditText;
-    private Button findLocationButton;
+    private ImageButton findLocationButton;
+
+    private LocationDialogPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.AppTheme);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dialog_location, container, false);
-
-        locationEditText = (EditText) view.findViewById(R.id.location_edit_text);
-        findLocationButton = (Button) view.findViewById(R.id.location_button);
-
-        return view;
+        presenter = new LocationDialogPresenter(this);
     }
 
     @NonNull
@@ -46,13 +40,26 @@ public class LocationDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View layout = getActivity().getLayoutInflater().inflate(R.layout.fragment_dialog_location, null);
 
+        locationEditText = (EditText) layout.findViewById(R.id.location_edit_text);
+        findLocationButton = (ImageButton) layout.findViewById(R.id.location_button);
+
+        locationEditText.setText(presenter.getLocation());
+
+        findLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationEditText.setText(presenter.fetchLocation());
+            }
+        });
+
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Set Location")
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ((ListActivity) getActivity()).onUseLocation(getEnteredZip());
+                                presenter.setLocation(getEnteredZip());
+                                ((ListActivity) getActivity()).refreshList();
                             }
                         })
                 .setNegativeButton("Cancel",
@@ -66,6 +73,7 @@ public class LocationDialogFragment extends DialogFragment {
                 .create();
     }
 
+    @NonNull
     private String getEnteredZip() {
         return locationEditText.getText().toString();
     }

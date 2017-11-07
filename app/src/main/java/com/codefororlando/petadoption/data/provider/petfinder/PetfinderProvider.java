@@ -2,6 +2,7 @@ package com.codefororlando.petadoption.data.provider.petfinder;
 
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
+import com.codefororlando.petadoption.helper.IPreferencesHelper;
 import com.codefororlando.petadoption.network.IPetfinderService;
 import com.codefororlando.petadoption.network.model.PetfinderAnimal;
 import com.codefororlando.petadoption.network.model.PetfinderResponse;
@@ -25,14 +26,17 @@ public class PetfinderProvider implements IAnimalProvider {
 
     private final IPetfinderService petfinderService;
 
+    private final IPreferencesHelper preferencesHelper;
+
     @Inject
-    public PetfinderProvider(IPetfinderService petfinderService) {
+    public PetfinderProvider(IPetfinderService petfinderService, IPreferencesHelper preferencesHelper) {
         this.petfinderService = petfinderService;
+        this.preferencesHelper = preferencesHelper;
     }
 
     @Override
     public Observable<List<Animal>> getAnimals() {
-        return petfinderService.getAnimals("32765")
+        return petfinderService.getAnimals(preferencesHelper.getLocation())
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
