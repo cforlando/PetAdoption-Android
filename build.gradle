@@ -17,6 +17,10 @@ buildscript {
     ext.supportDesign = "com.android.support:design:$androidSupportVersion"
     ext.constraintLayout = "com.android.support.constraint:constraint-layout:1.0.2"
 
+    // Play Services
+    def playServicesVersion = "11.6.0"
+    ext.locationServices = "com.google.android.gms:play-services-location:$playServicesVersion"
+
     // Dagger
     def daggerVersion = "2.8"
     ext.dagger = "com.google.dagger:dagger:$daggerVersion"

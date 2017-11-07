@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 repositories {
     mavenCentral()
     jcenter()
+    google()
     maven { url "https://jitpack.io" }
 }
 
@@ -54,6 +55,9 @@ dependencies {
     implementation supportRecyclerView
     implementation supportDesign
     implementation constraintLayout
+
+    // Play Services
+    implementation locationServices
 
     // Dagger
     implementation dagger
