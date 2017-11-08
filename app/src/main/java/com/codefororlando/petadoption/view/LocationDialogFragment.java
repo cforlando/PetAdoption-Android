@@ -1,16 +1,16 @@
 package com.codefororlando.petadoption.view;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -21,12 +21,14 @@ import com.codefororlando.petadoption.presenter.list.LocationDialogPresenter;
  * Created by ryan on 11/6/17.
  */
 
-public class LocationDialogFragment extends DialogFragment {
+public class LocationDialogFragment extends DialogFragment  {
 
     private EditText locationEditText;
     private ImageButton findLocationButton;
 
     private LocationDialogPresenter presenter;
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +50,11 @@ public class LocationDialogFragment extends DialogFragment {
         findLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                locationEditText.setText(presenter.fetchLocation());
+                if (isLocationPermissionGranted()) {
+                    populateWithCurrentLocation();
+                } else {
+                    requestLocationPermission();
+                }
             }
         });
 
@@ -73,8 +79,37 @@ public class LocationDialogFragment extends DialogFragment {
                 .create();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if(isLocationPermissionGranted()) {
+                    populateWithCurrentLocation();
+                }
+            }
+        }
+    }
+
     @NonNull
     private String getEnteredZip() {
         return locationEditText.getText().toString();
+    }
+
+    private boolean isLocationPermissionGranted() {
+        int check = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        return check == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestLocationPermission() {
+        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+    }
+
+    private void populateWithCurrentLocation(){
+        presenter.fetchCurrentLocation();
+    }
+
+    public void setEnteredZip(String zip) {
+        locationEditText.setText(zip);
     }
 }
