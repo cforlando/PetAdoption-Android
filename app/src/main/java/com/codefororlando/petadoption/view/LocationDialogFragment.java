@@ -65,6 +65,7 @@ public class LocationDialogFragment extends DialogFragment  {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 presenter.setLocation(getEnteredZip());
+                                dialog.dismiss();
                                 ((ListActivity) getActivity()).refreshList();
                             }
                         })

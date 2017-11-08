@@ -63,7 +63,7 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
     }
 
     public void refreshList() {
-//        recreate();
+        recreate();
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
