@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.network.model;
+package com.codefororlando.petadoption.network.model.pet;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
@@ -8,7 +8,7 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
  */
 
 @JsonObject
-public class PetfinderResponse {
+public class PetfinderPetRecordResponse {
 
     @JsonField
     public PetfinderBase petfinder;

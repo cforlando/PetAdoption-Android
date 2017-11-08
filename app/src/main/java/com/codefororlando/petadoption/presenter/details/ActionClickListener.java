@@ -28,7 +28,7 @@ class ActionClickListener implements View.OnClickListener {
                 presenter.performViewEmail(shelter);
                 break;
             case R.id.details_action_web:
-                presenter.performViewWebsite();
+                presenter.performViewWebsite(shelter);
                 break;
             default:
                 throw new IllegalArgumentException("Unhandled click for " + v);

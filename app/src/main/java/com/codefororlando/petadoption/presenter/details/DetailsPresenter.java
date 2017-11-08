@@ -49,7 +49,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         animal = intent.getParcelableExtra(EXTRA_ANIMAL);
         detailsActivity.setAnimal(new AnimalViewModel(animal));
 
-        shelterSubscription = shelterProvider.getShelter("arbitrary_id")
+        shelterSubscription = shelterProvider.getShelter(animal.getShelterId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ShelterLoadedAction(this));
@@ -70,6 +70,15 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         if (view != null) {
             view.setShelter(shelter);
             view.setActionClickListener(getActionClickListener(shelter));
+
+            if(isShelterResourcePresent(shelter.getContact().getPhoneNumber()))
+                view.showCallAction();
+
+            if(isShelterResourcePresent(shelter.getContact().getEmailAddress()))
+                view.showEmailAction();
+
+            if(isShelterResourcePresent(shelter.getContact().getWebsite()))
+                view.showWebAction();
         }
     }
 
@@ -81,8 +90,8 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         }
     }
 
-    void performViewWebsite() {
-        Uri website = Uri.parse("http://ladylake.org/departments/police-department/animal-control-2");
+    void performViewWebsite(@NonNull Shelter shelter) {
+        Uri website = Uri.parse(shelter.getContact().getWebsite());
         DetailsActivity view = getView();
         if (view != null) {
             view.openWebsite(website);
@@ -99,6 +108,10 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         if (view != null) {
             view.email(extras);
         }
+    }
+
+    private boolean isShelterResourcePresent(String resource){
+        return !resource.equals("");
     }
 
 }
