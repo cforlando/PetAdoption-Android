@@ -63,7 +63,8 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
     }
 
     public void refreshList() {
-        recreate();
+        getPresenter().refreshList();
+        recyclerView.scrollToPosition(0);
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {

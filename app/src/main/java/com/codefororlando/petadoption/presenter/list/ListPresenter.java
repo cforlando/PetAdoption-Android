@@ -33,14 +33,6 @@ public class ListPresenter extends Presenter<ListActivity> {
         ((PetApplication) listActivity.getApplication()).appComponent()
                 .inject(this);
 
-        animalLoadSubscription = animalProvider.getAnimals()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new AnimalsLoadedAction(animalListAdapter),
-                        new AnimalsLoadedFailureAction(this)
-                );
-
         animalListAdapter.setOnItemClickListener(new AAnimalListAdapter.OnAnimalSelectListener() {
             @Override
             public void onSelect(Animal animal) {
@@ -52,12 +44,24 @@ public class ListPresenter extends Presenter<ListActivity> {
         });
 
         listActivity.setAdapter(animalListAdapter);
+
+        refreshList();
     }
 
     @Override
     protected void onDropView() {
         super.onDropView();
         animalLoadSubscription.dispose();
+    }
+
+    public void refreshList() {
+        animalLoadSubscription = animalProvider.getAnimals()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new AnimalsLoadedAction(animalListAdapter),
+                        new AnimalsLoadedFailureAction(this)
+                );
     }
 
 }
