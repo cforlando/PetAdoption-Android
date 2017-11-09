@@ -25,6 +25,7 @@ import nucleus.view.NucleusAppCompatActivity;
 public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
 
     private RecyclerView recyclerView;
+    private LocationDialogFragment locationDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        locationDialog = new LocationDialogFragment();
 
         final int gridSpans = getResources()
                 .getInteger(R.integer.grid_spans);
@@ -55,7 +57,7 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_location:
-                new LocationDialogFragment().show(getSupportFragmentManager(), "location_dialog");
+                showLocationDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -80,8 +82,13 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
     }
 
     public void notifyAnimalLoadingFailed() {
-        Toast.makeText(this, "Failed to get animals", Toast.LENGTH_SHORT)
-                .show();
+        showLocationDialog();
+    }
+
+    private void showLocationDialog() {
+        if(!locationDialog.isAdded()){
+            locationDialog.show(getSupportFragmentManager(), "location_dialog");
+        }
     }
 
 }
