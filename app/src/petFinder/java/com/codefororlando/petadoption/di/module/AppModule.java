@@ -11,6 +11,7 @@ import com.codefororlando.petadoption.helper.IPreferencesHelper;
 import com.codefororlando.petadoption.helper.ILocationManager;
 import com.codefororlando.petadoption.helper.LocationManager;
 import com.codefororlando.petadoption.helper.PreferencesHelper;
+import com.codefororlando.petadoption.data.provider.petfinder.PetfinderShelterProvider;
 import com.codefororlando.petadoption.network.IPetfinderService;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
 import com.codefororlando.petadoption.recyclerview.AnimalListAdapter;
@@ -60,8 +61,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    IShelterProvider provideShelterProvider() {
-        return new ShelterProvider();
+    IShelterProvider provideShelterProvider(IPetfinderService petfinderService) {
+        return new PetfinderShelterProvider(petfinderService);
     }
 
     @Provides

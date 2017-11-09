@@ -1,8 +1,4 @@
 <resources>
-    <string name="app_name">Pet Adoption</string>
-    <string name="lady_lake">Town of Lady Lake Animal Services</string>
-    <string name="lady_lake_short">Town of Lady Lake</string>
-
     <string name="hello_world">Hello world!</string>
     <!-- Activity List -->
     <string name="launch_image_of_puppy">Image of a puppy.</string>

@@ -4,8 +4,8 @@ import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.helper.IPreferencesHelper;
 import com.codefororlando.petadoption.network.IPetfinderService;
-import com.codefororlando.petadoption.network.model.PetfinderAnimal;
-import com.codefororlando.petadoption.network.model.PetfinderResponse;
+import com.codefororlando.petadoption.network.model.pet.PetfinderAnimal;
+import com.codefororlando.petadoption.network.model.pet.PetfinderPetRecordResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +43,11 @@ public class PetfinderProvider implements IAnimalProvider {
                         throwable.printStackTrace();
                     }
                 })
-                .map(new Function<PetfinderResponse, List<Animal>>() {
+                .map(new Function<PetfinderPetRecordResponse, List<Animal>>() {
 
                     @Override
-                    public List<Animal> apply(@NonNull PetfinderResponse petfinderResponse) throws Exception {
-                        return toAnimalList(petfinderResponse);
+                    public List<Animal> apply(@NonNull PetfinderPetRecordResponse petfinderPetRecordResponse) throws Exception {
+                        return toAnimalList(petfinderPetRecordResponse);
                     }
                 })
                 .replay(5, TimeUnit.MINUTES)
@@ -55,7 +55,7 @@ public class PetfinderProvider implements IAnimalProvider {
     }
 
 
-    private List<Animal> toAnimalList(PetfinderResponse response) {
+    private List<Animal> toAnimalList(PetfinderPetRecordResponse response) {
         final List<PetfinderAnimal> petfinderAnimals = response.petfinder.pets.petList;
         List<Animal> outputAnimals = new ArrayList<>();
 

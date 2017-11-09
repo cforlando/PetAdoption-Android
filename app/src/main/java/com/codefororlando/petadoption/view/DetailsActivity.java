@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,9 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     private TextView textViewLocationName;
     private TextView textViewLocationStreet;
     private TextView textViewCityStateZip;
+    private LinearLayout callActionView;
+    private LinearLayout webActionView;
+    private LinearLayout emailActionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,11 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         textViewLocationName = (TextView) findViewById(R.id.details_location_name);
         textViewLocationStreet = (TextView) findViewById(R.id.details_location_street);
         textViewCityStateZip = (TextView) findViewById(R.id.details_location_city_state_zip);
+        callActionView = (LinearLayout) findViewById(R.id.details_action_call);
+        webActionView = (LinearLayout) findViewById(R.id.details_action_web);
+        emailActionView = (LinearLayout) findViewById(R.id.details_action_email);
+
+        setDefaultState();
     }
 
     @Override
@@ -79,9 +88,9 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     }
 
     public void setActionClickListener(View.OnClickListener onClickListener) {
-        findViewById(R.id.details_action_call).setOnClickListener(onClickListener);
-        findViewById(R.id.details_action_email).setOnClickListener(onClickListener);
-        findViewById(R.id.details_action_web).setOnClickListener(onClickListener);
+        callActionView.setOnClickListener(onClickListener);
+        emailActionView.setOnClickListener(onClickListener);
+        webActionView.setOnClickListener(onClickListener);
     }
 
     public void setAnimal(AnimalViewModel animalViewModel) {
@@ -134,6 +143,30 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         startActivity(webIntent, R.string.info_intent_error_no_browser);
     }
 
+    public void hideCallAction(){
+        callActionView.setVisibility(View.INVISIBLE);
+    }
+
+    public void showCallAction(){
+        callActionView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideWebAction(){
+        webActionView.setVisibility(View.INVISIBLE);
+    }
+
+    public void showWebAction(){
+        webActionView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideEmailAction(){
+        emailActionView.setVisibility(View.INVISIBLE);
+    }
+
+    public void showEmailAction(){
+        emailActionView.setVisibility(View.VISIBLE);
+    }
+
     /**
      * Start an activity or show an error.
      *
@@ -146,6 +179,12 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         } catch (Exception e) {
             Toast.makeText(this, onErrorMessage, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void setDefaultState(){
+        hideCallAction();
+        hideWebAction();
+        hideEmailAction();
     }
 
 }
