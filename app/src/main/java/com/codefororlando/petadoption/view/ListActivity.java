@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.codefororlando.petadoption.PetApplication;
@@ -23,6 +25,7 @@ import nucleus.view.NucleusAppCompatActivity;
 public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
 
     private RecyclerView recyclerView;
+    private LocationDialogFragment locationDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,34 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        locationDialog = new LocationDialogFragment();
 
         final int gridSpans = getResources()
                 .getInteger(R.integer.grid_spans);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, gridSpans));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_location, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_location:
+                showLocationDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void refreshList() {
+        getPresenter().refreshList();
+        recyclerView.scrollToPosition(0);
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
@@ -56,8 +82,13 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
     }
 
     public void notifyAnimalLoadingFailed() {
-        Toast.makeText(this, "Failed to get animals", Toast.LENGTH_SHORT)
-                .show();
+        showLocationDialog();
+    }
+
+    private void showLocationDialog() {
+        if(!locationDialog.isAdded()){
+            locationDialog.show(getSupportFragmentManager(), "location_dialog");
+        }
     }
 
 }
