@@ -13,7 +13,7 @@ buildscript {
     }
 
     // Kotlin
-    ext.kotlinLib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    ext.kotlinLib = "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
 
     // Support
     def androidSupportVersion = "25.1.1"
