@@ -167,6 +167,10 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         emailActionView.setVisibility(View.VISIBLE);
     }
 
+    public void showShelterLoadFailedError() {
+        Toast.makeText(this, R.string.shelter_load_failed_message, Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * Start an activity or show an error.
      *
