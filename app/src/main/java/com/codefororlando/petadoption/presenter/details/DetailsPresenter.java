@@ -52,7 +52,8 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         shelterSubscription = shelterProvider.getShelter(animal.getShelterId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ShelterLoadedAction(this));
+                .subscribe(new ShelterLoadedAction(this),
+                        new ShelterLoadedFailedAction(this));
     }
 
     @Override
