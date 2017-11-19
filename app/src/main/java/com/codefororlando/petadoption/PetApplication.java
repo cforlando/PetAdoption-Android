@@ -8,7 +8,7 @@ import com.codefororlando.petadoption.di.component.AppComponent;
 import com.codefororlando.petadoption.di.component.DaggerAppComponent;
 import com.codefororlando.petadoption.di.module.AppModule;
 import com.codefororlando.petadoption.di.module.NetworkModule;
-import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by tencent on 10/8/16.
@@ -21,7 +21,7 @@ public class PetApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
 
         //Catch common mistakes
         if (BuildConfig.DEBUG) {
