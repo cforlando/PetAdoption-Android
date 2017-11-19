@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 repositories {
     mavenCentral()
@@ -49,6 +50,9 @@ android {
 }
 
 dependencies {
+    // Kotlin
+    implementation kotlinLib
+
     // Android Support
     implementation supportAppCompat
     implementation supportGridLayout
