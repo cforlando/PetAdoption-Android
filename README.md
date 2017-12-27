@@ -1,5 +1,5 @@
 
-[![Stories in Ready](https://badge.waffle.io/cforlando/PetAdoption-Android.svg?label=ready&title=Waffle Tasks)](http://waffle.io/cforlando/PetAdoption-Android)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/cforlando/PetAdoption-Android.svg?columns=all)](https://waffle.io/cforlando/PetAdoption-Android)
  
 # PetAdoption-Android
 **Pet Adoption** is an Android app being built for the Town of Lady Lake, Florida to assist citizens in adopting animals for local shelters.
