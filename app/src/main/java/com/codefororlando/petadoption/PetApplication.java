@@ -55,7 +55,6 @@ public class PetApplication extends Application {
         return component;
     }
 
-
     public static final PetApplication getApp() {
         return application;
     }
