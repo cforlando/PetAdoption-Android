@@ -23,9 +23,7 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import timber.log.Timber;
 
-/**
- * Created by tencent on 10/8/16.
- */
+
 @Module
 public class NetworkModule {
 

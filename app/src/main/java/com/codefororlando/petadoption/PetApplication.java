@@ -16,10 +16,12 @@ import com.squareup.leakcanary.LeakCanary;
 public class PetApplication extends Application {
 
     private static AppComponent component;
+    private static PetApplication application;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        application = this;
 
         LeakCanary.install(this);
 
@@ -53,4 +55,8 @@ public class PetApplication extends Application {
         return component;
     }
 
+
+    public static final PetApplication getApp() {
+        return application;
+    }
 }

@@ -8,11 +8,11 @@ import java.util.List;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
-class AnimalsLoadedAction implements Consumer<List<Animal>> {
+class SetAnimalsAction implements Consumer<List<Animal>> {
 
     private final AAnimalListAdapter animalListAdapter;
 
-    AnimalsLoadedAction(AAnimalListAdapter animalListAdapter) {
+    SetAnimalsAction(AAnimalListAdapter animalListAdapter) {
         this.animalListAdapter = animalListAdapter;
     }
 
