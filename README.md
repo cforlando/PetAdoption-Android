@@ -2,19 +2,23 @@
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/cforlando/PetAdoption-Android.svg?columns=all)](https://waffle.io/cforlando/PetAdoption-Android)
  
 # PetAdoption-Android
-**Pet Adoption** is an Android app being built for the Town of Lady Lake, Florida to assist citizens in adopting animals for local shelters.
+**Pet Adoption** is an Android app being built to assist people in adopting animals for local shelters.  
 
-**Version** 1.0 (MVP)
+There are currently two builds of PetAdoption.  
+- One that uses our own Pet Adoption API for the Town of Lady Lake, Florida.
+- One that uses the PetFinder API for general purpose use.  
+
+[**Version 1.0** on Google Play](https://play.google.com/store/apps/details?id=com.codefororlando.petadoption.petFinder)
+
 
 **Other Repositories**
 - Pet Adoption for iOS: https://github.com/cforlando/PetAdoption-iOS
 - Pet Adoption for WordPress: https://github.com/cforlando/PetAdoption-WordPress
+- Pet Adoption API: https://github.com/cforlando/PetAdoption-API
 
 **Project Lead**
 
-John Li - Mobile(slack: johnleeroy)
-
-Khalid Hoffman - API(slack: khalidhoffman)
+John Li - Mobile (slack: johnleeroy)
 
 ## Building
 This project is built with Gradle using the Gradle Wrapper script.
