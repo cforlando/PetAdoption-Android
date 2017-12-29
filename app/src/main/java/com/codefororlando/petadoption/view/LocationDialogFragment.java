@@ -46,6 +46,8 @@ public class LocationDialogFragment extends DialogFragment  {
         findLocationButton = (ImageButton) layout.findViewById(R.id.location_button);
 
         locationEditText.setText(presenter.getLocation());
+        int textLength = locationEditText.getText().toString().length();
+        locationEditText.setSelection(textLength);
 
         findLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
