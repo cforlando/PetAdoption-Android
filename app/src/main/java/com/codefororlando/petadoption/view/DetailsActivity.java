@@ -1,13 +1,18 @@
 package com.codefororlando.petadoption.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +27,8 @@ import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.presenter.details.DetailsPresenter;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusAppCompatActivity;
 
@@ -31,7 +38,6 @@ import nucleus.view.NucleusAppCompatActivity;
 @RequiresPresenter(DetailsPresenter.class)
 public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> {
 
-    private ImageView imageViewAnimal;
     private TextView textViewGender;
     private TextView textViewAge;
     private TextView textViewSize;
@@ -43,6 +49,8 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     private LinearLayout callActionView;
     private LinearLayout webActionView;
     private LinearLayout emailActionView;
+    private ViewPager imageViewPager;
+    private PetImageViewPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +68,6 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        imageViewAnimal = (ImageView) findViewById(R.id.details_animal_image);
         textViewGender = (TextView) findViewById(R.id.details_gender);
         textViewAge = (TextView) findViewById(R.id.details_age);
         textViewSize = (TextView) findViewById(R.id.details_size);
@@ -72,6 +79,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         callActionView = (LinearLayout) findViewById(R.id.details_action_call);
         webActionView = (LinearLayout) findViewById(R.id.details_action_web);
         emailActionView = (LinearLayout) findViewById(R.id.details_action_email);
+        imageViewPager = (ViewPager) findViewById(R.id.image_pager);
 
         setDefaultState();
     }
@@ -105,13 +113,8 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
             supportActionBar.setTitle(animal.getName());
         }
 
-        Picasso.with(this)
-                .load(animalViewModel.getDefaultImageUrl())
-                .resize(1000, 1000)
-                .onlyScaleDown()
-                .centerCrop()
-                .placeholder(animalViewModel.placeholderImageResource())
-                .into(imageViewAnimal);
+        pagerAdapter = new PetImageViewPagerAdapter(this, animal.getImages(), animalViewModel.placeholderImageResource());
+        imageViewPager.setAdapter(pagerAdapter);
     }
 
     public void setShelter(Shelter shelter) {
@@ -143,27 +146,27 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         startActivity(webIntent, R.string.info_intent_error_no_browser);
     }
 
-    public void hideCallAction(){
+    public void hideCallAction() {
         callActionView.setVisibility(View.INVISIBLE);
     }
 
-    public void showCallAction(){
+    public void showCallAction() {
         callActionView.setVisibility(View.VISIBLE);
     }
 
-    public void hideWebAction(){
+    public void hideWebAction() {
         webActionView.setVisibility(View.INVISIBLE);
     }
 
-    public void showWebAction(){
+    public void showWebAction() {
         webActionView.setVisibility(View.VISIBLE);
     }
 
-    public void hideEmailAction(){
+    public void hideEmailAction() {
         emailActionView.setVisibility(View.INVISIBLE);
     }
 
-    public void showEmailAction(){
+    public void showEmailAction() {
         emailActionView.setVisibility(View.VISIBLE);
     }
 
@@ -185,10 +188,55 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         }
     }
 
-    private void setDefaultState(){
+    private void setDefaultState() {
         hideCallAction();
         hideWebAction();
         hideEmailAction();
+    }
+
+    private static class PetImageViewPagerAdapter extends PagerAdapter {
+
+        private final Context context;
+        private final List<String> images;
+        private final int placeholderImage;
+        private final LayoutInflater mLayoutInflater;
+
+        public PetImageViewPagerAdapter(Context context, List<String> images, int placeholderImage) {
+            mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.context = context;
+            this.images = images;
+            this.placeholderImage = placeholderImage;
+        }
+
+        @Override
+        public int getCount() {
+            return images.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            View itemView = mLayoutInflater.inflate(R.layout.image_pager_item, container, false);
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.image_content);
+            Picasso.with(context)
+                    .load(images.get(position))
+                    .resize(1000, 1000)
+                    .onlyScaleDown()
+                    .centerCrop()
+                    .placeholder(placeholderImage)
+                    .into(imageView);
+            container.addView(itemView);
+            return itemView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
     }
 
 }
