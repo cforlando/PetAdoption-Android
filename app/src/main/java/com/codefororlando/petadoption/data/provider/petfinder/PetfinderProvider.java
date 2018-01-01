@@ -14,13 +14,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 
-/**
- * Created by ryan on 10/26/17.
- */
 
 public class PetfinderProvider implements IAnimalProvider {
 
@@ -35,21 +29,10 @@ public class PetfinderProvider implements IAnimalProvider {
     }
 
     @Override
-    public Observable<List<Animal>> getAnimals() {
-        return petfinderService.getAnimals(preferencesHelper.getLocation())
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                })
-                .map(new Function<PetfinderPetRecordResponse, List<Animal>>() {
-
-                    @Override
-                    public List<Animal> apply(@NonNull PetfinderPetRecordResponse petfinderPetRecordResponse) throws Exception {
-                        return toAnimalList(petfinderPetRecordResponse);
-                    }
-                })
+    public Observable<List<Animal>> getAnimals(int count, String offset) {
+        return petfinderService.getAnimals(preferencesHelper.getLocation(), count, offset)
+                .doOnError(throwable -> throwable.printStackTrace())
+                .map(petfinderPetRecordResponse -> toAnimalList(petfinderPetRecordResponse))
                 .replay(5, TimeUnit.MINUTES)
                 .autoConnect();
     }
@@ -100,7 +83,6 @@ public class PetfinderProvider implements IAnimalProvider {
         if(breed != null){
             breedString = breed.content;
         }
-
         return breedString;
     }
 }

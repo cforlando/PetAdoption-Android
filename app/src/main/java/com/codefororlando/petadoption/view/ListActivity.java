@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
@@ -45,6 +44,8 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
                 .getInteger(R.integer.grid_spans);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, gridSpans));
+
+        recyclerView.addOnScrollListener(scrollToEndListener);
     }
 
     @Override
@@ -85,10 +86,26 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         showLocationDialog();
     }
 
+    public int getLastVisibleItemIndex() {
+        return ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+    }
+
+    public void scrollToPosition(int index) {
+        recyclerView.scrollToPosition(index);
+    }
+
     private void showLocationDialog() {
         if(!locationDialog.isAdded()){
             locationDialog.show(getSupportFragmentManager(), "location_dialog");
         }
     }
 
+    private RecyclerView.OnScrollListener scrollToEndListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            if (!recyclerView.canScrollVertically(1)) {
+                getPresenter().loadMore();
+            }
+        }
+    };
 }

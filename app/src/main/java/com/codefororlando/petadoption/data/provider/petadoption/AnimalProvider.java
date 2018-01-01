@@ -25,7 +25,7 @@ public class AnimalProvider implements IAnimalProvider {
     }
 
     @Override
-    public Observable<List<Animal>> getAnimals() {
+    public Observable<List<Animal>> getAnimals(int count, String offset) {
         return petAdoptionService.getAnimals()
                 .replay(5, TimeUnit.MINUTES)
                 .autoConnect();

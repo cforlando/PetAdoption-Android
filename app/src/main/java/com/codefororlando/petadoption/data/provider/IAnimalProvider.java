@@ -16,6 +16,6 @@ public interface IAnimalProvider {
      *
      * @return all animals
      */
-    Observable<List<Animal>> getAnimals();
+    Observable<List<Animal>> getAnimals(int count, String offset);
 
 }
