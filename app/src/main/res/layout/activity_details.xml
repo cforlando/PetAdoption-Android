@@ -25,13 +25,35 @@
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <!--suppress AndroidElementNotAllowed -->
-            <android.support.v4.view.ViewPager
-                android:id="@+id/image_pager"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="360dp">
 
-            </android.support.v4.view.ViewPager>
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/image_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                </android.support.v4.view.ViewPager>
+
+
+                <com.codefororlando.petadoption.recyclerview.HorizontalViewPagerIndicator
+                    android:id="@+id/pager_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/image_pager"
+
+                    />
+            </android.support.constraint.ConstraintLayout>
+            <!--suppress AndroidElementNotAllowed -->
+
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="360dp"-->

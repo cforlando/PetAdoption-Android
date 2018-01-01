@@ -25,6 +25,7 @@ import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.model.Location;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.presenter.details.DetailsPresenter;
+import com.codefororlando.petadoption.recyclerview.HorizontalViewPagerIndicator;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -51,6 +52,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     private LinearLayout emailActionView;
     private ViewPager imageViewPager;
     private PetImageViewPagerAdapter pagerAdapter;
+    private HorizontalViewPagerIndicator pagerIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         webActionView = (LinearLayout) findViewById(R.id.details_action_web);
         emailActionView = (LinearLayout) findViewById(R.id.details_action_email);
         imageViewPager = (ViewPager) findViewById(R.id.image_pager);
+        pagerIndicator = (HorizontalViewPagerIndicator) findViewById(R.id.pager_indicator);
 
         setDefaultState();
     }
@@ -115,6 +118,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
 
         pagerAdapter = new PetImageViewPagerAdapter(this, animal.getImages(), animalViewModel.placeholderImageResource());
         imageViewPager.setAdapter(pagerAdapter);
+        pagerIndicator.bind(imageViewPager);
     }
 
     public void setShelter(Shelter shelter) {
