@@ -1,6 +1,7 @@
 package com.codefororlando.petadoption.view;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +15,25 @@ import java.util.List;
 
 class PetImageViewPagerAdapter extends PagerAdapter {
 
-    private final Context context;
-    private final List<String> images;
-    private final int placeholderImage;
+    private List<String> images;
+    private @DrawableRes int placeholderImage;
     private final LayoutInflater mLayoutInflater;
 
-    public PetImageViewPagerAdapter(Context context, List<String> images, int placeholderImage) {
+    public PetImageViewPagerAdapter(final Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.context = context;
+    }
+
+    public void setImages(List<String> images, @DrawableRes int placeholderImage) {
         this.images = images;
         this.placeholderImage = placeholderImage;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
+        if(images == null) {
+            return 0;
+        }
         return images.size();
     }
 
@@ -40,7 +46,7 @@ class PetImageViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.image_pager_item, container, false);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.image_content);
-        Picasso.with(context)
+        Picasso.with(container.getContext())
                 .load(images.get(position))
                 .resize(1000, 1000)
                 .onlyScaleDown()

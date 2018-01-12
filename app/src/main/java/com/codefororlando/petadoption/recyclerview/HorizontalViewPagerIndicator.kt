@@ -1,6 +1,7 @@
 package com.codefororlando.petadoption.recyclerview
 
 import android.content.Context
+import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.Gravity
@@ -11,7 +12,7 @@ import android.view.animation.ScaleAnimation
 import android.widget.LinearLayout
 import com.codefororlando.petadoption.R
 
-class HorizontalViewPagerIndicator : LinearLayout, ViewPager.OnPageChangeListener {
+class HorizontalViewPagerIndicator : LinearLayout, ViewPager.OnPageChangeListener, ViewPager.OnAdapterChangeListener {
 
     private var pageCount = 0
     private var selectedIndex = 0
@@ -39,7 +40,12 @@ class HorizontalViewPagerIndicator : LinearLayout, ViewPager.OnPageChangeListene
 
     fun bind(viewPager: ViewPager) {
         viewPager.addOnPageChangeListener(this)
-        pageCount = viewPager.adapter.count
+        viewPager.addOnAdapterChangeListener(this)
+    }
+
+    fun onDataSetChanged(adapter: PagerAdapter) {
+        clearIndicators()
+        pageCount = adapter.count
         var indicatorParent: View
         for (i in 0 until pageCount) {
             indicatorParent = createCircleIndicatorView()
@@ -47,6 +53,11 @@ class HorizontalViewPagerIndicator : LinearLayout, ViewPager.OnPageChangeListene
             indicatorViews.add(indicatorParent.findViewById(R.id.circle))
         }
         indicatorViews[selectedIndex].startAnimation(scaleUpAnim)
+    }
+
+    private fun clearIndicators() {
+        removeAllViews()
+        indicatorViews.clear()
     }
 
     private fun createCircleIndicatorView(): View {
@@ -79,7 +90,7 @@ class HorizontalViewPagerIndicator : LinearLayout, ViewPager.OnPageChangeListene
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
+        // Do nothing
     }
 
     override fun onPageSelected(position: Int) {
@@ -91,7 +102,14 @@ class HorizontalViewPagerIndicator : LinearLayout, ViewPager.OnPageChangeListene
     }
 
     override fun onPageScrollStateChanged(state: Int) {
+        // Do nothing
+    }
 
+    override fun onAdapterChanged(viewPager: ViewPager, oldAdapter: PagerAdapter?, newAdapter: PagerAdapter?) {
+        if (newAdapter == null) {
+            return
+        }
+        onDataSetChanged(newAdapter)
     }
 
     companion object {
