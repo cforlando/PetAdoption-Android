@@ -45,4 +45,5 @@
         <item name="android:fillViewport">true</item>
         <item name="android:orientation">vertical</item>
     </style>
+
 </resources>

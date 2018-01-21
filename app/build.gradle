@@ -102,5 +102,5 @@ dependencies {
 //    releaseCompile leakCanaryRelease
 
     // Misc
-    implementation versions
+    compile versions
 }
