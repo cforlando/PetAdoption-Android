@@ -3,12 +3,13 @@ package com.codefororlando.petadoption.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.model.Location;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.presenter.details.DetailsPresenter;
-import com.squareup.picasso.Picasso;
+import com.codefororlando.petadoption.recyclerview.HorizontalViewPagerIndicator;
 
 import nucleus.factory.RequiresPresenter;
 import nucleus.view.NucleusAppCompatActivity;
@@ -31,7 +32,8 @@ import nucleus.view.NucleusAppCompatActivity;
 @RequiresPresenter(DetailsPresenter.class)
 public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> {
 
-    private ImageView imageViewAnimal;
+    private static final String SELECTED_PAGE_INDEX_ARG = "SELECTED_PAGE_INDEX_ARG";
+
     private TextView textViewGender;
     private TextView textViewAge;
     private TextView textViewSize;
@@ -43,6 +45,11 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
     private LinearLayout callActionView;
     private LinearLayout webActionView;
     private LinearLayout emailActionView;
+    private ViewPager imageViewPager;
+    private PetImageViewPagerAdapter pagerAdapter;
+    private HorizontalViewPagerIndicator pagerIndicator;
+
+    private int imageSelectedIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,16 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         ((PetApplication) getApplication()).appComponent()
                 .inject(this);
 
+        initToolbar();
+        bindViews();
+
+        pagerAdapter = new PetImageViewPagerAdapter(this);
+        imageViewPager.setAdapter(pagerAdapter);
+        pagerIndicator.bind(imageViewPager);
+        setDefaultState();
+    }
+
+    private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
@@ -59,8 +76,9 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
             supportActionBar.setHomeButtonEnabled(true);
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
 
-        imageViewAnimal = (ImageView) findViewById(R.id.details_animal_image);
+    private void bindViews() {
         textViewGender = (TextView) findViewById(R.id.details_gender);
         textViewAge = (TextView) findViewById(R.id.details_age);
         textViewSize = (TextView) findViewById(R.id.details_size);
@@ -72,8 +90,32 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         callActionView = (LinearLayout) findViewById(R.id.details_action_call);
         webActionView = (LinearLayout) findViewById(R.id.details_action_web);
         emailActionView = (LinearLayout) findViewById(R.id.details_action_email);
+        imageViewPager = (ViewPager) findViewById(R.id.image_pager);
+        pagerIndicator = (HorizontalViewPagerIndicator) findViewById(R.id.pager_indicator);
+    }
 
-        setDefaultState();
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SELECTED_PAGE_INDEX_ARG, imageViewPager.getCurrentItem());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        imageSelectedIndex = savedInstanceState.getInt(SELECTED_PAGE_INDEX_ARG);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setPageSelected(imageSelectedIndex);
+    }
+
+    public void setPageSelected(int index) {
+        imageViewPager.setCurrentItem(index);
+        pagerIndicator.onPageSelected(index);
     }
 
     @Override
@@ -105,13 +147,8 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
             supportActionBar.setTitle(animal.getName());
         }
 
-        Picasso.with(this)
-                .load(animalViewModel.getDefaultImageUrl())
-                .resize(1000, 1000)
-                .onlyScaleDown()
-                .centerCrop()
-                .placeholder(animalViewModel.placeholderImageResource())
-                .into(imageViewAnimal);
+        pagerAdapter.setImages(animal.getImages(), animalViewModel.placeholderImageResource());
+        pagerIndicator.onDataSetChanged(pagerAdapter);
     }
 
     public void setShelter(Shelter shelter) {
@@ -143,27 +180,27 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         startActivity(webIntent, R.string.info_intent_error_no_browser);
     }
 
-    public void hideCallAction(){
+    public void hideCallAction() {
         callActionView.setVisibility(View.INVISIBLE);
     }
 
-    public void showCallAction(){
+    public void showCallAction() {
         callActionView.setVisibility(View.VISIBLE);
     }
 
-    public void hideWebAction(){
+    public void hideWebAction() {
         webActionView.setVisibility(View.INVISIBLE);
     }
 
-    public void showWebAction(){
+    public void showWebAction() {
         webActionView.setVisibility(View.VISIBLE);
     }
 
-    public void hideEmailAction(){
+    public void hideEmailAction() {
         emailActionView.setVisibility(View.INVISIBLE);
     }
 
-    public void showEmailAction(){
+    public void showEmailAction() {
         emailActionView.setVisibility(View.VISIBLE);
     }
 
@@ -185,10 +222,9 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         }
     }
 
-    private void setDefaultState(){
+    private void setDefaultState() {
         hideCallAction();
         hideWebAction();
         hideEmailAction();
     }
-
 }
