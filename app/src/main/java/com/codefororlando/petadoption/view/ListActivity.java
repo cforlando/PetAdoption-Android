@@ -54,11 +54,15 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_location:
                 showLocationDialog();
+                return true;
+            case R.id.menu_info:
+                goToAboutPage();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -108,4 +112,9 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
             }
         }
     };
+
+    public void goToAboutPage() {
+        Intent aboutPageIntent = new Intent(this, AboutActivity.class);
+        startActivity(aboutPageIntent);
+    }
 }
