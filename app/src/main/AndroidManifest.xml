@@ -28,7 +28,7 @@
 
         <activity android:name=".view.DetailsActivity" />
         <activity android:name=".view.AboutActivity"
-            android:label="About"></activity>
+            android:label="@string/about_title"></activity>
     </application>
 
 </manifest>
