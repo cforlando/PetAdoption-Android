@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.codefororlando.petadoption.PetApplication;
@@ -11,6 +13,8 @@ import com.codefororlando.petadoption.data.AnimalViewModel;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
+import com.codefororlando.petadoption.helper.ContactFormatter;
+import com.codefororlando.petadoption.helper.ContactParser;
 import com.codefororlando.petadoption.view.DetailsActivity;
 
 import javax.inject.Inject;
@@ -62,7 +66,7 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
         shelterSubscription.dispose();
     }
 
-    View.OnClickListener getActionClickListener(Shelter shelter) {
+    private View.OnClickListener getActionClickListener(Shelter shelter) {
         return new ActionClickListener(this, shelter);
     }
 
@@ -72,27 +76,31 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
             view.setShelter(shelter);
             view.setActionClickListener(getActionClickListener(shelter));
 
-            if(isShelterResourcePresent(shelter.getContact().getPhoneNumber()))
+            if (!TextUtils.isEmpty(shelter.getContact().getPhoneNumber()) ||
+                    !ContactParser.Companion.findPhoneNumber(animal.getDescription()).equals(ContactParser.EMPTY)) {
                 view.showCallAction();
+            }
 
-            if(isShelterResourcePresent(shelter.getContact().getEmailAddress()))
+            if (!TextUtils.isEmpty(shelter.getContact().getEmailAddress()) ||
+                    !ContactParser.Companion.findEmail(animal.getDescription()).equals(ContactParser.EMPTY))
                 view.showEmailAction();
 
-            if(isShelterResourcePresent(shelter.getContact().getWebsite()))
+            if (!TextUtils.isEmpty(shelter.getContact().getWebsite()) ||
+                    !ContactParser.Companion.findWeblink(animal.getDescription()).equals(ContactParser.EMPTY))
                 view.showWebAction();
         }
     }
 
     void performViewDialer(@NonNull Shelter shelter) {
-        Uri phoneNumber = Uri.parse(shelter.getContact().getPhoneNumber());
+        Uri phoneNumberUri = Uri.parse(getPhoneNumber(shelter));
         DetailsActivity view = getView();
         if (view != null) {
-            view.call(phoneNumber);
+            view.call(phoneNumberUri);
         }
     }
 
     void performViewWebsite(@NonNull Shelter shelter) {
-        Uri website = Uri.parse(shelter.getContact().getWebsite());
+        Uri website = Uri.parse(getWebsiteLink(shelter));
         DetailsActivity view = getView();
         if (view != null) {
             view.openWebsite(website);
@@ -100,19 +108,44 @@ public class DetailsPresenter extends Presenter<DetailsActivity> {
     }
 
     void performViewEmail(@NonNull Shelter shelter) {
-        String emailAddress = shelter.getContact().getEmailAddress();
         Bundle extras = new Bundle();
-        extras.putStringArray(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+        extras.putStringArray(Intent.EXTRA_EMAIL, new String[]{getEmailAddress(shelter)});
         extras.putString(Intent.EXTRA_SUBJECT, "Request Information on " + animal.getName());
-
         DetailsActivity view = getView();
         if (view != null) {
             view.email(extras);
         }
     }
 
-    private boolean isShelterResourcePresent(String resource){
-        return !resource.equals("");
+    private String getPhoneNumber(Shelter shelter) {
+        String phoneNumber;
+        if (!TextUtils.isEmpty(shelter.getContact().getPhoneNumber())) {
+            phoneNumber = shelter.getContact().getPhoneNumber();
+        } else {
+            phoneNumber = ContactFormatter.Companion.formatPhoneNumber(
+                    ContactParser.Companion.findPhoneNumber(animal.getDescription()));
+        }
+        return phoneNumber;
     }
 
+    private String getWebsiteLink(Shelter shelter) {
+        String url;
+        if (!TextUtils.isEmpty(shelter.getContact().getWebsite())) {
+            url = shelter.getContact().getWebsite();
+        } else {
+            url = ContactFormatter.Companion.formatWebLink(
+                    ContactParser.Companion.findWeblink(animal.getDescription()));
+        }
+        return url;
+    }
+
+    private String getEmailAddress(Shelter shelter) {
+        String emailAddress;
+        if (!shelter.getContact().getEmailAddress().isEmpty()) {
+            emailAddress = shelter.getContact().getEmailAddress();
+        } else {
+            emailAddress = ContactParser.Companion.findEmail(animal.getDescription());
+        }
+        return emailAddress;
+    }
 }
