@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Dagger",
+    "description": "A fast dependency injector for Android and Java.",
+    "link": "https://github.com/google/dagger"
+  },
+  {
+    "name": "LoganSquare",
+    "description": "The fastest JSON parsing and serializing library available for Android.",
+    "link": "https://github.com/bluelinelabs/LoganSquare"
+  },
+  {
+    "name": "Nucleus",
+    "description": "Nucleus is a simple Android library, which utilizes the Model-View-Presenter pattern to properly connect background tasks with visual parts of an application.",
+    "link": "https://github.com/konmik/nucleus"
+  },
+  {
+    "name": "Picasso",
+    "description": "A powerful image downloading and caching library for Android.",
+    "link": "https://github.com/square/picasso"
+  },
+  {
+    "name": "Retrofit",
+    "description": "Type-safe HTTP client for Android and Java by Square, Inc.",
+    "link": "https://github.com/square/retrofit"
+  },
+  {
+    "name": "RxJava",
+    "description": "RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences.",
+    "link": "https://github.com/ReactiveX/rxjava"
+  },
+  {
+    "name": "RxAndroid",
+    "description": "Android specific bindings for RxJava 2.",
+    "link": "https://github.com/ReactiveX/RxAndroid"
+  },
+  {
+    "name": "Timber",
+    "description": "This is a logger with a small, extensible API which provides utility on top of Android's normal Log class.",
+    "link": "https://github.com/JakeWharton/timber"
+  },
+  {
+    "name": "LeakCanary",
+    "description": "A memory leak detection library for Android and Java.",
+    "link": "https://github.com/square/leakcanary"
+  }
+]

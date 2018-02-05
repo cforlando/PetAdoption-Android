@@ -26,4 +26,9 @@
     <string name="shelter_load_failed_message">Couldn\'t find shelter</string>
     <string name="menu_info">About</string>
     <string name="about_title">About</string>
+    <string name="licenses">Licenses</string>
+    <string name="source_code">Source Code</string>
+    <string name="rate_our_app">Rate our App</string>
+    <string name="cfo_web_link">http://www.codefororlando.com</string>
+    <string name="cfo_title">\@codefororlando</string>
 </resources>

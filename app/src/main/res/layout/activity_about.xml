@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.codefororlando.petadoption.view.AboutActivity">
+    tools:context="com.codefororlando.petadoption.about.AboutActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -49,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="\@codefororlando"
+        android:text="@string/cfo_title"
         android:textSize="14sp"
         android:textColor="@color/primary"
         android:gravity="center"
@@ -62,7 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="http://www.codefororlando.com"
+        android:text="@string/cfo_web_link"
         android:textSize="14sp"
         android:textColor="@color/primary"
         android:gravity="center"
@@ -75,7 +75,7 @@
         android:layout_width="240dp"
         android:layout_height="40dp"
         android:layout_marginTop="24dp"
-        android:text="Rate our App"
+        android:text="@string/rate_our_app"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/primary"
         app:layout_constraintTop_toBottomOf="@id/website_label"
@@ -86,10 +86,21 @@
         android:id="@+id/source_code_btn"
         android:layout_width="240dp"
         android:layout_height="40dp"
-        android:text="Source Code"
+        android:text="@string/source_code"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/primary"
         app:layout_constraintTop_toBottomOf="@id/rate_our_app_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/licenses_btn"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:text="@string/licenses"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primary"
+        app:layout_constraintTop_toBottomOf="@id/source_code_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
