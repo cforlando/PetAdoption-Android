@@ -25,10 +25,14 @@
         <activity-alias
             android:name=".MainActivity"
             android:targetActivity=".view.ListActivity" />
-
         <activity android:name=".view.DetailsActivity" />
-        <activity android:name=".view.AboutActivity"
+
+        <activity android:name=".about.AboutActivity"
             android:label="@string/about_title"></activity>
+
+        <activity android:name=".about.OpenSourceActivity"
+            android:label="Licenses"/>
+
     </application>
 
 </manifest>
