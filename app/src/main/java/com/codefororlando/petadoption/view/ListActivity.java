@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.R;
+import com.codefororlando.petadoption.about.AboutActivity;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.presenter.details.DetailsPresenter;
 import com.codefororlando.petadoption.presenter.list.ListPresenter;
@@ -60,6 +61,9 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
             case R.id.menu_location:
                 showLocationDialog();
                 return true;
+            case R.id.menu_info:
+                goToAboutPage();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -108,4 +112,9 @@ public class ListActivity extends NucleusAppCompatActivity<ListPresenter> {
             }
         }
     };
+
+    public void goToAboutPage() {
+        Intent aboutPageIntent = new Intent(this, AboutActivity.class);
+        startActivity(aboutPageIntent);
+    }
 }
