@@ -6,6 +6,7 @@ import com.codefororlando.petadoption.data.model.Contact;
 import com.codefororlando.petadoption.data.model.Location;
 import com.codefororlando.petadoption.data.model.Shelter;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
+import com.codefororlando.petadoption.helper.ContactFormatter;
 import com.codefororlando.petadoption.network.IPetfinderService;
 import com.codefororlando.petadoption.network.model.shelter.PetfinderShelter;
 import com.codefororlando.petadoption.network.model.shelter.PetfinderShelterRecordResponse;
@@ -32,19 +33,8 @@ public class PetfinderShelterProvider implements IShelterProvider {
     @Override
     public Observable<Shelter> getShelter(String id) {
         return petfinderService.getShelter(id)
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                })
-                .map(new Function<PetfinderShelterRecordResponse, Shelter>() {
-
-                    @Override
-                    public Shelter apply(PetfinderShelterRecordResponse petfinderShelterRecordResponse) throws Exception {
-                        return toShelter(petfinderShelterRecordResponse);
-                    }
-                })
+                .doOnError(throwable -> throwable.printStackTrace())
+                .map(petfinderShelterRecordResponse -> toShelter(petfinderShelterRecordResponse))
                 .toObservable();
     }
 
@@ -54,7 +44,7 @@ public class PetfinderShelterProvider implements IShelterProvider {
         String formattedNumber = "";
         String email = "";
         if(shelter.phone.contents != null)
-            formattedNumber = formatPhoneNumber(shelter.phone.contents);
+            formattedNumber = ContactFormatter.Companion.formatPhoneNumber(shelter.phone.contents);
         if(shelter.email.contents != null)
             email = shelter.email.contents;
 
@@ -77,11 +67,5 @@ public class PetfinderShelterProvider implements IShelterProvider {
         );
 
         return new Shelter(shelter.id.contents, contact, location);
-    }
-
-    private String formatPhoneNumber(String unformattedNumber) {
-        String numbersOnly = unformattedNumber.replaceAll("[^0-9]", "");
-
-        return "tel:" + numbersOnly;
     }
 }
