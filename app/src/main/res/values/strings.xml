@@ -22,7 +22,8 @@
     <string name="details_website">Check the shelter website for more information.</string>
     <string name="details_email">Email the shelter for more information.</string>
     <string name="details_call">Call the shelter for more information.</string>
-    <string name="menu_location_title">Set Location</string>
+    <string name="menu_location_title">Location</string>
+    <string name="menu_search">Search</string>
     <string name="shelter_load_failed_message">Couldn\'t find shelter</string>
     <string name="menu_info">About</string>
     <string name="about_title">About</string>
@@ -31,4 +32,5 @@
     <string name="rate_our_app">Rate our App</string>
     <string name="cfo_web_link">http://www.codefororlando.com</string>
     <string name="cfo_title">\@codefororlando</string>
+    <string name="set_location">Set Location</string>
 </resources>
