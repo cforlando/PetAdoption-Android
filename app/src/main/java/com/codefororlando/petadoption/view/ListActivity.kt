@@ -2,17 +2,21 @@ package com.codefororlando.petadoption.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.codefororlando.petadoption.PetApplication
 import com.codefororlando.petadoption.R
 import com.codefororlando.petadoption.about.AboutActivity
 import com.codefororlando.petadoption.data.model.Animal
 import com.codefororlando.petadoption.presenter.details.DetailsPresenter
 import com.codefororlando.petadoption.presenter.list.ListPresenter
+import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.android.synthetic.main.layout_empty_pet_feed.*
 import nucleus.factory.RequiresPresenter
 import nucleus.view.NucleusAppCompatActivity
 
@@ -53,6 +57,8 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
         recyclerView.layoutManager = GridLayoutManager(this, gridSpans)
 
         recyclerView.addOnScrollListener(scrollToEndListener)
+
+        setLocationBtn.setOnClickListener({ showLocationDialog() })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,6 +68,10 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menu_search -> {
+                Snackbar.make(findViewById(android.R.id.content), "This feature is coming soon", Snackbar.LENGTH_SHORT).show()
+                true
+            }
             R.id.menu_location -> {
                 showLocationDialog()
                 true
@@ -91,10 +101,6 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
         startActivity(intent)
     }
 
-    fun notifyAnimalLoadingFailed() {
-        showLocationDialog()
-    }
-
     fun scrollToPosition(index: Int) {
         recyclerView.scrollToPosition(index)
     }
@@ -108,5 +114,13 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
     fun goToAboutPage() {
         val aboutPageIntent = Intent(this, AboutActivity::class.java)
         startActivity(aboutPageIntent)
+    }
+
+    fun showEmptyFeedView() {
+        empty_feed_view.visibility = View.VISIBLE
+    }
+
+    fun hideEmptyFeedView() {
+        empty_feed_view.visibility = View.INVISIBLE
     }
 }
