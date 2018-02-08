@@ -17,6 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import nucleus.presenter.Presenter;
+import timber.log.Timber;
 
 public class ListPresenter extends Presenter<ListActivity> {
 
@@ -72,25 +73,43 @@ public class ListPresenter extends Presenter<ListActivity> {
         animalLoadSubscription = animalProvider.getAnimals(ANIMAL_COUNT, offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(this::onLoadMoreSuccess)
-                .subscribe(
-                        new SetAnimalsAction(animalListAdapter),
-                        new AnimalsLoadedFailureAction(this)
-                );
+                .doOnNext(this::updateOffset)
+                .subscribe(this::onLoadSuccess, this::onLoadFailure);
     }
 
     public void loadMore() {
         animalLoadSubscription = animalProvider.getAnimals(ANIMAL_COUNT, offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(this::onLoadMoreSuccess)
-                .subscribe(
-                        new AddAnimalsAction(animalListAdapter),
-                        new AnimalsLoadedFailureAction(this)
-                );
+                .doOnNext(this::updateOffset)
+                .subscribe(this::onLoadMoreSuccess, this::onLoadFailure);
     }
 
-    private void onLoadMoreSuccess(List<Animal> ignored) {
+    private void updateOffset(List<Animal> ignored) {
         offset = String.format("%d", Integer.valueOf(offset) + ANIMAL_COUNT);
+    }
+
+    private void onLoadSuccess(List<Animal> animals) {
+        animalListAdapter.setAnimals(animals);
+        animalListAdapter.notifyDataSetChanged();
+        if(animalListAdapter.getItemCount() > 0) {
+            getView().hideEmptyFeedView();
+        } else {
+            getView().showEmptyFeedView();
+        }
+    }
+
+    private void onLoadMoreSuccess(List<Animal> animals) {
+        animalListAdapter.addAnimals(animals);
+        animalListAdapter.notifyDataSetChanged();
+    }
+
+    private void onLoadFailure(Throwable throwable) {
+        Timber.e(throwable, "Failed to get animals");
+        if (getView() != null) {
+            if(animalListAdapter.getItemCount() == 0) {
+                getView().showEmptyFeedView();
+            }
+        }
     }
 }
