@@ -8,6 +8,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -141,6 +142,7 @@ public class DetailsActivity extends NucleusAppCompatActivity<DetailsPresenter> 
         textViewGender.setText(animal.getGender());
         textViewSize.setText(null);
         textViewDescription.setText(animal.getDescription());
+        Linkify.addLinks(textViewDescription, Linkify.ALL);
 
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
