@@ -35,7 +35,7 @@
 
     <style name="ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@color/primary_dark</item>
+        <item name="android:background">@color/primary</item>
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
