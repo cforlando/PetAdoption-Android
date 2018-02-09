@@ -14,7 +14,8 @@ import com.squareup.picasso.Picasso
 internal class PetImageViewPagerAdapter(context: Context) : PagerAdapter() {
 
     private var images: MutableList<String> = mutableListOf()
-    @DrawableRes private var placeholderImage: Int = 0
+    @DrawableRes
+    private var placeholderImage: Int = 0
     private val mLayoutInflater: LayoutInflater
 
     init {
@@ -29,9 +30,7 @@ internal class PetImageViewPagerAdapter(context: Context) : PagerAdapter() {
     }
 
     override fun getCount(): Int {
-        return if (images == null) {
-            0
-        } else images!!.size
+        return images.size
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -42,7 +41,7 @@ internal class PetImageViewPagerAdapter(context: Context) : PagerAdapter() {
         val itemView = mLayoutInflater.inflate(R.layout.image_pager_item, container, false)
         val imageView = itemView.findViewById(R.id.image_content) as ImageView
         Picasso.with(container.context)
-                .load(images!![position])
+                .load(images[position])
                 .resize(1000, 1000)
                 .onlyScaleDown()
                 .centerCrop()

@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.presenter.details;
+package com.codefororlando.petadoption.detail;
 
 import com.codefororlando.petadoption.data.model.Shelter;
 

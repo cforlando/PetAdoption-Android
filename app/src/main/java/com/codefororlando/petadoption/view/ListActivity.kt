@@ -13,7 +13,8 @@ import com.codefororlando.petadoption.PetApplication
 import com.codefororlando.petadoption.R
 import com.codefororlando.petadoption.about.AboutActivity
 import com.codefororlando.petadoption.data.model.Animal
-import com.codefororlando.petadoption.presenter.details.DetailsPresenter
+import com.codefororlando.petadoption.detail.DetailsActivity
+import com.codefororlando.petadoption.detail.DetailsPresenter
 import com.codefororlando.petadoption.presenter.list.ListPresenter
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.layout_empty_pet_feed.*
