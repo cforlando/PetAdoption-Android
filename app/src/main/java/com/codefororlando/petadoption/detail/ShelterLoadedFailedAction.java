@@ -1,6 +1,4 @@
-package com.codefororlando.petadoption.presenter.details;
-
-import com.codefororlando.petadoption.view.DetailsActivity;
+package com.codefororlando.petadoption.detail;
 
 import io.reactivex.functions.Consumer;
 import timber.log.Timber;

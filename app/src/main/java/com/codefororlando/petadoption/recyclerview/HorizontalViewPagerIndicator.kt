@@ -58,7 +58,10 @@ class HorizontalViewPagerIndicator @JvmOverloads constructor(context: Context,
             addView(indicatorParent)
             indicatorViews.add(indicatorParent.findViewById(R.id.circle))
         }
-        indicatorViews[selectedIndex].startAnimation(scaleUpAnim)
+
+        if(pageCount > 0) {
+            indicatorViews[selectedIndex].startAnimation(scaleUpAnim)
+        }
     }
 
     private fun clearIndicators() {

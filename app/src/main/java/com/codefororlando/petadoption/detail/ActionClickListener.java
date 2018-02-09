@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.presenter.details;
+package com.codefororlando.petadoption.detail;
 
 import android.support.annotation.NonNull;
 import android.view.View;
