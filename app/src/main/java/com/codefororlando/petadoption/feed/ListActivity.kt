@@ -6,11 +6,13 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TableLayout
 import com.codefororlando.petadoption.PetApplication
 import com.codefororlando.petadoption.R
 import com.codefororlando.petadoption.about.AboutActivity
 import com.codefororlando.petadoption.presenter.list.ListPresenter
 import com.codefororlando.petadoption.view.LocationDialogFragment
+import kotlinx.android.synthetic.main.activity_list.*
 import nucleus.factory.RequiresPresenter
 import nucleus.view.NucleusAppCompatActivity
 
@@ -18,7 +20,8 @@ import nucleus.view.NucleusAppCompatActivity
 @RequiresPresenter(ListPresenter::class)
 class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
 
-    private lateinit var locationDialog: LocationDialogFragment;
+    private lateinit var locationDialog: LocationDialogFragment
+    private lateinit var feedPagerAdapter : FeedPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +35,10 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
 
         locationDialog = LocationDialogFragment();
 
-        val petFeedFragment = PetFeedFragment();
-        supportFragmentManager.beginTransaction()
-                .add(R.id.content, petFeedFragment, "")
-                .commit()
+        feedPagerAdapter = FeedPagerAdapter(supportFragmentManager)
+        viewPager.adapter = feedPagerAdapter
+
+        tabLayout.setupWithViewPager(viewPager)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
