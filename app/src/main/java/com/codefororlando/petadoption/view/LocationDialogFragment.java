@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.codefororlando.petadoption.R;
+import com.codefororlando.petadoption.feed.ListActivity;
 import com.codefororlando.petadoption.presenter.list.LocationDialogPresenter;
 
 /**
@@ -63,21 +64,13 @@ public class LocationDialogFragment extends DialogFragment  {
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Set Location")
                 .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                presenter.setLocation(getEnteredZip());
-                                dialog.dismiss();
-                                ((ListActivity) getActivity()).refreshList();
-                            }
+                        (dialog, which) -> {
+                            presenter.setLocation(getEnteredZip());
+                            dialog.dismiss();
+//                                ((ListActivity) getActivity()).refreshList();
                         })
                 .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
+                        (dialog, which) -> dialog.dismiss())
                 .setView(layout)
                 .create();
     }

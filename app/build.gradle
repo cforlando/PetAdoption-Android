@@ -81,7 +81,10 @@ dependencies {
     implementation (nucleus) {
         exclude group: 'io.reactivex'
     }
-    implementation (nucleusSupport) {
+    implementation (nucleusSupportV4) {
+        exclude group: 'io.reactivex'
+    }
+    implementation (nucleusSupportV7) {
         exclude group: 'io.reactivex'
     }
 
