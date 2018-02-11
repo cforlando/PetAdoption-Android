@@ -3,6 +3,8 @@ package com.codefororlando.petadoption.feed
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.codefororlando.petadoption.feed.popular.PopularPetFeedFragment
+import com.codefororlando.petadoption.feed.watching.WatchingPetFeedFragment
 
 class FeedPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
 
@@ -16,9 +18,9 @@ class FeedPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
-            POPULAR_FEED_INDEX -> PetFeedFragment()
-            FOLLOWING_FEED_INDEX -> PetFeedFragment()
-            else -> throw IllegalArgumentException("Invalid Pager Item Index")
+            POPULAR_FEED_INDEX -> PopularPetFeedFragment()
+            FOLLOWING_FEED_INDEX -> WatchingPetFeedFragment()
+            else -> throw IllegalArgumentException("Invalid Pager Item Index") as Throwable
         }
     }
 

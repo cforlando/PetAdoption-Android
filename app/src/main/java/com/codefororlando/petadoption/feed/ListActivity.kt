@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TableLayout
 import com.codefororlando.petadoption.PetApplication
 import com.codefororlando.petadoption.R
 import com.codefororlando.petadoption.about.AboutActivity
