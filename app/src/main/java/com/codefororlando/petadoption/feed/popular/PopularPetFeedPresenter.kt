@@ -48,6 +48,7 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
         if (offset == DEFAULT_OFFSET) {
             loadMoreFeedItems()
         }
+        showCorrectView();
     }
 
     override fun onDropView() {
@@ -80,25 +81,27 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
     override fun onLoadSuccess(animals: List<Animal>) {
         animalListAdapter.setAnimals(animals)
         animalListAdapter.notifyDataSetChanged()
-        if (animalListAdapter.itemCount > 0) {
-            view?.hideEmptyView()
-            view?.showContentView()
-        } else {
-            view?.showEmptyView()
-            view?.hideContentView()
-        }
+        showCorrectView()
     }
 
     override fun onLoadMoreSuccess(animals: List<Animal>) {
         animalListAdapter.addAnimals(animals)
         animalListAdapter.notifyDataSetChanged()
+        showCorrectView()
     }
 
     override fun onLoadFailure(throwable: Throwable) {
         Timber.e(throwable)
+        showCorrectView()
+    }
+
+    private fun showCorrectView() {
         if (animalListAdapter.itemCount == 0) {
-            view?.showContentView()
+            view?.showEmptyView()
+            view?.hideContentView()
+        } else {
             view?.hideEmptyView()
+            view?.showContentView()
         }
     }
 }

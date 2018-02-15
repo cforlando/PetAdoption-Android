@@ -10,6 +10,8 @@ import com.codefororlando.petadoption.di.module.AppModule;
 import com.codefororlando.petadoption.di.module.NetworkModule;
 import com.squareup.leakcanary.LeakCanary;
 
+import timber.log.Timber;
+
 
 /**
  * Created by tencent on 10/8/16.
@@ -37,6 +39,8 @@ public class PetApplication extends Application {
                     .detectAll()
                     .penaltyLog()
                     .build());
+
+            Timber.plant(new Timber.DebugTree());
         }
 
         String baseUrl = getString(R.string.base_url);

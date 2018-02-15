@@ -59,4 +59,8 @@ class PopularPetFeedFragment : AbstractPetFeedFragment<PopularPetFeedFragment, P
         recyclerView.visibility = View.INVISIBLE
     }
 
+    override fun scrollToTop() {
+//        recyclerView.scrollToPosition(0)
+    }
+
 }

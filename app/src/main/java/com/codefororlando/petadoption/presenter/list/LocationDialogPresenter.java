@@ -42,6 +42,4 @@ public class LocationDialogPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> view.setEnteredZip(s), throwable -> throwable.printStackTrace());
     }
-
-
 }

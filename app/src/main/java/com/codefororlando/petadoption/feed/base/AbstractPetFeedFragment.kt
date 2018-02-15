@@ -2,7 +2,6 @@ package com.codefororlando.petadoption.feed.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.codefororlando.petadoption.data.model.Animal
 import com.codefororlando.petadoption.detail.DetailsActivity
@@ -23,7 +22,7 @@ open abstract class AbstractPetFeedFragment<V : PetFeedView, P : AbstractPetFeed
 
     override fun refreshList() {
         presenter.refreshList()
-        recyclerView.scrollToPosition(0)
+        scrollToTop()
     }
 
     override fun setAdapter(adapter: RecyclerView.Adapter<*>) {

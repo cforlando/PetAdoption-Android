@@ -13,4 +13,5 @@ interface PetFeedView {
     fun navigateToDetailView(animal: Animal)
     fun scrollToPosition(index: Int)
     fun getLastVisibleItemIndex() : Int
+    fun scrollToTop()
 }

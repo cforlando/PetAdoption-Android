@@ -2,7 +2,6 @@ package com.codefororlando.petadoption.view;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,8 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.codefororlando.petadoption.R;
-import com.codefororlando.petadoption.feed.ListActivity;
 import com.codefororlando.petadoption.presenter.list.LocationDialogPresenter;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by ryan on 11/6/17.
@@ -30,6 +31,8 @@ public class LocationDialogFragment extends DialogFragment  {
     private LocationDialogPresenter presenter;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    private PublishSubject dismissalSubject = PublishSubject.create();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,14 +53,11 @@ public class LocationDialogFragment extends DialogFragment  {
         int textLength = locationEditText.getText().toString().length();
         locationEditText.setSelection(textLength);
 
-        findLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isLocationPermissionGranted()) {
-                    populateWithCurrentLocation();
-                } else {
-                    requestLocationPermission();
-                }
+        findLocationButton.setOnClickListener(v -> {
+            if (isLocationPermissionGranted()) {
+                populateWithCurrentLocation();
+            } else {
+                requestLocationPermission();
             }
         });
 
@@ -66,8 +66,8 @@ public class LocationDialogFragment extends DialogFragment  {
                 .setPositiveButton("OK",
                         (dialog, which) -> {
                             presenter.setLocation(getEnteredZip());
+                            dismissalSubject.onNext(true);
                             dialog.dismiss();
-//                                ((ListActivity) getActivity()).refreshList();
                         })
                 .setNegativeButton("Cancel",
                         (dialog, which) -> dialog.dismiss())
@@ -108,4 +108,9 @@ public class LocationDialogFragment extends DialogFragment  {
     public void setEnteredZip(String zip) {
         locationEditText.setText(zip);
     }
+
+    public Observable<Boolean> getShouldRefreshFeedOnDismissalObservable() {
+        return dismissalSubject;
+    }
+
 }
