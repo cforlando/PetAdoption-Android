@@ -66,8 +66,8 @@ public class LocationDialogFragment extends DialogFragment  {
                 .setPositiveButton("OK",
                         (dialog, which) -> {
                             presenter.setLocation(getEnteredZip());
-                            dismissalSubject.onNext(true);
                             dialog.dismiss();
+                            dismissalSubject.onNext(true);
                         })
                 .setNegativeButton("Cancel",
                         (dialog, which) -> dialog.dismiss())

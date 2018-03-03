@@ -11,6 +11,7 @@ import com.codefororlando.petadoption.view.LocationDialogFragment
 import kotlinx.android.synthetic.main.fragment_popular_feed.*
 import kotlinx.android.synthetic.main.layout_empty_pet_feed.*
 import nucleus.factory.RequiresPresenter
+import timber.log.Timber
 
 @RequiresPresenter(PopularPetFeedPresenter::class)
 class PopularPetFeedFragment : AbstractPetFeedFragment<PopularPetFeedFragment, PopularPetFeedPresenter>() {
@@ -24,6 +25,10 @@ class PopularPetFeedFragment : AbstractPetFeedFragment<PopularPetFeedFragment, P
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         locationDialog = LocationDialogFragment()
+        locationDialog.shouldRefreshFeedOnDismissalObservable
+                .subscribe({
+                    presenter.refreshList()
+                }, Timber::d)
 
         val gridSpans = resources
                 .getInteger(R.integer.grid_spans)
@@ -60,7 +65,7 @@ class PopularPetFeedFragment : AbstractPetFeedFragment<PopularPetFeedFragment, P
     }
 
     override fun scrollToTop() {
-//        recyclerView.scrollToPosition(0)
+        recyclerView.scrollToPosition(0)
     }
 
 }

@@ -7,10 +7,10 @@ import com.codefororlando.petadoption.data.provider.IAnimalProvider
 import com.codefororlando.petadoption.feed.base.AbstractPetFeedPresenter
 import com.codefororlando.petadoption.recyclerview.AnimalListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>() {
@@ -23,8 +23,6 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
 
     @Inject
     lateinit var animalListAdapter: AnimalListAdapter
-
-    private val compositeDisposable = CompositeDisposable()
 
     private var offset = DEFAULT_OFFSET
 
@@ -44,22 +42,36 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
 
         petFeedFragment.setAdapter(animalListAdapter)
         petFeedFragment.scrollToPosition(lastVisibleIndex)
+        compositeDisposable.add(view?.getOnScrollEndObservable()
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.debounce(300, TimeUnit.MILLISECONDS)
+                ?.subscribe({this.loadMoreFeedItems()}, Timber::d))
 
         if (offset == DEFAULT_OFFSET) {
             loadMoreFeedItems()
         }
-        showCorrectView();
+        present()
     }
 
     override fun onDropView() {
         super.onDropView()
-        compositeDisposable.dispose()
         lastVisibleIndex = view!!.getLastVisibleItemIndex()
+    }
+
+    private fun present() {
+        if (animalListAdapter.itemCount == 0) {
+            view?.showEmptyView()
+            view?.hideContentView()
+        } else {
+            view?.hideEmptyView()
+            view?.showContentView()
+        }
     }
 
     override fun refreshList() {
         offset = DEFAULT_OFFSET
         compositeDisposable.add(animalProvider.getAnimals(ANIMAL_COUNT, offset)
+                .debounce(300, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext({ this.updateFeedOffsetIndex(it) })
@@ -67,6 +79,7 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
     }
 
     override fun loadMoreFeedItems() {
+        Timber.d("John - Load more items")
         compositeDisposable.add(animalProvider.getAnimals(ANIMAL_COUNT, offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -81,27 +94,18 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
     override fun onLoadSuccess(animals: List<Animal>) {
         animalListAdapter.setAnimals(animals)
         animalListAdapter.notifyDataSetChanged()
-        showCorrectView()
+        present()
+        view?.scrollToTop()
     }
 
     override fun onLoadMoreSuccess(animals: List<Animal>) {
         animalListAdapter.addAnimals(animals)
         animalListAdapter.notifyDataSetChanged()
-        showCorrectView()
+        present()
     }
 
     override fun onLoadFailure(throwable: Throwable) {
         Timber.e(throwable)
-        showCorrectView()
-    }
-
-    private fun showCorrectView() {
-        if (animalListAdapter.itemCount == 0) {
-            view?.showEmptyView()
-            view?.hideContentView()
-        } else {
-            view?.hideEmptyView()
-            view?.showContentView()
-        }
+        present()
     }
 }

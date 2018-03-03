@@ -9,8 +9,6 @@ import android.view.MenuItem
 import com.codefororlando.petadoption.PetApplication
 import com.codefororlando.petadoption.R
 import com.codefororlando.petadoption.about.AboutActivity
-import com.codefororlando.petadoption.feed.base.PetFeedView
-import com.codefororlando.petadoption.presenter.list.ListPresenter
 import com.codefororlando.petadoption.view.LocationDialogFragment
 import kotlinx.android.synthetic.main.activity_list.*
 import nucleus.factory.RequiresPresenter
@@ -22,7 +20,7 @@ import timber.log.Timber
 class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
 
     private lateinit var locationDialog: LocationDialogFragment
-    private lateinit var feedPagerAdapter: FeedPagerAdapter
+    private lateinit var feedPagerAdapter: PetFeedViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +32,14 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        locationDialog = LocationDialogFragment();
-        feedPagerAdapter = FeedPagerAdapter(supportFragmentManager)
-        viewPager.adapter = feedPagerAdapter
+        locationDialog = LocationDialogFragment()
+        locationDialog.shouldRefreshFeedOnDismissalObservable
+                .subscribe({
+                    feedPagerAdapter.mCurrentItem?.refreshList()
+                }, Timber::d)
 
+        feedPagerAdapter = PetFeedViewPagerAdapter(supportFragmentManager)
+        viewPager.adapter = feedPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
     }
 
@@ -67,11 +69,6 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
     private fun showLocationDialog() {
         if (!locationDialog.isAdded) {
             locationDialog.show(supportFragmentManager, "location_dialog")
-            locationDialog.shouldRefreshFeedOnDismissalObservable
-                    .subscribe({
-                        val frag = feedPagerAdapter.getItem(viewPager.currentItem) as PetFeedView
-                        frag.refreshList()
-                    }, Timber::d)
         }
     }
 

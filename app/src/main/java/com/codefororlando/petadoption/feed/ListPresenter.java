@@ -1,4 +1,4 @@
-package com.codefororlando.petadoption.presenter.list;
+package com.codefororlando.petadoption.feed;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
