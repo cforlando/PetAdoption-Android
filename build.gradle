@@ -63,6 +63,8 @@ buildscript {
 
     // Version tool
     ext.versions = "com.ToxicBakery.android.version:versions:1.0.13"
+
+    ext.roomDB = "android.arch.persistence.room:runtime:1.0.0"
 }
 
 repositories {

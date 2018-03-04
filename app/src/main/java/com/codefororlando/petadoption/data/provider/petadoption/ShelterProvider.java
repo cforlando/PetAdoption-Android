@@ -24,12 +24,12 @@ public class ShelterProvider implements IShelterProvider {
     }
 
     private void createStubShelter() {
-        Contact stubContact = new Contact("Lady Lake Animal Control",
+        Contact stubContact = new Contact("Lady Lake AnimalEntity Control",
                 "tel:3527511530",
                 "info@ladylake.org",
                 "http://ladylake.org/departments/police-department/animal-control-2");
         Location stubLocation = new Location("0",
-                "Lady Lake Animal Control",
+                "Lady Lake AnimalEntity Control",
                 "423 Fennell Blvd",
                 "",
                 "Lady Lake",

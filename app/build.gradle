@@ -108,4 +108,6 @@ dependencies {
 
     // Misc
     implementation versions
+    implementation roomDB
+    annotationProcessor roomDB
 }

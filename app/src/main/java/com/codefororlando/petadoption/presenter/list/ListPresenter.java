@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import com.codefororlando.petadoption.PetApplication;
 import com.codefororlando.petadoption.data.model.Animal;
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
+import com.codefororlando.petadoption.persistence.dao.AnimalDao;
+import com.codefororlando.petadoption.persistence.mapper.AnimalMapper;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
 import com.codefororlando.petadoption.view.ListActivity;
 
@@ -29,6 +31,9 @@ public class ListPresenter extends Presenter<ListActivity> {
 
     @Inject
     AAnimalListAdapter animalListAdapter;
+
+    @Inject
+    AnimalDao animalDao;
 
     private Disposable animalLoadSubscription;
 
@@ -92,6 +97,8 @@ public class ListPresenter extends Presenter<ListActivity> {
     private void onLoadSuccess(List<Animal> animals) {
         animalListAdapter.setAnimals(animals);
         animalListAdapter.notifyDataSetChanged();
+        AnimalMapper animalMapper = new AnimalMapper();
+        animalDao.insertAll(animalMapper.map(animals));
         if(animalListAdapter.getItemCount() > 0) {
             getView().hideEmptyFeedView();
         } else {
