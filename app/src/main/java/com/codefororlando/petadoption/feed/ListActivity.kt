@@ -9,6 +9,7 @@ import android.view.MenuItem
 import com.codefororlando.petadoption.PetApplication
 import com.codefororlando.petadoption.R
 import com.codefororlando.petadoption.about.AboutActivity
+import com.codefororlando.petadoption.feed.base.AbstractPetFeedFragment
 import com.codefororlando.petadoption.view.LocationDialogFragment
 import kotlinx.android.synthetic.main.activity_list.*
 import nucleus.factory.RequiresPresenter
@@ -35,7 +36,7 @@ class ListActivity : NucleusAppCompatActivity<ListPresenter>() {
         locationDialog = LocationDialogFragment()
         locationDialog.shouldRefreshFeedOnDismissalObservable
                 .subscribe({
-                    feedPagerAdapter.mCurrentItem?.refreshList()
+                    feedPagerAdapter.getFragment(viewPager.currentItem).refreshList()
                 }, Timber::d)
 
         feedPagerAdapter = PetFeedViewPagerAdapter(supportFragmentManager)

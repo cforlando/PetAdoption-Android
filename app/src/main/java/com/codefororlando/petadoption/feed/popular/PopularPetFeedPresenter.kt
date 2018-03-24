@@ -42,10 +42,13 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
 
         petFeedFragment.setAdapter(animalListAdapter)
         petFeedFragment.scrollToPosition(lastVisibleIndex)
-        compositeDisposable.add(view?.getOnScrollEndObservable()
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.debounce(300, TimeUnit.MILLISECONDS)
-                ?.subscribe({this.loadMoreFeedItems()}, Timber::d))
+
+        view?.apply {
+            compositeDisposable.add(getOnScrollEndObservable()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .debounce(300, TimeUnit.MILLISECONDS)
+                    .subscribe({ loadMoreFeedItems() }, Timber::d))
+        }
 
         if (offset == DEFAULT_OFFSET) {
             loadMoreFeedItems()
@@ -59,12 +62,14 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
     }
 
     private fun present() {
-        if (animalListAdapter.itemCount == 0) {
-            view?.showEmptyView()
-            view?.hideContentView()
-        } else {
-            view?.hideEmptyView()
-            view?.showContentView()
+        view?.apply {
+            if (animalListAdapter.itemCount == 0) {
+                showEmptyView()
+                hideContentView()
+            } else {
+                hideEmptyView()
+                showContentView()
+            }
         }
     }
 
@@ -79,7 +84,6 @@ class PopularPetFeedPresenter : AbstractPetFeedPresenter<PopularPetFeedFragment>
     }
 
     override fun loadMoreFeedItems() {
-        Timber.d("John - Load more items")
         compositeDisposable.add(animalProvider.getAnimals(ANIMAL_COUNT, offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
