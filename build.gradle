@@ -36,7 +36,8 @@ buildscript {
     // MVP
     def nucleusVersion = "4.0.0"
     ext.nucleus = "info.android15.nucleus:nucleus:$nucleusVersion"
-    ext.nucleusSupport = "info.android15.nucleus:nucleus-support-v7:$nucleusVersion"
+    ext.nucleusSupportV4 = "info.android15.nucleus:nucleus-support-v4:$nucleusVersion"
+    ext.nucleusSupportV7 = "info.android15.nucleus:nucleus-support-v7:$nucleusVersion"
 
     // Networking
     ext.picasso = "com.squareup.picasso:picasso:2.5.2"

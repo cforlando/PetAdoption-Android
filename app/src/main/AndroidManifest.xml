@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".view.ListActivity">
+            android:name=".feed.ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
 
         <activity-alias
             android:name=".MainActivity"
-            android:targetActivity=".view.ListActivity" />
+            android:targetActivity=".feed.ListActivity" />
         <activity android:name=".detail.DetailsActivity" />
 
         <activity android:name=".about.AboutActivity"

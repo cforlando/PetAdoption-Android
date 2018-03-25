@@ -42,7 +42,7 @@ class OpenSourceActivity : AppCompatActivity() {
     }
 
     private fun bind() {
-        val recylcerView = findViewById(R.id.recycler) as RecyclerView;
+        val recylcerView = findViewById(R.id.recyclerView) as RecyclerView;
         recylcerView.layoutManager = LinearLayoutManager(this)
         loadOpenSourceItems().subscribe({ items ->
             val adapter = OpenSourceActivity.OpenSourceListAdapter(items, this::onItemClick)

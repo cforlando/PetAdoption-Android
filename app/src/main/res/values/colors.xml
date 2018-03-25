@@ -9,4 +9,7 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
     <color name="grid_footer">#8A000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_75">#BFFFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
 </resources>

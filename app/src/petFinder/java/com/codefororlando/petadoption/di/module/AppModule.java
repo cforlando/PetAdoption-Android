@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
-import com.codefororlando.petadoption.data.provider.petadoption.ShelterProvider;
 import com.codefororlando.petadoption.data.provider.petfinder.PetfinderProvider;
 import com.codefororlando.petadoption.helper.IPreferencesHelper;
 import com.codefororlando.petadoption.helper.ILocationManager;
@@ -67,6 +66,12 @@ public class AppModule {
 
     @Provides
     AAnimalListAdapter provideAnimalListAdapter() {
+        return new AnimalListAdapter();
+    }
+
+
+    @Provides
+    AnimalListAdapter provideAnimalListAdapterA() {
         return new AnimalListAdapter();
     }
 
