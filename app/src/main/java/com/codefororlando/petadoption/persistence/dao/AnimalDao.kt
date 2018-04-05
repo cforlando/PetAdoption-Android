@@ -1,15 +1,7 @@
 package com.codefororlando.petadoption.persistence.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.codefororlando.petadoption.persistence.model.AnimalEntity
-
-
-/**
- * Created by john on 3/3/18.
- */
 
 @Dao
 interface AnimalDao {
@@ -20,7 +12,7 @@ interface AnimalDao {
     @Query("SELECT * FROM animal WHERE id IN (:animalIds)")
     fun loadAllByIds(animalIds: IntArray): List<AnimalEntity>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(animals: List<AnimalEntity>)
 
     @Delete

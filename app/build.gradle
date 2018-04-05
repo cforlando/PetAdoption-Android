@@ -75,7 +75,6 @@ dependencies {
     // Dagger
     implementation dagger
     kapt daggerApt
-    provided jsr250
 
     // MVP
     implementation (nucleus) {
@@ -98,7 +97,7 @@ dependencies {
     implementation rxAndroid
 
     // LoganSquare
-    annotationProcessor loganSquareApt
+    kapt loganSquareApt
     implementation loganSquare
     implementation loganSquareRetrofit
 
