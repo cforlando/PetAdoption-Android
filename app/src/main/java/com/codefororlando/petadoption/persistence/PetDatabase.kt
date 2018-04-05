@@ -6,7 +6,7 @@ import com.codefororlando.petadoption.persistence.dao.AnimalDao
 import com.codefororlando.petadoption.persistence.model.AnimalEntity
 
 
-@Database(entities = arrayOf(AnimalEntity::class), version = 1)
+@Database(entities = arrayOf(AnimalEntity::class), version = 1, exportSchema = false)
 abstract class PetDatabase : RoomDatabase() {
     abstract fun animaliDao(): AnimalDao
 }

@@ -17,11 +17,11 @@ interface AnimalDao {
     @Query("SELECT * FROM animal")
     fun getAll(): List<AnimalEntity>
 
-    @Query("SELECT * FROM user WHERE uid IN (:animalIds)")
+    @Query("SELECT * FROM animal WHERE id IN (:animalIds)")
     fun loadAllByIds(animalIds: IntArray): List<AnimalEntity>
 
     @Insert
-    fun insertAll(vararg animals: MutableList<AnimalEntity>)
+    fun insertAll(animals: List<AnimalEntity>)
 
     @Delete
     fun delete(animal: AnimalEntity)

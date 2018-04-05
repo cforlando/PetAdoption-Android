@@ -57,8 +57,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    IAnimalProvider providePetfinderProvider(IPetfinderService petfinderService, IPreferencesHelper preferencesHelper) {
-        return new PetfinderProvider(petfinderService, preferencesHelper);
+    IAnimalProvider providePetfinderProvider(IPetfinderService petfinderService, IPreferencesHelper preferencesHelper, AnimalDao animalDao) {
+        return new PetfinderProvider(petfinderService, preferencesHelper, animalDao);
     }
 
     @Provides

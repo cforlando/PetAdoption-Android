@@ -25,7 +25,7 @@ class AnimalMapper {
         animalEntity.activityLevel = from.activityLevel
         animalEntity.intakeDate = from.intakeDate
         animalEntity.shelterId = from.shelterId
-        animalEntity.images = from.images
+//        animalEntity.images = from.images
         return animalEntity
     }
 

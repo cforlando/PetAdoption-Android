@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 repositories {
     mavenCentral()
@@ -73,7 +74,7 @@ dependencies {
 
     // Dagger
     implementation dagger
-    annotationProcessor daggerApt
+    kapt daggerApt
     provided jsr250
 
     // MVP
@@ -108,12 +109,8 @@ dependencies {
     debugImplementation leakCanaryDebug
 //    releaseCompile leakCanaryRelease
 
-
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
-
     // Misc
     implementation versions
     implementation roomDB
-    annotationProcessor roomDB
+    kapt roomDBCompiler
 }

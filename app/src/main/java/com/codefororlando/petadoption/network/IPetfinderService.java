@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface IPetfinderService {
 
-    @GET("pet.find")
+    @GET("pet.find?format=json")
     Observable<PetfinderPetRecordResponse> getAnimals(@Query("location") String cityOrZip, @Query("count") int count, @Query("offset") String lastOffset);
 
     @GET("shelter.get")
