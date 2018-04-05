@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.codefororlando.petadoption.BuildConfig
 
@@ -29,19 +31,19 @@ class AboutActivity : AppCompatActivity() {
     }
 
     fun bind() {
-        val logo = findViewById(R.id.cfo_logo)
+        val logo = findViewById(R.id.cfo_logo) as ImageView
         logo.setOnClickListener({ openWebsite() })
 
-        val twitterLabel = findViewById(R.id.twitter_label)
+        val twitterLabel = findViewById(R.id.twitter_label) as TextView
         twitterLabel.setOnClickListener({ openTwitter() })
 
-        val websiteLabel = findViewById(R.id.website_label)
+        val websiteLabel = findViewById(R.id.website_label) as TextView
         websiteLabel.setOnClickListener({ openWebsite() })
 
-        val rateAppButton = findViewById(R.id.rate_our_app_btn)
+        val rateAppButton = findViewById(R.id.rate_our_app_btn) as Button
         rateAppButton.setOnClickListener({ openStoreListing() })
 
-        val openRepoButton = findViewById(R.id.source_code_btn)
+        val openRepoButton = findViewById(R.id.source_code_btn) as Button
         openRepoButton.setOnClickListener({ openRepo() })
 
         this.licenses_btn.setOnClickListener({ goToLicensesActivity() })

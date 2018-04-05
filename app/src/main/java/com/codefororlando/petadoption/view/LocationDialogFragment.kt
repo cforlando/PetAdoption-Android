@@ -32,7 +32,7 @@ class LocationDialogFragment : DialogFragment() {
 
     private val isLocationPermissionGranted: Boolean
         get() {
-            val check = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+            val check = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION)
 
             return check == PackageManager.PERMISSION_GRANTED
         }
@@ -47,10 +47,10 @@ class LocationDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val layout = activity.layoutInflater.inflate(R.layout.fragment_dialog_location, null)
+        val layout = activity?.layoutInflater?.inflate(R.layout.fragment_dialog_location, null)
 
-        locationEditText = layout.findViewById(R.id.location_edit_text) as EditText
-        findLocationButton = layout.findViewById(R.id.location_button) as ImageButton
+        locationEditText = layout?.findViewById(R.id.location_edit_text) as EditText
+        findLocationButton = layout?.findViewById(R.id.location_button) as ImageButton
 
         locationEditText!!.setText(presenter!!.location)
         val textLength = locationEditText!!.text.toString().length
@@ -64,7 +64,7 @@ class LocationDialogFragment : DialogFragment() {
             }
         }
 
-        return AlertDialog.Builder(activity)
+        return AlertDialog.Builder(activity!!)
                 .setTitle("Set Location")
                 .setPositiveButton("OK"
                 ) { dialog, which ->

@@ -9,7 +9,6 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-
 android {
     compileSdkVersion compile_sdk.toInteger()
     buildToolsVersion build_tools
@@ -20,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId "com.codefororlando.petadoption"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion target_sdk.toInteger()
         versionCode version_code.toInteger()
         versionName version_name
@@ -108,6 +107,10 @@ dependencies {
     // Leak Canary
     debugImplementation leakCanaryDebug
 //    releaseCompile leakCanaryRelease
+
+
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
     // Misc
     implementation versions
