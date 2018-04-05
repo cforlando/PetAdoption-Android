@@ -1,6 +1,7 @@
 package com.codefororlando.petadoption.di.module;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
@@ -12,6 +13,8 @@ import com.codefororlando.petadoption.helper.LocationManager;
 import com.codefororlando.petadoption.helper.PreferencesHelper;
 import com.codefororlando.petadoption.data.provider.petfinder.PetfinderShelterProvider;
 import com.codefororlando.petadoption.network.IPetfinderService;
+import com.codefororlando.petadoption.persistence.dao.AnimalDao;
+import com.codefororlando.petadoption.persistence.PetDatabase;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
 import com.codefororlando.petadoption.recyclerview.AnimalListAdapter;
 
@@ -69,10 +72,23 @@ public class AppModule {
         return new AnimalListAdapter();
     }
 
-
     @Provides
     AnimalListAdapter provideAnimalListAdapterA() {
         return new AnimalListAdapter();
+    }
+
+    @Provides
+    @Singleton
+    PetDatabase providePetDatabase(Context context) {
+        PetDatabase db = Room.databaseBuilder(context,
+                PetDatabase.class, "pet-adoption-db").build();
+        return db;
+    }
+
+    @Provides
+    @Singleton
+    AnimalDao provideAnimalDao(PetDatabase petDatabase) {
+        return petDatabase.animaliDao();
     }
 
 }

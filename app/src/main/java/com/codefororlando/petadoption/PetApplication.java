@@ -1,6 +1,7 @@
 package com.codefororlando.petadoption;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 
@@ -8,6 +9,7 @@ import com.codefororlando.petadoption.di.component.AppComponent;
 import com.codefororlando.petadoption.di.component.DaggerAppComponent;
 import com.codefororlando.petadoption.di.module.AppModule;
 import com.codefororlando.petadoption.di.module.NetworkModule;
+import com.codefororlando.petadoption.persistence.PetDatabase;
 import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.Timber;
