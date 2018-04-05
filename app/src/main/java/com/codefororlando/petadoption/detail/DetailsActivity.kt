@@ -22,7 +22,7 @@ import nucleus.factory.RequiresPresenter
 import nucleus.view.NucleusAppCompatActivity
 
 /**
- * AnimalEntity details view
+ * Animal details view
  */
 @RequiresPresenter(DetailsPresenter::class)
 class DetailsActivity : NucleusAppCompatActivity<DetailsPresenter>() {

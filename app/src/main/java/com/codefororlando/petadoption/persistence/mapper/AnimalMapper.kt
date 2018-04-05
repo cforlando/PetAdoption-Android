@@ -3,10 +3,6 @@ package com.codefororlando.petadoption.persistence.mapper
 import com.codefororlando.petadoption.data.model.Animal
 import com.codefororlando.petadoption.persistence.model.AnimalEntity
 
-/**
- * Created by john on 3/3/18.
- */
-
 class AnimalMapper {
 
     fun map(from : Animal) : AnimalEntity {

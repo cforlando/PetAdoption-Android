@@ -5,9 +5,6 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.support.annotation.NonNull
 
-/**
- * Created by john on 3/3/18.
- */
 @Entity(tableName = "animal")
 class AnimalEntity {
 
