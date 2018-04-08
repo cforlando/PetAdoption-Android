@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId "com.codefororlando.petadoption"
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion target_sdk.toInteger()
         versionCode version_code.toInteger()
         versionName version_name

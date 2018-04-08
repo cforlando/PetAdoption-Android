@@ -2,8 +2,10 @@ package com.codefororlando.petadoption.persistence.mapper
 
 import com.codefororlando.petadoption.data.model.Animal
 import com.codefororlando.petadoption.persistence.model.AnimalEntity
+import javax.inject.Inject
 
-class AnimalMapper {
+
+class AnimalMapper @Inject constructor(){
 
     fun map(from: Animal): AnimalEntity {
         return AnimalEntity(from.id,

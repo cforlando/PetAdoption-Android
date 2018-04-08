@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.codefororlando.petadoption.data.provider.IAnimalProvider;
 import com.codefororlando.petadoption.data.provider.IShelterProvider;
+import com.codefororlando.petadoption.data.provider.consumer.UpdateAnimalEntityConsumer;
 import com.codefororlando.petadoption.data.provider.petfinder.PetfinderProvider;
 import com.codefororlando.petadoption.helper.IPreferencesHelper;
 import com.codefororlando.petadoption.helper.ILocationManager;
@@ -59,8 +60,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    IAnimalProvider providePetfinderProvider(IPetfinderService petfinderService, IPreferencesHelper preferencesHelper, AnimalDao animalDao, AnimalImageDao animalImageDao) {
-        return new PetfinderProvider(petfinderService, preferencesHelper, animalDao, animalImageDao);
+    IAnimalProvider providePetfinderProvider(IPetfinderService petfinderService, IPreferencesHelper preferencesHelper, UpdateAnimalEntityConsumer updateAnimalEntityConsumer) {
+        return new PetfinderProvider(petfinderService, preferencesHelper, updateAnimalEntityConsumer);
     }
 
     @Provides

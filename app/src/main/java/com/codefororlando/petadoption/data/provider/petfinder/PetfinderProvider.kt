@@ -2,14 +2,11 @@ package com.codefororlando.petadoption.data.provider.petfinder
 
 import com.codefororlando.petadoption.data.model.Animal
 import com.codefororlando.petadoption.data.provider.IAnimalProvider
+import com.codefororlando.petadoption.data.provider.consumer.UpdateAnimalEntityConsumer
 import com.codefororlando.petadoption.helper.IPreferencesHelper
 import com.codefororlando.petadoption.network.IPetfinderService
 import com.codefororlando.petadoption.network.model.pet.PetfinderAnimal
 import com.codefororlando.petadoption.network.model.pet.PetfinderPetRecordResponse
-import com.codefororlando.petadoption.persistence.dao.AnimalDao
-import com.codefororlando.petadoption.persistence.dao.AnimalImageDao
-import com.codefororlando.petadoption.persistence.mapper.AnimalMapper
-import com.codefororlando.petadoption.persistence.model.AnimalImageEntity
 
 import java.util.concurrent.TimeUnit
 
@@ -21,27 +18,13 @@ import java.util.*
 
 class PetfinderProvider @Inject constructor(private val petfinderService: IPetfinderService,
                                             private val preferencesHelper: IPreferencesHelper,
-                                            private val animalDao: AnimalDao,
-                                            private val imageDao: AnimalImageDao) : IAnimalProvider {
+                                            private val updateAnimalEntityConsumer: UpdateAnimalEntityConsumer) : IAnimalProvider {
 
     override fun getAnimals(count: Int, offset: String): Observable<List<Animal>> {
         return petfinderService.getAnimals(preferencesHelper.location, count, offset)
                 .doOnError { throwable -> throwable.printStackTrace() }
                 .map { petfinderPetRecordResponse -> toAnimalList(petfinderPetRecordResponse) }
-                .flatMap<List<Animal>> {
-                    val animalMapper = AnimalMapper()
-                    animalDao.insertAll(it.map(animalMapper::map).toMutableList())
-
-                    var images = mutableListOf<AnimalImageEntity>()
-                    it.forEach { animal ->
-                        animal.images.forEachIndexed { index, url ->
-                            var imageEntity = AnimalImageEntity(0, animal.id, url)
-                            images.add(imageEntity)
-                        }
-                    }
-                    imageDao.insertAll(images)
-                    Observable.just(it)
-                }
+                .doOnNext(updateAnimalEntityConsumer)
                 .replay(5, TimeUnit.MINUTES)
                 .autoConnect()
     }
