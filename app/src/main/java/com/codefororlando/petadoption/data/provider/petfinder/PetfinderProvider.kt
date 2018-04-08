@@ -7,19 +7,22 @@ import com.codefororlando.petadoption.network.IPetfinderService
 import com.codefororlando.petadoption.network.model.pet.PetfinderAnimal
 import com.codefororlando.petadoption.network.model.pet.PetfinderPetRecordResponse
 import com.codefororlando.petadoption.persistence.dao.AnimalDao
+import com.codefororlando.petadoption.persistence.dao.AnimalImageDao
 import com.codefororlando.petadoption.persistence.mapper.AnimalMapper
+import com.codefororlando.petadoption.persistence.model.AnimalImageEntity
 
-import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
 import javax.inject.Inject
 
 import io.reactivex.Observable
+import java.util.*
 
 
 class PetfinderProvider @Inject constructor(private val petfinderService: IPetfinderService,
                                             private val preferencesHelper: IPreferencesHelper,
-                                            private val animalDao: AnimalDao) : IAnimalProvider {
+                                            private val animalDao: AnimalDao,
+                                            private val imageDao: AnimalImageDao) : IAnimalProvider {
 
     override fun getAnimals(count: Int, offset: String): Observable<List<Animal>> {
         return petfinderService.getAnimals(preferencesHelper.location, count, offset)
@@ -28,6 +31,15 @@ class PetfinderProvider @Inject constructor(private val petfinderService: IPetfi
                 .flatMap<List<Animal>> {
                     val animalMapper = AnimalMapper()
                     animalDao.insertAll(it.map(animalMapper::map).toMutableList())
+
+                    var images = mutableListOf<AnimalImageEntity>()
+                    it.forEach { animal ->
+                        animal.images.forEachIndexed { index, url ->
+                            var imageEntity = AnimalImageEntity(0, animal.id, url)
+                            images.add(imageEntity)
+                        }
+                    }
+                    imageDao.insertAll(images)
                     Observable.just(it)
                 }
                 .replay(5, TimeUnit.MINUTES)

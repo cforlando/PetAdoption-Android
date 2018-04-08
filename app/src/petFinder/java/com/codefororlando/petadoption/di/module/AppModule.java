@@ -13,8 +13,10 @@ import com.codefororlando.petadoption.helper.LocationManager;
 import com.codefororlando.petadoption.helper.PreferencesHelper;
 import com.codefororlando.petadoption.data.provider.petfinder.PetfinderShelterProvider;
 import com.codefororlando.petadoption.network.IPetfinderService;
+import com.codefororlando.petadoption.persistence.dao.AnimalAndImagesDao;
 import com.codefororlando.petadoption.persistence.dao.AnimalDao;
 import com.codefororlando.petadoption.persistence.PetDatabase;
+import com.codefororlando.petadoption.persistence.dao.AnimalImageDao;
 import com.codefororlando.petadoption.recyclerview.AAnimalListAdapter;
 import com.codefororlando.petadoption.recyclerview.AnimalListAdapter;
 
@@ -57,8 +59,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    IAnimalProvider providePetfinderProvider(IPetfinderService petfinderService, IPreferencesHelper preferencesHelper, AnimalDao animalDao) {
-        return new PetfinderProvider(petfinderService, preferencesHelper, animalDao);
+    IAnimalProvider providePetfinderProvider(IPetfinderService petfinderService, IPreferencesHelper preferencesHelper, AnimalDao animalDao, AnimalImageDao animalImageDao) {
+        return new PetfinderProvider(petfinderService, preferencesHelper, animalDao, animalImageDao);
     }
 
     @Provides
@@ -88,7 +90,19 @@ public class AppModule {
     @Provides
     @Singleton
     AnimalDao provideAnimalDao(PetDatabase petDatabase) {
-        return petDatabase.animaliDao();
+        return petDatabase.animalDao();
+    }
+
+    @Provides
+    @Singleton
+    AnimalImageDao provideAnimalImageDao(PetDatabase petDatabase) {
+        return petDatabase.animalImageDao();
+    }
+
+    @Provides
+    @Singleton
+    AnimalAndImagesDao provideAnimalAndImageDao(PetDatabase petDatabase) {
+        return petDatabase.animalAndImagesDao();
     }
 
 }

@@ -66,7 +66,6 @@ class OpenSourceActivity : AppCompatActivity() {
     class OpenSourceListAdapter(val items: List<OpenSourceModel>, val listener: (OpenSourceModel) -> Unit) : RecyclerView.Adapter<OpenSourceListAdapter.OpenSourceItemViewHolder>() {
         override fun onBindViewHolder(holder: OpenSourceItemViewHolder, position: Int) {
             holder?.bind(items[position], listener)
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OpenSourceItemViewHolder {

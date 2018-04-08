@@ -5,27 +5,23 @@ import com.codefororlando.petadoption.persistence.model.AnimalEntity
 
 class AnimalMapper {
 
-    fun map(from : Animal) : AnimalEntity {
-
-     var animalEntity = AnimalEntity()
-        animalEntity.id = from.id
-        animalEntity.name = from.name
-        animalEntity.species = from.species
-        animalEntity.breed = from.breed
-        animalEntity.gender = from.gender
-        animalEntity.age = from.age
-        animalEntity.adoptable = from.adoptable
-        animalEntity.shouldActQuickly = from.shouldActQuickly
-        animalEntity.color = from.color
-        animalEntity.description = from.description
-        animalEntity.activityLevel = from.activityLevel
-        animalEntity.intakeDate = from.intakeDate
-        animalEntity.shelterId = from.shelterId
-//        animalEntity.images = from.images
-        return animalEntity
+    fun map(from: Animal): AnimalEntity {
+        return AnimalEntity(from.id,
+                from.name,
+                from.species,
+                from.breed,
+                from.gender,
+                from.age,
+                from.adoptable,
+                from.shouldActQuickly,
+                from.color,
+                from.description,
+                from.activityLevel,
+                from.intakeDate,
+                from.shelterId)
     }
 
-    fun map(from : List<Animal>) : List<AnimalEntity> {
+    fun map(from: List<Animal>): List<AnimalEntity> {
         var to = ArrayList<AnimalEntity>()
         from.forEach {
             to.add(map(it))

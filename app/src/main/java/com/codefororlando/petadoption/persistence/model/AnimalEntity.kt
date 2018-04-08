@@ -6,23 +6,16 @@ import android.arch.persistence.room.PrimaryKey
 import android.support.annotation.NonNull
 
 @Entity(tableName = "animal")
-class AnimalEntity {
-
-    @PrimaryKey @NonNull
-     var id: String? = null
-     var name: String? = null
-     var species: String? = null
-     var breed: String? = null
-     var gender: String? = null
-     var age: String? = null
-     var adoptable: Boolean = false
-    @ColumnInfo(name = "act_quickly")
-     var shouldActQuickly: Boolean = false
-     var color: String? = null
-     var description: String? = null
-    @ColumnInfo(name = "activity_level")
-     var activityLevel: String? = null
-     var intakeDate: String? = null
-     var shelterId: String? = null
-//     var images: List<String>? = null
-}
+data class AnimalEntity(@PrimaryKey @NonNull val id: String,
+                        val name: String,
+                        val species: String,
+                        val breed: String,
+                        val gender: String,
+                        val age: String,
+                        val adoptable: Boolean,
+                        @ColumnInfo(name = "act_quickly") val shouldActQuickly: Boolean,
+                        val color: String,
+                        val description: String,
+                        val activityLevel: String,
+                        val intakeDate: String,
+                        val shelterId: String)
