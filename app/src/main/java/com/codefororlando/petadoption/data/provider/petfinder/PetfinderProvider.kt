@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 import io.reactivex.Observable
-import java.util.*
 
 
 class PetfinderProvider @Inject constructor(private val petfinderService: IPetfinderService,
@@ -30,49 +29,30 @@ class PetfinderProvider @Inject constructor(private val petfinderService: IPetfi
     }
 
     private fun toAnimalList(response: PetfinderPetRecordResponse): List<Animal> {
-        val petfinderAnimals = response.petfinder.pets.petList
-        val outputAnimals = ArrayList<Animal>()
-
-        try {
-            for (animal in petfinderAnimals) {
-                outputAnimals.add(Animal.AnimalBuilder()
-                        .setAge(animal.age.content)
-                        .setBreed(getBreed(animal.breeds.breed))
-                        .setDescription(animal.description.content)
-                        .setGender(animal.gender.content)
-                        .setId(animal.id.content)
-                        .setImages(photosToStringUrls(animal.media.photos))
-                        .setName(animal.name.content)
-                        .setShelterId(animal.shelterId.content)
-                        .setSpecies(animal.species.content)
-                        .createAnimal())
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        return outputAnimals
+      return response.petfinder.pets.petList.map { animal ->
+        Animal.AnimalBuilder()
+            .setAge(animal.age.content)
+            .setBreed(getBreed(animal.breeds.breed))
+            .setDescription(animal.description.content)
+            .setGender(animal.gender.content)
+            .setId(animal.id.content)
+            .setImages(photosToStringUrls(animal.media.photos))
+            .setName(animal.name.content)
+            .setShelterId(animal.shelterId.content)
+            .setSpecies(animal.species.content)
+            .createAnimal()
+      }
     }
 
     private fun photosToStringUrls(photos: PetfinderAnimal.Media.Photos?): List<String> {
-        val urlList = ArrayList<String>()
-
-        if (photos != null) {
-            for (photo in photos.photoList) {
-                if (photo.size == "x")
-                    urlList.add(photo.url)
-            }
-        }
-
-        return urlList
+      return photos?.let { photos ->
+        photos.photoList
+            .filter { it.size == "x" }
+            .map { it.url }
+      } ?: emptyList()
     }
 
     private fun getBreed(breed: PetfinderAnimal.Breeds.Breed?): String {
-        var breedString = ""
-
-        if (breed != null) {
-            breedString = breed.content
-        }
-        return breedString
+      return breed?.let { breed.content } ?: ""
     }
 }
