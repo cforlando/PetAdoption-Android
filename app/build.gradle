@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 repositories {
     mavenCentral()
@@ -8,7 +9,6 @@ repositories {
     google()
     maven { url "https://jitpack.io" }
 }
-
 
 android {
     compileSdkVersion compile_sdk.toInteger()
@@ -74,8 +74,7 @@ dependencies {
 
     // Dagger
     implementation dagger
-    annotationProcessor daggerApt
-    provided jsr250
+    kapt daggerApt
 
     // MVP
     implementation (nucleus) {
@@ -98,7 +97,7 @@ dependencies {
     implementation rxAndroid
 
     // LoganSquare
-    annotationProcessor loganSquareApt
+    kapt loganSquareApt
     implementation loganSquare
     implementation loganSquareRetrofit
 
@@ -111,4 +110,6 @@ dependencies {
 
     // Misc
     implementation versions
+    implementation roomDB
+    kapt roomDBCompiler
 }

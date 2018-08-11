@@ -22,7 +22,7 @@ class PopularPetFeedFragment : AbstractPetFeedFragment<PopularPetFeedFragment, P
         return inflater.inflate(R.layout.fragment_popular_feed, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         locationDialog = LocationDialogFragment()
         locationDialog.shouldRefreshFeedOnDismissalObservable
@@ -36,6 +36,7 @@ class PopularPetFeedFragment : AbstractPetFeedFragment<PopularPetFeedFragment, P
         recyclerView.layoutManager = GridLayoutManager(context, gridSpans)
         recyclerView.addOnScrollListener(scrollToEndListener)
         setLocationBtn.setOnClickListener({ showLocationDialog() })
+
     }
 
     override fun getLastVisibleItemIndex(): Int {

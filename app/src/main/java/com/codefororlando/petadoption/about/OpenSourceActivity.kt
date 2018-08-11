@@ -64,12 +64,11 @@ class OpenSourceActivity : AppCompatActivity() {
     }
 
     class OpenSourceListAdapter(val items: List<OpenSourceModel>, val listener: (OpenSourceModel) -> Unit) : RecyclerView.Adapter<OpenSourceListAdapter.OpenSourceItemViewHolder>() {
-
-        override fun onBindViewHolder(holder: OpenSourceItemViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: OpenSourceItemViewHolder, position: Int) {
             holder?.bind(items[position], listener)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OpenSourceItemViewHolder? {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OpenSourceItemViewHolder {
             val view = LayoutInflater.from(parent?.context).inflate(R.layout.open_source_list_item, parent, false);
             return OpenSourceItemViewHolder(view)
         }

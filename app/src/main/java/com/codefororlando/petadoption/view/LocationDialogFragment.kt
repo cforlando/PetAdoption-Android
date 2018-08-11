@@ -19,20 +19,20 @@ import io.reactivex.subjects.PublishSubject
 
 class LocationDialogFragment : DialogFragment() {
 
-    private var locationEditText: EditText? = null
-    private var findLocationButton: ImageButton? = null
+    private lateinit var locationEditText: EditText
+    private lateinit var findLocationButton: ImageButton
 
-    private var presenter: LocationDialogPresenter? = null
+    private lateinit var presenter: LocationDialogPresenter
 
     private val dismissalSubject = PublishSubject.create<Unit>()
 
     var enteredZip: String
-        get() = locationEditText!!.text.toString()
-        set(zip) = locationEditText!!.setText(zip)
+        get() = locationEditText.text.toString()
+        set(zip) = locationEditText.setText(zip)
 
     private val isLocationPermissionGranted: Boolean
         get() {
-            val check = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+            val check = activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION) }
 
             return check == PackageManager.PERMISSION_GRANTED
         }
@@ -47,16 +47,16 @@ class LocationDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val layout = activity.layoutInflater.inflate(R.layout.fragment_dialog_location, null)
+        val layout = activity?.layoutInflater?.inflate(R.layout.fragment_dialog_location, null)
 
-        locationEditText = layout.findViewById(R.id.location_edit_text) as EditText
-        findLocationButton = layout.findViewById(R.id.location_button) as ImageButton
+        locationEditText = layout?.findViewById(R.id.location_edit_text) as EditText
+        findLocationButton = layout?.findViewById(R.id.location_button) as ImageButton
 
-        locationEditText!!.setText(presenter!!.location)
-        val textLength = locationEditText!!.text.toString().length
-        locationEditText!!.setSelection(textLength)
+        locationEditText.setText(presenter.location)
+        val textLength = locationEditText.text.toString().length
+        locationEditText.setSelection(textLength)
 
-        findLocationButton!!.setOnClickListener { v ->
+        findLocationButton.setOnClickListener { v ->
             if (isLocationPermissionGranted) {
                 populateWithCurrentLocation()
             } else {
@@ -64,11 +64,11 @@ class LocationDialogFragment : DialogFragment() {
             }
         }
 
-        return AlertDialog.Builder(activity)
+        return AlertDialog.Builder(activity!!)
                 .setTitle("Set Location")
                 .setPositiveButton("OK"
                 ) { dialog, which ->
-                    presenter!!.location = enteredZip
+                    presenter.location = enteredZip
                     dialog.dismiss()
                     dismissalSubject.onNext(Unit)
                 }
@@ -93,7 +93,7 @@ class LocationDialogFragment : DialogFragment() {
     }
 
     private fun populateWithCurrentLocation() {
-        presenter!!.fetchCurrentLocation()
+        presenter.fetchCurrentLocation()
     }
 
     companion object {
